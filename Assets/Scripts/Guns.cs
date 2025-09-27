@@ -103,8 +103,8 @@ public class Guns : MonoBehaviour
             Quaternion rot = Quaternion.LookRotation(Vector3.forward + deviation3D);
             Vector3 fwd = gun.transform.rotation * rot * Vector3.forward;
 
-            //Getting muzzle transform (really bad)
-            Transform muzzle = gun.GetChild(1).GetChild(1);
+            //Getting muzzle transform (really bad but I'm lazy)
+            Transform muzzle = gun.GetChild(1);
 
             // Spawn bullet
             var bullet = Instantiate(bulletPrefab, muzzle.position, muzzle.transform.rotation, null);

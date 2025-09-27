@@ -5,7 +5,7 @@ public class Hardpoint : MonoBehaviour
     public Missiles missiles;
     public Guns guns;
     public GameObject gunPrefab, missilePrefab;
-    public enum SelectedWeapon { Gun, Missile }
+    public enum SelectedWeapon { Empty, Gun, Missile }
     public SelectedWeapon weapon;
 
     private void Start()
@@ -23,6 +23,8 @@ public class Hardpoint : MonoBehaviour
                 wpn = Instantiate(missilePrefab, transform.position, missilePrefab.transform.rotation, transform);
                 wpn.transform.rotation = transform.rotation;
                 missiles.missiles.Add(wpn.GetComponent<Missile>());
+                break;
+            default:
                 break;
         }
     }
