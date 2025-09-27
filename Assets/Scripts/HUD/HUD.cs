@@ -9,7 +9,7 @@ public class HUD : MonoBehaviour
     public HUDMode hudMode;
     public GameObject airToAir, airToGround;
 
-    public static float hudOffset = 0.35f;
+    public static float hudOffset = -0.25f;
     public RectTransform[] offsetElements;
 
     private void Awake()

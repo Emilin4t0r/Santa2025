@@ -11,10 +11,10 @@ public class Shoot : MonoBehaviour
     public float shootForce, fireRate, inaccuracy;
     public float gunAnimSpeed;
     float nextTimeToFire;
-    public List<Transform> gunMuzzles;
+    public List<Transform> guns;
 
     GameObject shootLoopSound;
-    Transform shootSoundParent;
+    public Transform shootSoundParent;
     float timeToClearSounds;
 
     [HideInInspector]
@@ -29,7 +29,6 @@ public class Shoot : MonoBehaviour
     private void Start()
     {
         ammoCount = fullAmmo;
-        shootSoundParent = transform.Find("ShootSoundParent");
     }
 
     void Update()
@@ -65,10 +64,10 @@ public class Shoot : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            foreach (var gm in gunMuzzles)
+            foreach (var gun in guns)
             {
                 //Gun animation
-                var gmAnim = gm.parent.gameObject.GetComponent<Animator>();
+                var gmAnim = gun.gameObject.GetComponent<Animator>();
                 gmAnim.speed = gunAnimSpeed;
                 gmAnim.SetBool("Fire", true);
             }
@@ -98,15 +97,18 @@ public class Shoot : MonoBehaviour
 
     void Fire()
     {
-        foreach (var gm in gunMuzzles)
+        foreach (var gun in guns)
         {
             // Bullet spread calculations
             Vector3 deviation3D = Random.insideUnitCircle * inaccuracy;
             Quaternion rot = Quaternion.LookRotation(Vector3.forward + deviation3D);
-            Vector3 fwd = gm.transform.rotation * rot * Vector3.forward;
+            Vector3 fwd = gun.transform.rotation * rot * Vector3.forward;
+
+            //Getting muzzle transform (really bad)
+            Transform muzzle = gun.GetChild(1).GetChild(1);
 
             // Spawn bullet
-            var bullet = Instantiate(bulletPrefab, gm.position, gm.transform.rotation, null);
+            var bullet = Instantiate(bulletPrefab, muzzle.position, muzzle.transform.rotation, null);
             bullet.GetComponent<Rigidbody>().AddForce(fwd * shootForce, ForceMode.Impulse);
             Destroy(bullet, 5);
 
@@ -114,7 +116,7 @@ public class Shoot : MonoBehaviour
             int doMzf = Random.Range(0, 3);
             if (doMzf == 0)
             {
-                var mzf = Instantiate(muzzleFlashPrefab, gm.position, gm.transform.rotation, gm.transform);
+                var mzf = Instantiate(muzzleFlashPrefab, muzzle.position, muzzle.transform.rotation, muzzle.transform);
                 float rand = Random.Range(2f, 3.5f);
                 mzf.transform.localScale = new Vector3(rand, rand, rand);
                 Destroy(mzf, 0.02f);
@@ -127,10 +129,10 @@ public class Shoot : MonoBehaviour
 
     void StopBurst()
     {
-        foreach (var gm in gunMuzzles)
+        foreach (var gun in guns)
         {
             //Gun animation
-            var gmAnim = gm.parent.gameObject.GetComponent<Animator>();
+            var gmAnim = gun.gameObject.GetComponent<Animator>();
             gmAnim.SetBool("Fire", false);
         }
         if (shootLoopSound)

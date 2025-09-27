@@ -38,7 +38,7 @@ public class EnemySanta : MonoBehaviour
         //Shoot
         if (Time.time > shootTimer && trackCollider.readyToFire)
         {
-            int shots = Random.Range(0, 4);
+            int shots = Random.Range(2, 8);
             StartCoroutine(FireBurst(shots));
             float nextShootTime = Time.time + Random.Range(shootFrequency.x, shootFrequency.y);
             shootTimer = nextShootTime;
