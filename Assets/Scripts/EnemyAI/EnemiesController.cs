@@ -6,7 +6,7 @@ public class EnemiesController : MonoBehaviour
 {
     public static List<GameObject> enemiesAttacking;
 
-    private void Start()
+    private void Awake()
     {
         enemiesAttacking = new List<GameObject>();
     }
