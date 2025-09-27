@@ -9,7 +9,7 @@ public class TargetInfo : MonoBehaviour
 
     BracketController bc;
     AirplaneController ac;
-    MissileShooter ms;
+    Missiles ms;
 
     public TextMeshProUGUI target, targetingComputerState, enemyLock, enemyLaunch, mslLock;
     float t_eLock, t_mLock, t_eLaunch;
@@ -24,7 +24,7 @@ public class TargetInfo : MonoBehaviour
     {
         bc = BracketController.instance;
         ac = AirplaneController.instance;
-        ms = MissileShooter.instance;
+        ms = Missiles.instance;
         enemyLock.gameObject.SetActive(false);
         enemyLaunch.gameObject.SetActive(false);
         mslLock.text = "ACQUIRING";

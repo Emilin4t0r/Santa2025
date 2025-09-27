@@ -12,7 +12,7 @@ public class GunToGroundReticle : MonoBehaviour
 
     private void Start()
     {
-        bulletSpeed = Shoot.instance.shootForce;
+        bulletSpeed = Guns.instance.shootForce;
         canvasRect = GameObject.Find("HUD(Canvas)").GetComponent<RectTransform>();
         reticleTransform = GetComponent<RectTransform>();
     }

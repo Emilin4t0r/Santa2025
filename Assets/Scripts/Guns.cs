@@ -2,23 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shoot : MonoBehaviour
+public class Guns : MonoBehaviour
 {
-    public static Shoot instance;
+    public static Guns instance;
 
     public GameObject bulletPrefab;
     public GameObject muzzleFlashPrefab;
     public float shootForce, fireRate, inaccuracy;
     public float gunAnimSpeed;
     float nextTimeToFire;
-    public List<Transform> guns;
+    [HideInInspector] public List<Transform> guns;
 
     GameObject shootLoopSound;
     public Transform shootSoundParent;
     float timeToClearSounds;
 
-    [HideInInspector]
-    public int ammoCount;    
+    [HideInInspector] public int ammoCount;    
     public int fullAmmo;
 
     private void Awake()
@@ -117,7 +116,7 @@ public class Shoot : MonoBehaviour
             if (doMzf == 0)
             {
                 var mzf = Instantiate(muzzleFlashPrefab, muzzle.position, muzzle.transform.rotation, muzzle.transform);
-                float rand = Random.Range(2f, 3.5f);
+                float rand = Random.Range(1.5f, 4f);
                 mzf.transform.localScale = new Vector3(rand, rand, rand);
                 Destroy(mzf, 0.02f);
             }

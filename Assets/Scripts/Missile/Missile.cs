@@ -12,6 +12,7 @@ public class Missile : MonoBehaviour
     public Transform target;
     TrailRenderer trail;
     CapsuleCollider cc;
+    Rigidbody rb;
 
     public float lifeTime = 5;
     float blowUpTimer;
@@ -22,8 +23,10 @@ public class Missile : MonoBehaviour
         rotator = transform.Find("MissileRotator").gameObject;
         trail = transform.GetComponentInChildren<TrailRenderer>();
         cc = GetComponent<CapsuleCollider>();
+        rb = GetComponent<Rigidbody>();
         trail.enabled = true;
         cc.enabled = true;
+        rb.isKinematic = false;
     }
     
     private void FixedUpdate()

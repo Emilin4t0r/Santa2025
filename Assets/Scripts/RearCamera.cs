@@ -43,7 +43,7 @@ public class RearCamera : MonoBehaviour
 		GL.invertCulling = false;
 	}
 
-    private void FixedUpdate()
+    private void Update()
     {
 		if(trackingEnemy)
 			transform.LookAt(trackTarget);

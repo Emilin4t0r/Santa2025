@@ -45,7 +45,7 @@ public class LeadReticle : MonoBehaviour
         }
 
         // Calculate the predicted position of the target
-        Vector3 predictedPosition = PredictTargetPosition(target.position, target.GetComponent<EnemySanta>().currentVelocity, gun.position, gun.forward, Shoot.instance.shootForce);
+        Vector3 predictedPosition = PredictTargetPosition(target.position, target.GetComponent<EnemySanta>().currentVelocity, gun.position, gun.forward, Guns.instance.shootForce);
 
         // Convert the predicted position to canvas space
         Vector2 canvasPosition;

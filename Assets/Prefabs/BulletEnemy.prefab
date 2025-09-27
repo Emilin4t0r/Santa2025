@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyTag: Player
-  bulletHit: {fileID: 7070465220517492653, guid: 838773e51d4c564499108866b94be3ab, type: 3}
+  bulletHit: {fileID: 7070465220517492653, guid: 7e00a1561d1f84b4fbd07b48d2874e7c, type: 3}
 --- !u!136 &5616326674708750372
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -144,7 +144,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 2
-  m_Color: {r: 0.96760225, g: 0, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.9926469, b: 0.8254717, a: 1}
   m_Intensity: 20
   m_Range: 150
   m_SpotAngle: 30

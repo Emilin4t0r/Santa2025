@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MissileShooter : MonoBehaviour
+public class Missiles : MonoBehaviour
 {
-    public static MissileShooter instance;
+    public static Missiles instance;
 
-    [HideInInspector]
     public List<Missile> missiles;
     public float timeToLock;
     [HideInInspector]
@@ -20,14 +19,13 @@ public class MissileShooter : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        missiles = new List<Missile>();
     }
 
     private void Start()
     {
         seeking = false;
-        bc = BracketController.instance;
-        missiles = new List<Missile>();
-        CheckMslAmt();
+        bc = BracketController.instance;        
     }
 
     private void Update()
@@ -90,15 +88,6 @@ public class MissileShooter : MonoBehaviour
 
     }
 
-    void CheckMslAmt()
-    {
-        missiles = new List<Missile>();
-        foreach (var m in transform.GetComponentsInChildren<Missile>())
-        {
-            missiles.Add(m);
-        }
-    }
-
     void SeekLock()
     {
         if (!bc.lockedOn)
@@ -115,6 +104,6 @@ public class MissileShooter : MonoBehaviour
         msl.target = lockedOn.transform;
         lockedOn = null;
         msl.transform.parent = null;
-        CheckMslAmt();
+        missiles.Remove(msl);
     }
 }

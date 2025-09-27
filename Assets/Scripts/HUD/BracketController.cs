@@ -111,7 +111,7 @@ public class BracketController : MonoBehaviour
             }
         }
         targeter.StartFlash(1.5f, 0.1f);
-        StartCoroutine(LockAcquireWaiter(1.5f));
+        StartCoroutine(LockAcquireWaiter(0.75f));
     }
 
     IEnumerator LockAcquireWaiter(float timeToGetLock)

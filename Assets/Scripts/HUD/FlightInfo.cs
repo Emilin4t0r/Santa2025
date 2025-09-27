@@ -10,14 +10,14 @@ public class FlightInfo : MonoBehaviour
 
     public TextMeshProUGUI spd, alt, thr, brk, flp, rds, msl;
     public Slider thrSlider;
-    Shoot sht;
-    MissileShooter ms;
+    Guns sht;
+    Missiles ms;
 
     private void Start()
     {
         ac = AirplaneController.instance;
-        sht = Shoot.instance;
-        ms = MissileShooter.instance;
+        sht = Guns.instance;
+        ms = Missiles.instance;
     }
 
     private void FixedUpdate()
