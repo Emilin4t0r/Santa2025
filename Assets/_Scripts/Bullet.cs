@@ -41,9 +41,10 @@ public class Bullet : MonoBehaviour
             {
                 if (enemyTag == "Enemy")
                 {
-                    collision.gameObject.GetComponent<EnemySanta>().GetHit();
+                    collision.gameObject.GetComponent<EnemySanta>().GetHit(0.5f);
                 }               
             }
+            print("Bullet hit " + collision.gameObject.name);
             int random = Random.Range(0, 10);
             if (random != 0)
             {

@@ -1,21 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class Missile : MonoBehaviour
 {
     public float speed;
     public float turnSpeed;
     public float visualRotationSpeed;
+    public Vector2 damageRange;
     public GameObject explosion;
     GameObject rotator;
     public Transform target;
     TrailRenderer trail;
     CapsuleCollider cc;
     Rigidbody rb;
-
+    GameObject pointLight;
+    
     public float lifeTime = 5;
     float blowUpTimer;
+
+    public GameObject finsToHide;
 
     private void Start()
     {
@@ -24,9 +29,15 @@ public class Missile : MonoBehaviour
         trail = transform.GetComponentInChildren<TrailRenderer>();
         cc = GetComponent<CapsuleCollider>();
         rb = GetComponent<Rigidbody>();
+        pointLight = transform.Find("Point Light").gameObject;
         trail.enabled = true;
         cc.enabled = true;
         rb.isKinematic = false;
+        pointLight.SetActive(true);
+        if (finsToHide != null)
+        {
+            finsToHide.SetActive(true);
+        }
     }
     
     private void FixedUpdate()
@@ -60,7 +71,8 @@ public class Missile : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             BlowUp();
-            other.GetComponent<EnemySanta>().Die();            
+            float rand = Random.Range(damageRange.x, damageRange.y);
+            other.GetComponent<EnemySanta>().GetHit(rand);
         }
         if (other.CompareTag("Ground"))
             BlowUp();

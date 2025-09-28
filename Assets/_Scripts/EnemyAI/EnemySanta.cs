@@ -21,7 +21,7 @@ public class EnemySanta : MonoBehaviour
     public GameObject bulletPrefab, muzzleFlashPrefab;
     public GameObject deathParticle;
 
-    public int hitPoints = 10;
+    public float hitPoints = 10;
 
     public EnemyTrackCollider trackCollider;
 
@@ -146,9 +146,9 @@ public class EnemySanta : MonoBehaviour
         }
     }
 
-    public void GetHit()
+    public void GetHit(float damage)
     {
-        hitPoints--;
+        hitPoints -= damage;
         if (hitPoints <= 0)
         {
             Die();

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GyroReticle : MonoBehaviour
 {
-    public Transform gun;
+    public Transform gunForwardDirection;
     public float aimDistance = 100f; // Distance from the gun to project the reticle
     public float reticleLagSmoothing = 0.1f; // Smoothing factor for reticle lag
 
@@ -27,14 +27,14 @@ public class GyroReticle : MonoBehaviour
     void FixedUpdate()
     {
         // Calculate the initial velocity of the bullet
-        Vector3 initialVelocity = gun.forward * Guns.instance.shootForce;
+        Vector3 initialVelocity = gunForwardDirection.forward * Guns.instance.shootForce;
 
         // Get the airplane's velocity and angular velocity
         Vector3 airplaneVelocity = rbac.linearVelocity;
         Vector3 airplaneAngularVelocity = rbac.angularVelocity;
 
         // Predict the bullet position at the specified distance
-        Vector3 targetPosition = PredictBulletPositionAtDistance(gun.position, initialVelocity, airplaneVelocity, airplaneAngularVelocity, aimDistance);
+        Vector3 targetPosition = PredictBulletPositionAtDistance(gunForwardDirection.position, initialVelocity, airplaneVelocity, airplaneAngularVelocity, aimDistance);
 
         // Convert the world position of the target to the local position on the canvas
         Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(mainCam, targetPosition);
@@ -59,7 +59,7 @@ public class GyroReticle : MonoBehaviour
         Quaternion futureRotation = Quaternion.Euler(airplaneAngularVelocity * Mathf.Rad2Deg * time);
 
         // Calculate the future direction of the gun
-        Vector3 futureForward = futureRotation * gun.forward;
+        Vector3 futureForward = futureRotation * gunForwardDirection.forward;
 
         // Calculate the horizontal displacement considering both initial and future velocities
         Vector3 horizontalDisplacement = (initialVelocity + airplaneVelocity) * time;
