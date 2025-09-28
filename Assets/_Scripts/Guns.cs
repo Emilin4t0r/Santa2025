@@ -10,6 +10,7 @@ public class Guns : MonoBehaviour
     public GameObject muzzleFlashPrefab;
     public float shootForce, fireRate, inaccuracy;
     public float gunAnimSpeed;
+    float originalGunAnimSpeed;
     float nextTimeToFire;
     [HideInInspector] public List<Transform> guns;
 
@@ -67,6 +68,7 @@ public class Guns : MonoBehaviour
             {
                 //Gun animation
                 var gmAnim = gun.gameObject.GetComponent<Animator>();
+                originalGunAnimSpeed = gmAnim.speed;
                 gmAnim.speed = gunAnimSpeed;
                 gmAnim.SetBool("Fire", true);
             }
@@ -132,6 +134,7 @@ public class Guns : MonoBehaviour
         {
             //Gun animation
             var gmAnim = gun.gameObject.GetComponent<Animator>();
+            gmAnim.speed = originalGunAnimSpeed;
             gmAnim.SetBool("Fire", false);
         }
         if (shootLoopSound)
