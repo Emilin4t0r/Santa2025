@@ -5,7 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class Hardpoint : MonoBehaviour
 {
-    public Missiles missiles;
+    public Missiles iRMissiles;
+    public Missiles radarMissiles;
+    public Missiles swarmMissiles;
     public Guns singleGuns, chainGuns;
     public GameObject Hackapel, Landsknecht, Pike_Single, Pike_Double, Huracán_Small, Huracán_Pod, Arquebus, Longbow;
     public enum HardpointType { Small, Large }
@@ -48,21 +50,20 @@ public class Hardpoint : MonoBehaviour
         switch (selectedWeapon)
         {
             case WeaponType.Hackapel:
-                wpn = Instantiate(Hackapel, transform.position, transform.rotation, transform);
+                wpn = Instantiate(Hackapel, transform.position, transform.rotation, singleGuns.transform);
                 singleGuns.guns.Add(wpn.transform);
                 singleGuns.fullAmmo += 100;
                 break;
             case WeaponType.Landsknecht:
-                wpn = Instantiate(Landsknecht, transform.position, transform.rotation, transform);
+                wpn = Instantiate(Landsknecht, transform.position, transform.rotation, chainGuns.transform);
                 chainGuns.guns.Add(wpn.transform);
                 chainGuns.fullAmmo += 200;
                 break;
             case WeaponType.Pike_Single:
-                wpn = Instantiate(Pike_Single, transform.position, transform.rotation, transform);
-                missiles.missiles.Add(wpn.GetComponent<Missile>());
+                wpn = Instantiate(Pike_Single, transform.position, transform.rotation, iRMissiles.transform);
                 break;
             case WeaponType.Pike_Double:
-                wpn = Instantiate(Pike_Double, transform.position, Pike_Double.transform.rotation, transform);
+                wpn = Instantiate(Pike_Double, transform.position, Pike_Double.transform.rotation, iRMissiles.transform);
                 if (transform.localRotation.z > 0)
                 {
                     wpn.transform.localEulerAngles = new Vector3(0, 0, 270);
@@ -72,16 +73,12 @@ public class Hardpoint : MonoBehaviour
                 {
                     wpn.transform.localEulerAngles = new Vector3(0, 0, 90);
                 }
-                missiles.missiles.Add(wpn.GetComponent<DoublePike>().missiles[0]);
-                missiles.missiles.Add(wpn.GetComponent<DoublePike>().missiles[1]);
                 break;
             case WeaponType.Huracán_Small:
-                wpn = Instantiate(Huracán_Small, transform.position, transform.rotation, transform);
-                missiles.missiles.Add(wpn.GetComponent<Missile>());
+                wpn = Instantiate(Huracán_Small, transform.position, transform.rotation, swarmMissiles.transform);
                 break;
             case WeaponType.Huracán_Pod:
-                wpn = Instantiate(Huracán_Pod, transform.position, transform.rotation, transform);
-                missiles.missiles.Add(wpn.GetComponent<Missile>());
+                wpn = Instantiate(Huracán_Pod, transform.position, transform.rotation, swarmMissiles.transform);
                 break;
             case WeaponType.Arquebus:
                 wpn = Instantiate(Arquebus, transform.position, transform.rotation, transform);
@@ -89,8 +86,7 @@ public class Hardpoint : MonoBehaviour
                 singleGuns.fullAmmo += 200;
                 break;
             case WeaponType.Longbow:
-                wpn = Instantiate(Longbow, transform.position, transform.rotation, transform);
-                missiles.missiles.Add(wpn.GetComponent<Missile>());
+                wpn = Instantiate(Longbow, transform.position, transform.rotation, radarMissiles.transform);
                 break;
             default:
                 break;

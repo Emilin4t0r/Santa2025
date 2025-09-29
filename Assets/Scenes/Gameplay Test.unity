@@ -1357,7 +1357,7 @@ PrefabInstance:
     - target: {fileID: 8463300225904287381, guid: f3a637a10b8bcc34b8d8c086b883d343, type: 3}
       propertyPath: gun
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1544957882}
     - target: {fileID: 8516838233126812541, guid: f3a637a10b8bcc34b8d8c086b883d343, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -1380,6 +1380,8 @@ PrefabInstance:
     - {fileID: 2987776492543422761, guid: f3a637a10b8bcc34b8d8c086b883d343, type: 3}
     - {fileID: 7363577974606269432, guid: f3a637a10b8bcc34b8d8c086b883d343, type: 3}
     - {fileID: 226251856098477453, guid: f3a637a10b8bcc34b8d8c086b883d343, type: 3}
+    - {fileID: 7598679631515849051, guid: f3a637a10b8bcc34b8d8c086b883d343, type: 3}
+    - {fileID: 3262125250039142724, guid: f3a637a10b8bcc34b8d8c086b883d343, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3a637a10b8bcc34b8d8c086b883d343, type: 3}

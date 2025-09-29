@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour
     GameObject sphere, trail, pointLight;
     float lightKillTimer;
     public GameObject bulletHit;
+    public float damage = 1;
 
     private void Awake()
     {
@@ -41,7 +42,7 @@ public class Bullet : MonoBehaviour
             {
                 if (enemyTag == "Enemy")
                 {
-                    collision.gameObject.GetComponent<EnemySanta>().GetHit(0.5f);
+                    collision.gameObject.GetComponent<EnemySanta>().GetHit(damage);
                 }               
             }
             print("Bullet hit " + collision.gameObject.name);

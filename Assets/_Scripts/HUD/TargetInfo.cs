@@ -9,7 +9,8 @@ public class TargetInfo : MonoBehaviour
 
     BracketController bc;
     AirplaneController ac;
-    Missiles ms;
+    Missiles irMissiles, radarMissiles;
+    Missiles activeMissiles;
 
     public TextMeshProUGUI target, targetingComputerState, enemyLock, enemyLaunch, mslLock;
     float t_eLock, t_mLock, t_eLaunch;
@@ -24,7 +25,9 @@ public class TargetInfo : MonoBehaviour
     {
         bc = BracketController.instance;
         ac = AirplaneController.instance;
-        ms = Missiles.instance;
+        irMissiles = GameObject.Find("IRMissiles").GetComponent<Missiles>();
+        radarMissiles = GameObject.Find("RadarMissiles").GetComponent<Missiles>();
+        activeMissiles = irMissiles;
         enemyLock.gameObject.SetActive(false);
         enemyLaunch.gameObject.SetActive(false);
         mslLock.text = "ACQUIRING";
@@ -57,11 +60,11 @@ public class TargetInfo : MonoBehaviour
             RearCamera.instance.FreeCamera();
         }
 
-        if (ms.seeking)
+        if (activeMissiles.seeking)
         {
             FlashMslLock("ACQUIRING");
         }
-        else if (ms.lockedOn) 
+        else if (activeMissiles.lockedOn) 
         {
             if (!mslLock.enabled)
                 mslLock.enabled = true;

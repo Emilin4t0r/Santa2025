@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - Enemy
   - AircraftTrigger
+  - Gun
   layers:
   - Default
   - TransparentFX

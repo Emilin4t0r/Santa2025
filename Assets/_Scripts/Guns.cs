@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Guns : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class Guns : MonoBehaviour
     public float gunAnimSpeed;
     float originalGunAnimSpeed;
     float nextTimeToFire;
-    [HideInInspector] public List<Transform> guns;
+    public List<Transform> guns;
 
     GameObject shootLoopSound;
     public Transform shootSoundParent;
@@ -29,6 +30,33 @@ public class Guns : MonoBehaviour
     private void Start()
     {
         ammoCount = fullAmmo;
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.activeSceneChanged += OnSceneChanged;
+    }
+    private void OnDisable()
+    {
+        SceneManager.activeSceneChanged -= OnSceneChanged;
+    }
+    void OnSceneChanged(Scene old, Scene now)
+    {
+        if (now.name == "Gameplay Test")
+        {
+            GetGunsFromChildren();
+        }
+    }
+    void GetGunsFromChildren()
+    {
+        guns = new List<Transform>();
+        Transform[] _guns = GetComponentsInChildren<Transform>();
+
+        foreach (Transform gun in _guns)
+        {
+            if (gun.CompareTag("Gun"))
+                guns.Add(gun);
+        }
     }
 
     void Update()

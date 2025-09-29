@@ -46,6 +46,9 @@ public class LoadoutImporter : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             SaveWeaponsToDDOL();
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
             SceneManager.LoadScene("Gameplay Test");
         }
     }

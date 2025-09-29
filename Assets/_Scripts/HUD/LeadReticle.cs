@@ -10,6 +10,7 @@ public class LeadReticle : MonoBehaviour
     Image img;
     Canvas canvas;
 
+    Guns activeGuns;
     BracketController bc;
 
     private void Start()
@@ -17,6 +18,7 @@ public class LeadReticle : MonoBehaviour
         canvas = GameObject.Find("HUD(Canvas)").GetComponent<Canvas>();
         bc = BracketController.instance;
         img = GetComponent<Image>();
+        activeGuns = GameObject.Find("ChainGuns").GetComponent<Guns>();
     }
 
     private void Update()
@@ -45,14 +47,15 @@ public class LeadReticle : MonoBehaviour
         }
 
         // Calculate the predicted position of the target
-        Vector3 predictedPosition = PredictTargetPosition(target.position, target.GetComponent<EnemySanta>().currentVelocity, gun.position, gun.forward, Guns.instance.shootForce);
+        Vector3 predictedPosition = PredictTargetPosition(target.position, target.GetComponent<EnemySanta>().currentVelocity, activeGuns.transform.position, activeGuns.transform.forward, activeGuns.shootForce);
 
         // Convert the predicted position to canvas space
         Vector2 canvasPosition;
         if (ConvertToCanvasSpace(predictedPosition, out canvasPosition))
         {
             // Update the position of the lead reticle on the canvas
-            transform.localPosition = canvasPosition + new Vector2(0, -HUD.hudOffset);
+            Vector2 targetPosition = canvasPosition + new Vector2(0, -HUD.hudOffset);
+            transform.localPosition = Vector2.Lerp(transform.localPosition, targetPosition, Time.deltaTime * 10f);
         }
     }
 

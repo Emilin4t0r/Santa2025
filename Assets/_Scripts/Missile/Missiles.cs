@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Missiles : MonoBehaviour
 {
@@ -22,10 +23,34 @@ public class Missiles : MonoBehaviour
         missiles = new List<Missile>();
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        seeking = false;
-        bc = BracketController.instance;        
+        SceneManager.activeSceneChanged += OnSceneChanged;
+    }
+    private void OnDisable()
+    {
+        SceneManager.activeSceneChanged -= OnSceneChanged;
+    }
+    void OnSceneChanged(Scene old, Scene now)
+    {
+        if (now.name == "Gameplay Test")
+        {
+            seeking = false;
+            bc = BracketController.instance;
+            print(bc.name);
+            GetMissilesFromChildren();
+        }
+    }
+
+    void GetMissilesFromChildren()
+    {
+        missiles = new List<Missile>();
+        Missile[] _missiles = GetComponentsInChildren<Missile>();
+
+        foreach (Missile msl in _missiles)
+        {
+            missiles.Add(msl);
+        }
     }
 
     private void Update()
