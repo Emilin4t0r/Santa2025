@@ -16,6 +16,7 @@ public class WeaponInfoItem
 public class WeaponInfo : MonoBehaviour
 {
     public List<WeaponInfoItem> weaponInfos;
+    public TextMeshProUGUI titleText;
     public TextMeshProUGUI infoText;
     public Image infoImage;
 
@@ -27,6 +28,7 @@ public class WeaponInfo : MonoBehaviour
         {
             infoText.text = info.description;
             infoImage.sprite = info.sprite;
+            titleText.text = info.name;
         }
     }
 }

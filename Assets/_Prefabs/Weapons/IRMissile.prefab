@@ -3369,7 +3369,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -0.3604}
   m_LocalScale: {x: 0.33333334, y: 0.33333334, z: 0.39999998}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5855799015819382356}
   m_Father: {fileID: 4623915552872173145}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &3505981271865681915
@@ -6408,7 +6409,6 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 2.5}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5855799015819382356}
   - {fileID: 7851436980651734204}
   - {fileID: 1510567364}
   - {fileID: 2694962173793724366}
@@ -6460,10 +6460,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 0.14
-  m_Height: 1.11
+  m_Radius: 0.11
+  m_Height: 0.87
   m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0.25}
+  m_Center: {x: 0, y: 0, z: 0.07}
 --- !u!114 &7280308103679247811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6478,11 +6478,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 150
   turnSpeed: 15
-  visualRotationSpeed: 200
+  visualRotationSpeed: 10
   damageRange: {x: 0, y: 0}
   explosion: {fileID: 7070465220517492653, guid: 79cb3226db845d349bcc6607437ee214, type: 3}
   target: {fileID: 0}
-  lifeTime: 5
+  lifeTime: 10
   finsToHide: {fileID: 4420868212217423339}
 --- !u!1 &4623915553380296045
 GameObject:
@@ -9458,12 +9458,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6288578971414096980}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.33}
-  m_LocalScale: {x: 0.025, y: 0.025, z: 0.025}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.07599995}
+  m_LocalScale: {x: 0.075, y: 0.075, z: 0.06250001}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4623915552872173145}
+  m_Father: {fileID: 7851436980651734204}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1075219185849331170
 MeshFilter:

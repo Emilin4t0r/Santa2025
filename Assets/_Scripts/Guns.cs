@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class Guns : MonoBehaviour
 {
-    public static Guns instance;
-
     public GameObject bulletPrefab;
     public GameObject muzzleFlashPrefab;
     public float shootForce, fireRate, inaccuracy;
@@ -21,11 +19,6 @@ public class Guns : MonoBehaviour
 
     [HideInInspector] public int ammoCount;    
     public int fullAmmo;
-
-    private void Awake()
-    {
-        instance = this;
-    }
 
     private void Start()
     {

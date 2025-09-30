@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class Missiles : MonoBehaviour
 {
-    public static Missiles instance;
-
     public List<Missile> missiles;
     public float timeToLock;
     [HideInInspector]
@@ -19,7 +17,6 @@ public class Missiles : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
         missiles = new List<Missile>();
     }
 

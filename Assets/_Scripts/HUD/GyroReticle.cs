@@ -27,7 +27,7 @@ public class GyroReticle : MonoBehaviour
     void FixedUpdate()
     {
         // Calculate the initial velocity of the bullet
-        Vector3 initialVelocity = gunForwardDirection.forward * Guns.instance.shootForce;
+        Vector3 initialVelocity = gunForwardDirection.forward * 1000;//Guns.instance.shootForce;
 
         // Get the airplane's velocity and angular velocity
         Vector3 airplaneVelocity = rbac.linearVelocity;

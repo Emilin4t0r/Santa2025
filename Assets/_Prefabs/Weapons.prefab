@@ -316,7 +316,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 507398167777629505}
-  - component: {fileID: 5413846065299845249}
+  - component: {fileID: 6869727013119862407}
   m_Layer: 3
   m_Name: SwarmMissiles
   m_TagString: Untagged
@@ -339,7 +339,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8618231586629206050}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5413846065299845249
+--- !u!114 &6869727013119862407
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -348,13 +348,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5206081197396648495}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3deea855f3fe38488a05b9965e8b22a, type: 3}
+  m_Script: {fileID: 11500000, guid: fd8e1db779b34ff43a6a27c5e49df0be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   missiles: []
-  timeToLock: 1
-  lockedOn: {fileID: 0}
-  seeking: 0
 --- !u!1 &6278855861181191603
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,9 +414,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2993748297088090595}
     - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: iRMissiles
+      value: 
+      objectReference: {fileID: 1415806580640606325}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: singleGuns
       value: 
       objectReference: {fileID: 3040267599657554167}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: radarMissiles
+      value: 
+      objectReference: {fileID: 7001688989851976918}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: swarmMissiles
+      value: 
+      objectReference: {fileID: 6869727013119862407}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: hideMissileFins
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3428042097910243616, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.661
@@ -499,9 +512,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2993748297088090595}
     - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: iRMissiles
+      value: 
+      objectReference: {fileID: 1415806580640606325}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: singleGuns
       value: 
       objectReference: {fileID: 3040267599657554167}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: radarMissiles
+      value: 
+      objectReference: {fileID: 7001688989851976918}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: swarmMissiles
+      value: 
+      objectReference: {fileID: 6869727013119862407}
+    - target: {fileID: 3428042097910243616, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 3428042097910243616, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.7
@@ -581,16 +610,32 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2993748297088090595}
     - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: iRMissiles
+      value: 
+      objectReference: {fileID: 1415806580640606325}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: singleGuns
       value: 
       objectReference: {fileID: 3040267599657554167}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: radarMissiles
+      value: 
+      objectReference: {fileID: 7001688989851976918}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: swarmMissiles
+      value: 
+      objectReference: {fileID: 6869727013119862407}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: hideMissileFins
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3428042097910243616, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.872
       objectReference: {fileID: 0}
     - target: {fileID: 3428042097910243616, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.815
+      value: 0.855
       objectReference: {fileID: 0}
     - target: {fileID: 3428042097910243616, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: m_LocalPosition.z
@@ -663,9 +708,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2993748297088090595}
     - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: iRMissiles
+      value: 
+      objectReference: {fileID: 1415806580640606325}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: singleGuns
       value: 
       objectReference: {fileID: 3040267599657554167}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: radarMissiles
+      value: 
+      objectReference: {fileID: 7001688989851976918}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: swarmMissiles
+      value: 
+      objectReference: {fileID: 6869727013119862407}
     - target: {fileID: 3428042097910243616, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.3390007
@@ -745,16 +802,32 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2993748297088090595}
     - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: iRMissiles
+      value: 
+      objectReference: {fileID: 1415806580640606325}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: singleGuns
       value: 
       objectReference: {fileID: 3040267599657554167}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: radarMissiles
+      value: 
+      objectReference: {fileID: 7001688989851976918}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: swarmMissiles
+      value: 
+      objectReference: {fileID: 6869727013119862407}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: hideMissileFins
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3428042097910243616, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.872
       objectReference: {fileID: 0}
     - target: {fileID: 3428042097910243616, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.815
+      value: 0.855
       objectReference: {fileID: 0}
     - target: {fileID: 3428042097910243616, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: m_LocalPosition.z
@@ -827,9 +900,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2993748297088090595}
     - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: iRMissiles
+      value: 
+      objectReference: {fileID: 1415806580640606325}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: singleGuns
       value: 
       objectReference: {fileID: 3040267599657554167}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: radarMissiles
+      value: 
+      objectReference: {fileID: 7001688989851976918}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: swarmMissiles
+      value: 
+      objectReference: {fileID: 6869727013119862407}
     - target: {fileID: 3428042097910243616, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.3390007
@@ -909,9 +994,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2993748297088090595}
     - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: iRMissiles
+      value: 
+      objectReference: {fileID: 1415806580640606325}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: singleGuns
       value: 
       objectReference: {fileID: 3040267599657554167}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: radarMissiles
+      value: 
+      objectReference: {fileID: 7001688989851976918}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: swarmMissiles
+      value: 
+      objectReference: {fileID: 6869727013119862407}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: hideMissileFins
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3428042097910243616, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.661
@@ -991,9 +1092,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2993748297088090595}
     - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: iRMissiles
+      value: 
+      objectReference: {fileID: 1415806580640606325}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: singleGuns
       value: 
       objectReference: {fileID: 3040267599657554167}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: radarMissiles
+      value: 
+      objectReference: {fileID: 7001688989851976918}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: swarmMissiles
+      value: 
+      objectReference: {fileID: 6869727013119862407}
     - target: {fileID: 3428042097910243616, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.7

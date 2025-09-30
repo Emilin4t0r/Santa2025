@@ -44,14 +44,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1c1b9c91d519c74cb4f8f40747ded25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missiles: {fileID: 0}
-  guns: {fileID: 0}
+  iRMissiles: {fileID: 0}
+  radarMissiles: {fileID: 0}
+  swarmMissiles: {fileID: 0}
+  singleGuns: {fileID: 0}
+  chainGuns: {fileID: 0}
   Hackapel: {fileID: 2704599601833342094, guid: 31ef218332ac90040a65ce23e6731ef3, type: 3}
   Landsknecht: {fileID: 3225486347537766823, guid: 9a0d17e63c3706543a3870869ba9afbc, type: 3}
   Pike_Single: {fileID: 4623915552872173144, guid: ef8fa93a7dc193b49b6c97ec68e5b6e3, type: 3}
   Pike_Double: {fileID: 1948785836002573965, guid: 2ddabee807bdd72449ede98cbafcd5c9, type: 3}
-  "Hurac\xE1n_Small": {fileID: 0}
-  "Hurac\xE1n_Pod": {fileID: 0}
+  "Hurac\xE1n_Small": {fileID: 2559556753367223247, guid: 906db5d781b040b40b24f3446d0e96b3, type: 3}
+  "Hurac\xE1n_Pod": {fileID: 8069605420504143774, guid: 835804dcb8b296d4abbf61ab3d4b37ef, type: 3}
   Arquebus: {fileID: 0}
   Longbow: {fileID: 2572076807807336344, guid: 1c1bc10dbbe2d4e4887cc3f2508472c5, type: 3}
   type: 0
