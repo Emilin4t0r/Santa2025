@@ -29,6 +29,7 @@ public class WeaponSelect : MonoBehaviour
                     hardpoint.SpawnWeapon(Hardpoint.WeaponType.Huracán_Small);
                     break;
                 default:
+                    hardpoint.SpawnWeapon(Hardpoint.WeaponType.Empty);
                     break;
 
             }
@@ -52,6 +53,7 @@ public class WeaponSelect : MonoBehaviour
                     hardpoint.SpawnWeapon(Hardpoint.WeaponType.Longbow);
                     break;
                 default:
+                    hardpoint.SpawnWeapon(Hardpoint.WeaponType.Empty);
                     break;
             }
         }

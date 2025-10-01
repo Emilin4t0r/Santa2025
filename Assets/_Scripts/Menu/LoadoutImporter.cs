@@ -8,11 +8,6 @@ public class LoadoutImporter : MonoBehaviour
 
     static GameObject weaponsDupe;
 
-    private void Start()
-    {
-        
-    }
-
     private void OnEnable()
     {
         SceneManager.activeSceneChanged += OnSceneChanged;

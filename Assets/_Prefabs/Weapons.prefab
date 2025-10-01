@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87bdcadd35bc9834cbb9f327bce6adc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 3130551460163936705, guid: 836db2b759a11b54a83b9ce4daefc80d, type: 3}
+  bulletPrefab: {fileID: 3130551460163936705, guid: 9087bb041ce73d94d9b84cf413917437, type: 3}
   muzzleFlashPrefab: {fileID: 6203035767376176428, guid: 38a66e70a05388f408315b4fc842e7a1, type: 3}
   shootForce: 750
   fireRate: 0.03
@@ -150,7 +150,6 @@ MonoBehaviour:
   guns: []
   shootSoundParent: {fileID: 2059976577889352195}
   ammoCount: 0
-  fullAmmo: 0
 --- !u!1 &2534343335690245791
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,14 +298,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 3130551460163936705, guid: 836db2b759a11b54a83b9ce4daefc80d, type: 3}
   muzzleFlashPrefab: {fileID: 6203035767376176428, guid: 38a66e70a05388f408315b4fc842e7a1, type: 3}
-  shootForce: 500
+  shootForce: 900
   fireRate: 0.1
   inaccuracy: 0.01
-  gunAnimSpeed: 20
+  gunAnimSpeed: 5
   guns: []
   shootSoundParent: {fileID: 8408002607118470331}
   ammoCount: 0
-  fullAmmo: 0
 --- !u!1 &5206081197396648495
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,6 +359,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8618231586629206050}
+  - component: {fileID: 3615470283574044689}
   m_Layer: 3
   m_Name: Weapons
   m_TagString: Untagged
@@ -389,6 +388,18 @@ Transform:
   - {fileID: 6076871021540861347}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3615470283574044689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6278855861181191603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae6e72d1c20829b4cbaeb31ba07ee9a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &80566217909930250
 PrefabInstance:
   m_ObjectHideFlags: 0

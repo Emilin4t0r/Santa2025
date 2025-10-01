@@ -7,17 +7,15 @@ public class Bullet : MonoBehaviour
 {
     Vector3 lastPos, scndLastPos, thrdLastPos;
     public string enemyTag;
-    GameObject sphere, trail, pointLight;
+    GameObject trail, pointLight;
     float lightKillTimer;
     public GameObject bulletHit;
     public float damage = 1;
 
     private void Awake()
     {
-        sphere = transform.Find("Sphere").gameObject;
         trail = transform.Find("Trail").gameObject;
         pointLight = transform.Find("Point Light").gameObject;
-        sphere.SetActive(false);
         trail.SetActive(false);
         Invoke("ActivateVisuals", 0.02f);
     }
@@ -62,7 +60,6 @@ public class Bullet : MonoBehaviour
 
     void ActivateVisuals()
     {
-        sphere.SetActive(true);
         trail.SetActive(true);
     }
 }

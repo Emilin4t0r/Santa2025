@@ -7523,7 +7523,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 150
-  turnSpeed: 30
+  turnSpeed: 40
   visualRotationSpeed: 500
   damageRange: {x: 0, y: 0}
   explosion: {fileID: 7070465220517492653, guid: 79cb3226db845d349bcc6607437ee214, type: 3}

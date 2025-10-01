@@ -16,33 +16,6 @@ public class Hardpoint : MonoBehaviour
     public GameObject selectedWeapon;
     public bool hideMissileFins = false;
 
-
-    List<WeaponType> compatibleWeapons;
-
-    private void Start()
-    {
-        if (type == HardpointType.Small)
-        {
-            compatibleWeapons = new List<WeaponType> {
-                WeaponType.Empty,
-                WeaponType.Hackapel,
-                WeaponType.Pike_Single,
-                WeaponType.Huracán_Small,
-            };
-        }
-        else if (type == HardpointType.Large)
-        {
-            compatibleWeapons = new List<WeaponType> {
-                WeaponType.Empty,
-                WeaponType.Landsknecht,
-                WeaponType.Pike_Double,
-                WeaponType.Huracán_Pod,
-                WeaponType.Arquebus,
-                WeaponType.Longbow
-            };
-        }
-    }
-
     public void SpawnWeapon(WeaponType wpnType)
     {
         GameObject wpn = null;
@@ -52,13 +25,11 @@ public class Hardpoint : MonoBehaviour
         {
             case WeaponType.Hackapel:
                 wpn = Instantiate(Hackapel, transform.position, transform.rotation, singleGuns.transform);
-                singleGuns.guns.Add(wpn.transform);
-                singleGuns.fullAmmo += 100;
+                singleGuns.ammoCount += 100;
                 break;
             case WeaponType.Landsknecht:
                 wpn = Instantiate(Landsknecht, transform.position, transform.rotation, chainGuns.transform);
-                chainGuns.guns.Add(wpn.transform);
-                chainGuns.fullAmmo += 200;
+                chainGuns.ammoCount += 300;
                 break;
             case WeaponType.Pike_Single:
                 wpn = Instantiate(Pike_Single, transform.position, transform.rotation, iRMissiles.transform);
@@ -115,7 +86,7 @@ public class Hardpoint : MonoBehaviour
             case WeaponType.Arquebus:
                 wpn = Instantiate(Arquebus, transform.position, transform.rotation, transform);
                 singleGuns.guns.Add(wpn.transform);
-                singleGuns.fullAmmo += 200;
+                singleGuns.ammoCount += 200;
                 break;
             case WeaponType.Longbow:
                 wpn = Instantiate(Longbow, transform.position, transform.rotation, radarMissiles.transform);

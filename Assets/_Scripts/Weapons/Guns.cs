@@ -17,13 +17,8 @@ public class Guns : MonoBehaviour
     public Transform shootSoundParent;
     float timeToClearSounds;
 
-    [HideInInspector] public int ammoCount;    
-    public int fullAmmo;
-
-    private void Start()
-    {
-        ammoCount = fullAmmo;
-    }
+    [HideInInspector] public int ammoCount;
+    bool inGameScene;
 
     private void OnEnable()
     {
@@ -37,9 +32,13 @@ public class Guns : MonoBehaviour
     {
         if (now.name == "Gameplay Test")
         {
+            inGameScene = true;
             GetGunsFromChildren();
+        } else
+        {
+            inGameScene = false;
         }
-    }
+    } 
     void GetGunsFromChildren()
     {
         guns = new List<Transform>();
@@ -54,6 +53,9 @@ public class Guns : MonoBehaviour
 
     void Update()
     {
+        if (!inGameScene)
+            return;
+
         if (ammoCount <= 0)
         {
             if (shootSoundParent.childCount > 0)

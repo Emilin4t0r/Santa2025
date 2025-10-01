@@ -4480,6 +4480,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.855
       objectReference: {fileID: 0}
+    - target: {fileID: 3040267599657554167, guid: 083696edc0fcb9844841113afde5bd75, type: 3}
+      propertyPath: gunAnimSpeed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3283458562936089052, guid: 083696edc0fcb9844841113afde5bd75, type: 3}
       propertyPath: m_LocalScale.x
       value: -1
