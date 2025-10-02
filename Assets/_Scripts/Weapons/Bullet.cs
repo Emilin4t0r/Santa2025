@@ -43,7 +43,6 @@ public class Bullet : MonoBehaviour
                     collision.gameObject.GetComponent<EnemySanta>().GetHit(damage);
                 }               
             }
-            print("Bullet hit " + collision.gameObject.name);
             int random = Random.Range(0, 10);
             if (random != 0)
             {

@@ -22,6 +22,8 @@ public class Guns : MonoBehaviour
 
     private void OnEnable()
     {
+        if (guns.Count == 0)
+            GetGunsFromChildren();
         SceneManager.activeSceneChanged += OnSceneChanged;
     }
     private void OnDisable()
@@ -31,31 +33,28 @@ public class Guns : MonoBehaviour
     void OnSceneChanged(Scene old, Scene now)
     {
         if (now.name == "Gameplay Test")
-        {
             inGameScene = true;
-            GetGunsFromChildren();
-        } else
-        {
+        else
             inGameScene = false;
-        }
-    } 
+    }
+
     void GetGunsFromChildren()
     {
+        print("Getting guns from children");
         guns = new List<Transform>();
-        Transform[] _guns = GetComponentsInChildren<Transform>();
+        Transform[] transforms = GetComponentsInChildren<Transform>();
 
-        foreach (Transform gun in _guns)
+        foreach (Transform tr in transforms)
         {
-            if (gun.CompareTag("Gun"))
-                guns.Add(gun);
+            if (tr.CompareTag("Gun"))
+                guns.Add(tr); print("adding gun " + tr.name);
         }
     }
 
     void Update()
     {
-        if (!inGameScene)
+        if (!inGameScene) 
             return;
-
         if (ammoCount <= 0)
         {
             if (shootSoundParent.childCount > 0)

@@ -4480,6 +4480,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.855
       objectReference: {fileID: 0}
+    - target: {fileID: 2993748297088090595, guid: 083696edc0fcb9844841113afde5bd75, type: 3}
+      propertyPath: shootForce
+      value: 1200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3040267599657554167, guid: 083696edc0fcb9844841113afde5bd75, type: 3}
+      propertyPath: shootForce
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 3040267599657554167, guid: 083696edc0fcb9844841113afde5bd75, type: 3}
       propertyPath: gunAnimSpeed
       value: 5
@@ -4641,7 +4649,7 @@ RectTransform:
   m_GameObject: {fileID: 874454652}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1161939284}
@@ -4649,7 +4657,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 225}
-  m_SizeDelta: {x: 810, y: 291.6}
+  m_SizeDelta: {x: 809.21, y: 291.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &874454654
 MonoBehaviour:
@@ -11892,7 +11900,7 @@ Transform:
   m_GameObject: {fileID: 1873818812}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 100, y: 1000, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

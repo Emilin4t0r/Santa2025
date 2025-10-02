@@ -10,12 +10,12 @@ public class Missile : MonoBehaviour
     public float visualRotationSpeed;
     public Vector2 damageRange;
     public GameObject explosion;
-    GameObject rotator;
+    public GameObject rotator;
+    public GameObject pointLight;
     public Transform target;
     TrailRenderer trail;
     CapsuleCollider cc;
-    Rigidbody rb;
-    GameObject pointLight;
+    Rigidbody rb;    
     
     public float lifeTime = 5;
     float blowUpTimer;
@@ -25,11 +25,9 @@ public class Missile : MonoBehaviour
     private void Start()
     {
         SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("missile_launch"));
-        rotator = transform.Find("MissileRotator").gameObject;
         trail = transform.GetComponentInChildren<TrailRenderer>();
         cc = GetComponent<CapsuleCollider>();
         rb = GetComponent<Rigidbody>();
-        pointLight = transform.Find("Point Light").gameObject;
         trail.enabled = true;
         cc.enabled = true;
         rb.isKinematic = false;

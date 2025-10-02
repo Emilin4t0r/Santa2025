@@ -112,6 +112,7 @@ public class Missiles : MonoBehaviour
 
     void SeekLock()
     {
+        print("seeking, bc locked on; " + bc.lockedOn);
         if (!bc.lockedOn)
             return;
         seeking = true;

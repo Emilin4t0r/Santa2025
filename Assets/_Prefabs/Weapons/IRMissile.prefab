@@ -6481,6 +6481,8 @@ MonoBehaviour:
   visualRotationSpeed: 10
   damageRange: {x: 0, y: 0}
   explosion: {fileID: 7070465220517492653, guid: 79cb3226db845d349bcc6607437ee214, type: 3}
+  rotator: {fileID: 82978572935944047}
+  pointLight: {fileID: 2184178274682458833}
   target: {fileID: 0}
   lifeTime: 10
   finsToHide: {fileID: 4420868212217423339}
