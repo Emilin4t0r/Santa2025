@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class LoadoutImporter : MonoBehaviour
 {
-    public GameObject weapons;
     public GameObject ddol;
 
     static GameObject weaponsDupe;
@@ -19,6 +18,7 @@ public class LoadoutImporter : MonoBehaviour
 
     public void SaveWeaponsToDDOL()
     {
+        GameObject weapons = GameObject.Find("Weapons");
         weaponsDupe = Instantiate(weapons, ddol.transform);
     }
 

@@ -17,6 +17,7 @@ public class SwarmMissile : MonoBehaviour
     public float lifeTime = 5;
     float blowUpTimer;
 
+    public float launchAccuracy;
     public GameObject finsToHide;
 
     private void Start()
@@ -35,22 +36,26 @@ public class SwarmMissile : MonoBehaviour
         {
             finsToHide.SetActive(true);
         }
+        DoInitialLaunchOffset();
     }
 
     private void FixedUpdate()
     {
-        float dist = Vector3.Distance(transform.position, target.position) / 10;
-        Vector3 targetPos = target.position + target.forward * dist;
+        if (target)
+        {
+            float dist = Vector3.Distance(transform.position, target.position) / 10;
+            Vector3 targetPos = target.position + target.forward * dist;
 
-        // Rotate front towards target
-        Vector3 targetDir = (targetPos - transform.position).normalized;
-        Quaternion targetRot = Quaternion.LookRotation(targetDir);
-        // Rotate at 'turnSpeed' degrees per second
-        transform.rotation = Quaternion.RotateTowards(
-            transform.rotation,
-            targetRot,
-            turnSpeed * Time.deltaTime
-        );
+            // Rotate front towards target
+            Vector3 targetDir = (targetPos - transform.position).normalized;
+            Quaternion targetRot = Quaternion.LookRotation(targetDir);
+            // Rotate at 'turnSpeed' degrees per second
+            transform.rotation = Quaternion.RotateTowards(
+                transform.rotation,
+                targetRot,
+                turnSpeed * Time.deltaTime
+            );
+        }
 
         // Move forward
         transform.Translate(Vector3.forward * speed * Time.fixedDeltaTime);
@@ -73,6 +78,14 @@ public class SwarmMissile : MonoBehaviour
         }
         if (other.CompareTag("Ground"))
             BlowUp();
+    }
+
+    void DoInitialLaunchOffset()
+    {
+        Vector3 deviation3D = Random.insideUnitCircle * launchAccuracy;
+        Quaternion rot = Quaternion.LookRotation(Vector3.forward + deviation3D);
+        Vector3 fwd = transform.rotation * rot * Vector3.forward;
+        transform.eulerAngles = fwd;
     }
 
     void BlowUp(float explSizeMultiplier = 0.5f)

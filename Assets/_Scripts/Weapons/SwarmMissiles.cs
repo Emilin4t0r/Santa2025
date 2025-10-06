@@ -13,6 +13,10 @@ public class SwarmMissiles : MonoBehaviour
 
     private void OnEnable()
     {
+        if (missiles.Count == 0)
+        {
+            GetMissilesFromChildren();
+        }        
         SceneManager.activeSceneChanged += OnSceneChanged;
     }
     private void OnDisable()
@@ -23,7 +27,7 @@ public class SwarmMissiles : MonoBehaviour
     {
         if (now.name == "Gameplay Test")
         {
-            GetMissilesFromChildren();
+            
         }
     }
 

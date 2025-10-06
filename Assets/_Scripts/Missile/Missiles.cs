@@ -22,6 +22,10 @@ public class Missiles : MonoBehaviour
 
     private void OnEnable()
     {
+        if (missiles.Count == 0)
+        {
+            GetMissilesFromChildren();
+        }
         SceneManager.activeSceneChanged += OnSceneChanged;
     }
     private void OnDisable()
