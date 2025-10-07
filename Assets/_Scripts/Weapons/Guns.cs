@@ -47,7 +47,10 @@ public class Guns : MonoBehaviour
         foreach (Transform tr in transforms)
         {
             if (tr.CompareTag("Gun"))
-                guns.Add(tr); print("adding gun " + tr.name);
+            {
+                guns.Add(tr); 
+                print("adding gun " + tr.name);
+            }
         }
     }
 

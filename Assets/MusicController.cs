@@ -1,13 +1,17 @@
+using System.Collections;
 using UnityEngine;
 
 public class MusicController : MonoBehaviour
 {
 
     public AudioSource musicEntrance, musicLoop;
+    public bool mainMenu;
+    public MainMenuController mmc;
 
     void Start()
     {
-        SetAudioSourcePlayTimes();
+        if (mainMenu)
+            SetAudioSourcePlayTimes();
     }
 
     void SetAudioSourcePlayTimes()
@@ -23,18 +27,58 @@ public class MusicController : MonoBehaviour
             loopStart = AudioSettings.dspTime + 0.05; // fallback safety
 
         musicLoop.PlayScheduled(loopStart);
+        StartCoroutine(ShowTitleAfterTime(loopStart));
+    }
+    IEnumerator ShowTitleAfterTime(double time)
+    {
+        while (AudioSettings.dspTime < time)
+        {
+            yield return null;
+        }
+        mmc.ShowTitle();
     }
 
-    void FadeMusicOut(AudioSource source)
+    public void FadeMusicOut(AudioSource source, float fadeOutTime)
     {
-
+        StartCoroutine(FadeOutCoroutine(source, fadeOutTime));
     }
-    void FadeToLowPass(AudioSource source)
+    IEnumerator FadeOutCoroutine(AudioSource source, float fadeOutTime)
     {
+        float startVolume = source.volume;
+        float time = 0f;
 
+        while (time < fadeOutTime)
+        {
+            time += Time.deltaTime;
+            source.volume = Mathf.Lerp(startVolume, 0f, time / fadeOutTime);
+            yield return null;
+        }
+
+        source.volume = 0f;
+        source.Stop();
+        source.volume = startVolume; // reset for next playback if needed
     }
-    void FadeFromLowPass(AudioSource source)
-    {
 
+    public void FadeToLowPass(AudioLowPassFilter filter)
+    {
+        StartCoroutine(FadeLowPassCoroutine(filter, 2000, 1.5f));
+    }    
+    public void FadeFromLowPass(AudioLowPassFilter filter)
+    {
+        StartCoroutine(FadeLowPassCoroutine(filter, 22000, 1.5f));
+    }
+    IEnumerator FadeLowPassCoroutine(AudioLowPassFilter filter, float targetCutoff, float fadeOutTime)
+    {
+        float startCutoff = filter.cutoffFrequency;
+        float time = 0f;
+
+        while (time < fadeOutTime)
+        {
+            time += Time.deltaTime;
+            filter.cutoffFrequency = Mathf.Lerp(startCutoff, targetCutoff, time / fadeOutTime);
+            yield return null;
+        }
+
+        filter.cutoffFrequency = targetCutoff;
     }
 }
