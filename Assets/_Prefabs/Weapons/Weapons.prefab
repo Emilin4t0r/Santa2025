@@ -96,6 +96,61 @@ MonoBehaviour:
   timeToLock: 1
   lockedOn: {fileID: 0}
   seeking: 0
+--- !u!1 &1946948106245632827
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4531283339823793132}
+  - component: {fileID: 3096313634761016471}
+  m_Layer: 3
+  m_Name: AirBurst
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4531283339823793132
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1946948106245632827}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7334248617765296592}
+  m_Father: {fileID: 8618231586629206050}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3096313634761016471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1946948106245632827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87bdcadd35bc9834cbb9f327bce6adc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 0}
+  muzzleFlashPrefab: {fileID: 0}
+  shootForce: 0
+  fireRate: 0
+  inaccuracy: 0
+  gunAnimSpeed: 0
+  guns: []
+  shootSoundParent: {fileID: 7334248617765296592}
+  ammoCount: 0
+  hudWeaponIndex: 2
 --- !u!1 &2481368241580062457
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,6 +205,7 @@ MonoBehaviour:
   guns: []
   shootSoundParent: {fileID: 2059976577889352195}
   ammoCount: 0
+  hudWeaponIndex: 1
 --- !u!1 &2534343335690245791
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,6 +244,37 @@ Transform:
   - {fileID: 3354302853944272938}
   - {fileID: 5007539158444664964}
   m_Father: {fileID: 8618231586629206050}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2719888684384949153
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7334248617765296592}
+  m_Layer: 3
+  m_Name: ShootSoundParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7334248617765296592
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2719888684384949153}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4531283339823793132}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4696576296837037255
 GameObject:
@@ -305,6 +392,7 @@ MonoBehaviour:
   guns: []
   shootSoundParent: {fileID: 8408002607118470331}
   ammoCount: 0
+  hudWeaponIndex: 0
 --- !u!1 &5206081197396648495
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,6 +470,7 @@ Transform:
   m_Children:
   - {fileID: 2963835524927900161}
   - {fileID: 385465985611249041}
+  - {fileID: 4531283339823793132}
   - {fileID: 3833595216202413283}
   - {fileID: 1257288990233319658}
   - {fileID: 507398167777629505}
@@ -402,6 +491,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   singleGuns: {fileID: 3040267599657554167}
   chainGuns: {fileID: 2993748297088090595}
+  airBurst: {fileID: 3096313634761016471}
   irMissiles: {fileID: 1415806580640606325}
   radarMissiles: {fileID: 7001688989851976918}
   swarmMissiles: {fileID: 6869727013119862407}

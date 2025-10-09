@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
     float lightKillTimer;
     public GameObject bulletHit;
     public float damage = 1;
-
+    public bool doRandomRicochets;
     private void Awake()
     {
         trail = transform.Find("Trail").gameObject;
@@ -43,18 +43,30 @@ public class Bullet : MonoBehaviour
                     collision.gameObject.GetComponent<EnemySanta>().GetHit(damage);
                 }               
             }
-            int random = Random.Range(0, 10);
-            if (random != 0)
+            if (doRandomRicochets)
             {
-                bulletHit = Instantiate(bulletHit, thrdLastPos, transform.rotation);
-                Destroy(bulletHit, 0.5f);
-                Destroy(gameObject);
+                // 1/10 chance bullet doesn't get destroyed on hit
+                int random = Random.Range(0, 10); 
+                if (random != 0)
+                {
+                    KillBullet();
+                }
+            } else
+            {
+                KillBullet();
             }
         }
         catch
         {
             return;
         }
+    }
+
+    void KillBullet()
+    {
+        bulletHit = Instantiate(bulletHit, thrdLastPos, transform.rotation);
+        Destroy(bulletHit, 0.5f);
+        Destroy(gameObject);
     }
 
     void ActivateVisuals()

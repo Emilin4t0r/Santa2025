@@ -19,37 +19,44 @@ public class Guns : MonoBehaviour
 
     [HideInInspector] public int ammoCount;
     bool inGameScene;
+    public int hudWeaponIndex;
+    HUDWeapons hudWeapons;
+    HUDWeapon hud;
 
     private void OnEnable()
     {
-        if (guns.Count == 0)
-            GetGunsFromChildren();
         SceneManager.activeSceneChanged += OnSceneChanged;
     }
     private void OnDisable()
     {
         SceneManager.activeSceneChanged -= OnSceneChanged;
     }
+
     void OnSceneChanged(Scene old, Scene now)
     {
         if (now.name == "Gameplay Test")
             inGameScene = true;
         else
             inGameScene = false;
+
+        if (inGameScene)
+        {
+            GetGunsFromChildren();
+            hudWeapons = GameObject.Find("HUDWeapons").GetComponent<HUDWeapons>();
+            hud = hudWeapons.weapons[hudWeaponIndex].GetComponent<HUDWeapon>();
+            hud.SetAmmo(ammoCount);
+        }
     }
 
     void GetGunsFromChildren()
     {
-        print("Getting guns from children");
         guns = new List<Transform>();
         Transform[] transforms = GetComponentsInChildren<Transform>();
-
         foreach (Transform tr in transforms)
         {
             if (tr.CompareTag("Gun"))
             {
                 guns.Add(tr); 
-                print("adding gun " + tr.name);
             }
         }
     }
@@ -65,6 +72,7 @@ public class Guns : MonoBehaviour
                 StopBurst();
                 ClearShootSounds();
                 ammoCount = 0;
+                hud.SetAmmo(ammoCount);
             }
             return;
         }
@@ -148,6 +156,7 @@ public class Guns : MonoBehaviour
                 Destroy(mzf, 0.02f);
             }
             ammoCount--;
+            hud.SetAmmo(ammoCount);
         }
 
         nextTimeToFire = Time.time + fireRate + Random.Range(0.001f, 0.02f);

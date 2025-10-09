@@ -1,74 +1,99 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WeaponsSelector : MonoBehaviour
 {
-    public Guns singleGuns, chainGuns;
+    public Guns singleGuns, chainGuns, airBurst;
     public Missiles irMissiles, radarMissiles;
     public SwarmMissiles swarmMissiles;
 
-    int currentWeaponIndex;
+    int currentWeaponIndex;    
+    HUDWeapons hudWeapons;
+    bool inGameScene;
 
-    public enum ActiveWeapon { SingleGuns, ChainGuns, IRMissiles, RadarMissiles, SwarmMissiles }
+    public enum WeaponType { SingleGuns, ChainGuns, AirBurst, IRMissiles, RadarMissiles, SwarmMissiles }
 
     private void OnEnable()
+    {        
+        SceneManager.activeSceneChanged += OnSceneChanged;        
+    }
+    private void OnDisable()
     {
-        SetActiveWeapon(ActiveWeapon.SingleGuns);
+        SceneManager.activeSceneChanged -= OnSceneChanged;
+    }
+    void OnSceneChanged(Scene old, Scene now)
+    {
+        if (now.name == "Gameplay Test")
+            inGameScene = true;
+        else
+            inGameScene = false;
+
+        if (inGameScene)
+        {
+            hudWeapons = GameObject.Find("HUDWeapons").GetComponent<HUDWeapons>();
+            SetActiveWeapon(WeaponType.SingleGuns);           
+        }
     }
 
     private void Update()
     {
+        if (!inGameScene)
+            return;
+
         float scroll = Input.GetAxis("Mouse ScrollWheel");
        
         if (scroll > 0) // Scroll up
         {
-            if (currentWeaponIndex < 4)
+            if (currentWeaponIndex < 5)
                 currentWeaponIndex++;
             else
                 currentWeaponIndex = 0;
-            SetActiveWeapon((ActiveWeapon)currentWeaponIndex); print("Scrolled, " + scroll);
+            SetActiveWeapon((WeaponType)currentWeaponIndex);
         }
         else if (scroll < 0) { // Scroll down
             if (currentWeaponIndex > 0)
                 currentWeaponIndex--;
             else
-                currentWeaponIndex = 4;
-            SetActiveWeapon((ActiveWeapon)currentWeaponIndex); print("Scrolled, " + scroll);
+                currentWeaponIndex = 5;
+            SetActiveWeapon((WeaponType)currentWeaponIndex);
         }
         
     }
 
-    public void SetActiveWeapon(ActiveWeapon weapon)
+    public void SetActiveWeapon(WeaponType weapon)
     {
         print("Setting current weapon to " + weapon);
+        SetAllWeaponsInactive();
         switch (weapon)
         {
-            case ActiveWeapon.SingleGuns:
-                SetAllWeaponsInactive();
+            case WeaponType.SingleGuns:
                 singleGuns.enabled = true;
                 break;
-            case ActiveWeapon.ChainGuns:
-                SetAllWeaponsInactive();
+            case WeaponType.ChainGuns:
                 chainGuns.enabled = true;
                 break;
-            case ActiveWeapon.IRMissiles:
-                SetAllWeaponsInactive();
+            case WeaponType.AirBurst:
+                airBurst.enabled = true;
+                break;
+            case WeaponType.IRMissiles:
                 irMissiles.enabled = true;
                 break;
-            case ActiveWeapon.RadarMissiles:
-                SetAllWeaponsInactive();
+            case WeaponType.RadarMissiles:
                 radarMissiles.enabled = true;
                 break;
-            case ActiveWeapon.SwarmMissiles:
-                SetAllWeaponsInactive();
+            case WeaponType.SwarmMissiles:                
                 swarmMissiles.enabled = true;
                 break;
-        }
+        }        
+        hudWeapons.SetSelectedHUDWeapon(weapon);
     }
 
     void SetAllWeaponsInactive()
     {
         singleGuns.enabled = false;
         chainGuns.enabled = false;
+        airBurst.enabled = false;
         irMissiles.enabled = false;
         radarMissiles.enabled = false;
         swarmMissiles.enabled = false;
