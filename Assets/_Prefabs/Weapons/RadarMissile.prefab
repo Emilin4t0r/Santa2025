@@ -3404,10 +3404,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 117f14923cf561f4486198b2e6a3baf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 200
+  speed: 250
   turnSpeed: 10
   visualRotationSpeed: 100
-  damageRange: {x: 0, y: 0}
+  damageRange: {x: 5, y: 10}
   explosion: {fileID: 7070465220517492653, guid: 79cb3226db845d349bcc6607437ee214, type: 3}
   rotator: {fileID: 5601313196210564179}
   pointLight: {fileID: 6587551992809151081}

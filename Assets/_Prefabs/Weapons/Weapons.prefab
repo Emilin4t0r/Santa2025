@@ -45,9 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   missiles: []
-  timeToLock: 1
+  timeToLock: 0.75
   lockedOn: {fileID: 0}
   seeking: 0
+  hudWeaponIndex: 3
+  requireRadarLock: 0
 --- !u!1 &867290615430195760
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,9 +95,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   missiles: []
-  timeToLock: 1
+  timeToLock: 1.5
   lockedOn: {fileID: 0}
   seeking: 0
+  hudWeaponIndex: 4
+  requireRadarLock: 1
 --- !u!1 &1946948106245632827
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class Missiles : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class Missiles : MonoBehaviour
     float lockTimer;
 
     GameObject acqSound, lockSound;
+    public int hudWeaponIndex;
+    HUDWeapons hudWeapons;
+    HUDWeapon hud;
+    public bool requireRadarLock = true;
 
     private void Awake()
     {
@@ -35,6 +40,9 @@ public class Missiles : MonoBehaviour
             seeking = false;
             bc = BracketController.instance;
             GetMissilesFromChildren();
+            hudWeapons = GameObject.Find("HUDWeapons").GetComponent<HUDWeapons>();
+            hud = hudWeapons.weapons[hudWeaponIndex].GetComponent<HUDWeapon>();
+            hud.SetAmmo(missiles.Count);
         }
     }
 
@@ -56,33 +64,75 @@ public class Missiles : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (lockedOn)
+            {
                 FireMissile();
+            }
             else
-                SeekLock();
+            {
+                if (requireRadarLock)
+                {
+                    SeekRadarLock();
+                }
+                else
+                {
+                    SeekIRLock();
+                }
+            }
         }
     }
 
     private void FixedUpdate()
     {
-        if (seeking)
+        if (requireRadarLock)
         {
-            if (bc.lockedOn && !lockedOn)
+            if (seeking)
             {
-                lockTimer += Time.fixedDeltaTime;
-                if (lockTimer > timeToLock)
+                if (bc.lockedOn != null && lockedOn == null)
                 {
-                    lockedOn = bc.lockedOn;
+                    lockTimer += Time.fixedDeltaTime;
+                    if (lockTimer > timeToLock)
+                    {
+                        lockedOn = bc.lockedOn;
+                        seeking = false;
+                    }
+                }
+                if (!bc.lockedOn && seeking)
                     seeking = false;
+            }
+            if (lockedOn)
+            {
+                if (bc.lockedOn != lockedOn)
+                {
+                    lockedOn = null;
                 }
             }
-            if (!bc.lockedOn && seeking)
-                seeking = false;
         }
-        if (lockedOn)
+        else
         {
-            if (bc.lockedOn != lockedOn)
+            if (seeking)
             {
-                lockedOn = null;
+                if (lockedOn == null)
+                {
+                    lockTimer += Time.fixedDeltaTime;
+                    if (lockTimer > timeToLock)
+                    {
+                        if (Radar.instance.enemies.Count > 0)
+                        {
+                            lockedOn = Radar.instance.enemies[0];
+                            seeking = false;
+                        } else
+                        {
+                            seeking = false;
+                        }
+                    }
+                }
+            }
+            if (lockedOn)
+            {
+                if (!Radar.instance.enemies.Contains(lockedOn))
+                {
+                    lockedOn = null;
+                }
             }
         }
 
@@ -99,7 +149,8 @@ public class Missiles : MonoBehaviour
                 lockSound = SoundSpawner.SpawnSoundLoop(transform.position, transform, SoundLibrary.GetClip("missile_lock"));
             if (acqSound)
                 SoundSpawner.EndLoop(acqSound);
-        } else
+        }
+        else
         {
             if (lockSound)
                 SoundSpawner.EndLoop(lockSound);
@@ -109,11 +160,23 @@ public class Missiles : MonoBehaviour
 
     }
 
-    void SeekLock()
+    void SeekRadarLock()
     {
-        print("seeking, bc locked on; " + bc.lockedOn);
+        print("seeking, bc locked on: " + bc.lockedOn);
         if (!bc.lockedOn)
             return;
+        StartSeek();
+    }
+    void SeekIRLock()
+    {        
+        if (Radar.instance.enemies.Count == 0)
+            return;
+        var enemy = Radar.instance.enemies.FirstOrDefault();
+        print("seeking, radar cone has: " + enemy?.name);
+        StartSeek();
+    }
+    void StartSeek()
+    {
         seeking = true;
         lockedOn = null;
         lockTimer = 0;
@@ -127,5 +190,6 @@ public class Missiles : MonoBehaviour
         lockedOn = null;
         msl.transform.parent = null;
         missiles.Remove(msl);
+        hud.SetAmmo(missiles.Count);
     }
 }

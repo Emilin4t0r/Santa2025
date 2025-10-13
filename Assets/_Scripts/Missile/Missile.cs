@@ -40,8 +40,16 @@ public class Missile : MonoBehaviour
     
     private void FixedUpdate()
     {
-        float dist = Vector3.Distance(transform.position, target.position) / 10;
-        Vector3 targetPos = target.position + target.forward * dist;
+        Vector3 targetPos = Vector3.zero;
+        if (target != null)
+        {
+            targetPos = transform.forward;
+        }
+        else
+        {
+            float dist = Vector3.Distance(transform.position, target.position) / 10;
+            targetPos = target.position + target.forward * dist;
+        }
 
         // Rotate front towards target
         Vector3 targetDir = (targetPos - transform.position).normalized;
