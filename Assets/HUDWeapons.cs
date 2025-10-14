@@ -12,7 +12,7 @@ public class HUDWeapons : MonoBehaviour
     private void Awake()
     {
         HUDActiveWeaponText = GameObject.Find("ACTIVEWEAPON").GetComponent<TextMeshProUGUI>();
-        availableWeapons = weapons;
+        availableWeapons = new List<HUDWeapon>(weapons);
     }
 
     public HUDWeapon SetSelectedHUDWeapon(int weapon)

@@ -34,8 +34,7 @@ public class WeaponsSelector : MonoBehaviour
 
         if (inGameScene)
         {
-            hudWeapons = GameObject.Find("HUDWeapons").GetComponent<HUDWeapons>();
-                  
+            hudWeapons = GameObject.Find("HUDWeapons").GetComponent<HUDWeapons>();                  
         }
     }
 
@@ -91,9 +90,11 @@ public class WeaponsSelector : MonoBehaviour
                 break;
             case "MSL IR":
                 irMissiles.enabled = true;
+                TargetInfo.instance.SetActiveMissilesToIR(true);
                 break;
             case "MSL RDR":
                 radarMissiles.enabled = true;
+                TargetInfo.instance.SetActiveMissilesToIR(false);
                 break;
             case "MSL SWRM":
                 swarmMissiles.enabled = true;

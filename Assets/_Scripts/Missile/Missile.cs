@@ -41,7 +41,7 @@ public class Missile : MonoBehaviour
     private void FixedUpdate()
     {
         Vector3 targetPos = Vector3.zero;
-        if (target != null)
+        if (target == null)
         {
             targetPos = transform.forward;
         }

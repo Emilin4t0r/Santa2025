@@ -27,12 +27,21 @@ public class TargetInfo : MonoBehaviour
         ac = AirplaneController.instance;
         irMissiles = GameObject.Find("IRMissiles").GetComponent<Missiles>();
         radarMissiles = GameObject.Find("RadarMissiles").GetComponent<Missiles>();
-        activeMissiles = irMissiles;
+        SetActiveMissilesToIR(true);
         enemyLock.gameObject.SetActive(false);
         enemyLaunch.gameObject.SetActive(false);
         mslLock.text = "ACQUIRING";
         mslLock.enabled = false;
     }
+
+    public void SetActiveMissilesToIR(bool yes)
+    {
+        if (yes)
+            activeMissiles = irMissiles;
+        else
+            activeMissiles = radarMissiles;
+    }
+
     private void FixedUpdate()
     {
         if (bc.lockedOn)
