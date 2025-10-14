@@ -4,8 +4,9 @@ using UnityEngine.UI;
 
 public class HUDWeapon : MonoBehaviour
 {
+    public string id;
     GameObject bracket;
-    public TextMeshProUGUI ammoText;
+    public TextMeshProUGUI ammoText, hotkeyText;
     public Image wpnImg, bracketImg;
 
     public Color selectedColor, txtSelectedColor;
@@ -34,5 +35,9 @@ public class HUDWeapon : MonoBehaviour
     public void SetAmmo(int ammo)
     {
         ammoText.text = ammo.ToString();
+    }
+    public void SetHotkey(int hotkey)
+    {
+        hotkeyText.text = hotkey.ToString();
     }
 }

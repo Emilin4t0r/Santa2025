@@ -19,7 +19,7 @@ public class LoadoutImporter : MonoBehaviour
     public void SaveWeaponsToDDOL()
     {
         GameObject weapons = GameObject.Find("Weapons");
-        weaponsDupe = Instantiate(weapons, ddol.transform);
+        weaponsDupe = Instantiate(weapons, new Vector3(0, 1000, 0), Quaternion.identity, ddol.transform);
     }
 
     void OnSceneChanged(Scene old, Scene now)

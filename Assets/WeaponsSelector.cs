@@ -12,6 +12,9 @@ public class WeaponsSelector : MonoBehaviour
     HUDWeapons hudWeapons;
     bool inGameScene;
 
+    bool startFunctionsExecuted;
+    int amountOfWeapons = 0;
+
     public enum WeaponType { SingleGuns, ChainGuns, AirBurst, IRMissiles, RadarMissiles, SwarmMissiles }
 
     private void OnEnable()
@@ -20,7 +23,7 @@ public class WeaponsSelector : MonoBehaviour
     }
     private void OnDisable()
     {
-        SceneManager.activeSceneChanged -= OnSceneChanged;
+        SceneManager.activeSceneChanged -= OnSceneChanged;        
     }
     void OnSceneChanged(Scene old, Scene now)
     {
@@ -32,7 +35,17 @@ public class WeaponsSelector : MonoBehaviour
         if (inGameScene)
         {
             hudWeapons = GameObject.Find("HUDWeapons").GetComponent<HUDWeapons>();
-            SetActiveWeapon(WeaponType.SingleGuns);           
+                  
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (inGameScene && !startFunctionsExecuted)
+        {
+            ExcludeEmptyWeapons();
+            SetActiveWeapon(0);
+            startFunctionsExecuted = true;
         }
     }
 
@@ -45,48 +58,88 @@ public class WeaponsSelector : MonoBehaviour
        
         if (scroll > 0) // Scroll up
         {
-            if (currentWeaponIndex < 5)
+            if (currentWeaponIndex < amountOfWeapons - 1)
                 currentWeaponIndex++;
             else
                 currentWeaponIndex = 0;
-            SetActiveWeapon((WeaponType)currentWeaponIndex);
+            SetActiveWeapon(currentWeaponIndex);
         }
         else if (scroll < 0) { // Scroll down
             if (currentWeaponIndex > 0)
                 currentWeaponIndex--;
             else
-                currentWeaponIndex = 5;
-            SetActiveWeapon((WeaponType)currentWeaponIndex);
+                currentWeaponIndex = amountOfWeapons - 1;
+            SetActiveWeapon(currentWeaponIndex);
         }
         
     }
 
-    public void SetActiveWeapon(WeaponType weapon)
+    public void SetActiveWeapon(int weaponIndex)
     {
-        print("Setting current weapon to " + weapon);
-        SetAllWeaponsInactive();
-        switch (weapon)
+        SetAllWeaponsInactive(); 
+        var hudWpn = hudWeapons.SetSelectedHUDWeapon(weaponIndex);
+        switch (hudWpn.id)
         {
-            case WeaponType.SingleGuns:
+            case "CNN 30MM":
                 singleGuns.enabled = true;
                 break;
-            case WeaponType.ChainGuns:
+            case "CNN 20MM":
                 chainGuns.enabled = true;
                 break;
-            case WeaponType.AirBurst:
+            case "CNN 100MM":
                 airBurst.enabled = true;
                 break;
-            case WeaponType.IRMissiles:
+            case "MSL IR":
                 irMissiles.enabled = true;
                 break;
-            case WeaponType.RadarMissiles:
+            case "MSL RDR":
                 radarMissiles.enabled = true;
                 break;
-            case WeaponType.SwarmMissiles:                
+            case "MSL SWRM":
                 swarmMissiles.enabled = true;
                 break;
-        }        
-        hudWeapons.SetSelectedHUDWeapon(weapon);
+        }
+    }
+
+    void ExcludeEmptyWeapons()
+    {
+        amountOfWeapons = 6;
+        if (singleGuns.guns.Count == 0)
+        {
+            singleGuns.enabled = false;
+            hudWeapons.ExcludeHUDWeapon(WeaponType.SingleGuns);
+            amountOfWeapons--;
+        }
+        if (chainGuns.guns.Count == 0)
+        {
+            chainGuns.enabled = false;
+            hudWeapons.ExcludeHUDWeapon(WeaponType.ChainGuns);
+            amountOfWeapons--;
+        }
+        if (airBurst.guns.Count == 0)
+        {
+            airBurst.enabled = false;
+            hudWeapons.ExcludeHUDWeapon(WeaponType.AirBurst);
+            amountOfWeapons--;
+        }
+        if (irMissiles.missiles.Count == 0)
+        {
+            irMissiles.enabled = false;
+            hudWeapons.ExcludeHUDWeapon(WeaponType.IRMissiles);
+            amountOfWeapons--;
+        }
+        if (radarMissiles.missiles.Count == 0)
+        {
+            radarMissiles.enabled = false;
+            hudWeapons.ExcludeHUDWeapon(WeaponType.RadarMissiles);
+            amountOfWeapons--;
+        }
+        if (swarmMissiles.missiles.Count == 0)
+        {
+            swarmMissiles.enabled = false;
+            hudWeapons.ExcludeHUDWeapon(WeaponType.SwarmMissiles);
+            amountOfWeapons--;
+        }
     }
 
     void SetAllWeaponsInactive()
