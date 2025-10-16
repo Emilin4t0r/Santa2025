@@ -70,7 +70,38 @@ public class WeaponsSelector : MonoBehaviour
                 currentWeaponIndex = amountOfWeapons - 1;
             SetActiveWeapon(currentWeaponIndex);
         }
-        
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            if (hudWeapons.availableWeapons.Count > 0)
+                SetActiveWeapon(0);                    
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            if (hudWeapons.availableWeapons.Count > 1)
+                SetActiveWeapon(1);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            if (hudWeapons.availableWeapons.Count > 2)
+                SetActiveWeapon(2);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            if (hudWeapons.availableWeapons.Count > 3)
+                SetActiveWeapon(3);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            if (hudWeapons.availableWeapons.Count > 4)
+                SetActiveWeapon(4);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            if (hudWeapons.availableWeapons.Count > 5)
+                SetActiveWeapon(5);
+        }
+
     }
 
     public void SetActiveWeapon(int weaponIndex)
@@ -140,6 +171,18 @@ public class WeaponsSelector : MonoBehaviour
             swarmMissiles.enabled = false;
             hudWeapons.ExcludeHUDWeapon(WeaponType.SwarmMissiles);
             amountOfWeapons--;
+        }
+
+        for (int i = 0; i < hudWeapons.availableWeapons.Count; ++i)
+        {
+            print(i);
+            hudWeapons.availableWeapons[i].SetHotkey(i + 1);
+            hudWeapons.availableWeapons[i].transform.position = hudWeapons.hudSlots[i].transform.position;
+            if (i > 2)
+            {
+                Transform hkeyTrsf = hudWeapons.availableWeapons[i].hotkeyText.transform;
+                hkeyTrsf.localPosition = new Vector3(30, hkeyTrsf.localPosition.y, hkeyTrsf.localPosition.z);
+            }
         }
     }
 

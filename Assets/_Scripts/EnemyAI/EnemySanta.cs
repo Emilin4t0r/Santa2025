@@ -9,7 +9,7 @@ public class EnemySanta : MonoBehaviour
     public float currentMoveSpeed;
     public float maxTurnRate = 30f; // degrees per second    
     public float lateralDampen = 1f;
-    public float flightAltitude = 5000;
+    public float minDistFromGround = 5000;
     Vector3 previousPosition;
     public Vector3 currentVelocity; // Current velocity vector
 
@@ -85,9 +85,9 @@ public class EnemySanta : MonoBehaviour
 
         // --- Altitude adjustment ---
         LayerMask groundMask = LayerMask.GetMask("Ground");
-        if (Physics.Raycast(transform.position + Vector3.up * 5000f, Vector3.down, out RaycastHit hit, 5000f, groundMask))
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, minDistFromGround, groundMask))
         {
-            float targetY = hit.point.y + flightAltitude;
+            float targetY = hit.point.y + minDistFromGround;
             Vector3 pos = transform.position;
 
             // Smooth vertical correction
@@ -95,6 +95,8 @@ public class EnemySanta : MonoBehaviour
             pos.y = Mathf.MoveTowards(pos.y, targetY, altitudeChangeSpeed * Time.deltaTime);
 
             transform.position = pos;
+
+            print("Hitting ground, hit point y: " + hit.point.y + ", target altitude: " + targetY);
         }
 
         // Debug line to destination

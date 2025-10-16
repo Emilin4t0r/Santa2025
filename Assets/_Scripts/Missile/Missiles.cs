@@ -162,7 +162,6 @@ public class Missiles : MonoBehaviour
 
     void SeekRadarLock()
     {
-        print("seeking, bc locked on: " + bc.lockedOn);
         if (!bc.lockedOn)
             return;
         StartSeek();
@@ -172,7 +171,6 @@ public class Missiles : MonoBehaviour
         if (Radar.instance.enemies.Count == 0)
             return;
         var enemy = Radar.instance.enemies.FirstOrDefault();
-        print("seeking, radar cone has: " + enemy?.name);
         StartSeek();
     }
     void StartSeek()

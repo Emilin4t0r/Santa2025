@@ -3612,11 +3612,11 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 1
+  m_Time: 0.5
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.1
+    widthMultiplier: 0.08
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -3695,8 +3695,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a4bc94728f695b46882fdf614b97d3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frequency: 0.015
-  magnitude: 0.15
+  frequency: 0.01
+  magnitude: 0.2
 --- !u!1 &2678811990285353605
 GameObject:
   m_ObjectHideFlags: 0
@@ -7435,6 +7435,7 @@ GameObject:
   - component: {fileID: 1450696566761624996}
   - component: {fileID: 8713529573309508444}
   - component: {fileID: 8110359513286794752}
+  - component: {fileID: 3216606383144351468}
   m_Layer: 0
   m_Name: SwarmMissile
   m_TagString: Untagged
@@ -7522,15 +7523,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 511d0d8f96cedb342a520b1a8d04e846, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jetSpdOnLaunch: 0
   speed: 150
   turnSpeed: 75
   visualRotationSpeed: 500
   damageRange: {x: 1, y: 2}
   explosion: {fileID: 7070465220517492653, guid: 79cb3226db845d349bcc6607437ee214, type: 3}
   target: {fileID: 0}
+  radar: {fileID: 0}
   lifeTime: 5
-  launchAccuracy: 0
+  launchAccuracy: 5
   finsToHide: {fileID: 3847761042793156235}
+--- !u!114 &3216606383144351468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6535921395736560747}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69b67249c34b6d74c8e942ee7e374277, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scanFrequency: 0.15
+  scanRadius: 50
 --- !u!1 &7033049844628030185
 GameObject:
   m_ObjectHideFlags: 0

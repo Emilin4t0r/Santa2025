@@ -10,8 +10,20 @@ public class MusicController : MonoBehaviour
 
     void Start()
     {
+        if (InsertCoin.Instance.skipIntro)
+        {
+            InstantStart();
+            return;
+        }
         if (mainMenu)
             SetAudioSourcePlayTimes();
+    }
+
+    public void InstantStart()
+    {
+        musicEntrance.Stop();
+        musicLoop.Play();
+        StartCoroutine(ShowTitleAfterTime(0, true));
     }
 
     void SetAudioSourcePlayTimes()
@@ -27,15 +39,15 @@ public class MusicController : MonoBehaviour
             loopStart = AudioSettings.dspTime + 0.05; // fallback safety
 
         musicLoop.PlayScheduled(loopStart);
-        StartCoroutine(ShowTitleAfterTime(loopStart));
+        StartCoroutine(ShowTitleAfterTime(loopStart, false));
     }
-    IEnumerator ShowTitleAfterTime(double time)
+    IEnumerator ShowTitleAfterTime(double time, bool skipAnimations)
     {
         while (AudioSettings.dspTime < time)
         {
             yield return null;
         }
-        mmc.ShowTitle();
+        mmc.ShowTitle(skipAnimations);
     }
 
     public void FadeMusicOut(AudioSource source, float fadeOutTime)

@@ -5,6 +5,7 @@ using UnityEngine.Experimental.GlobalIllumination;
 
 public class Missile : MonoBehaviour
 {
+    [HideInInspector] public float jetSpdOnLaunch;
     public float speed;
     public float turnSpeed;
     public float visualRotationSpeed;
@@ -36,6 +37,7 @@ public class Missile : MonoBehaviour
         {
             finsToHide.SetActive(true);
         }
+        jetSpdOnLaunch = AirplaneController.instance.rb.linearVelocity.magnitude;
     }
     
     private void FixedUpdate()
@@ -62,7 +64,7 @@ public class Missile : MonoBehaviour
         );
 
         // Move forward
-        transform.Translate(Vector3.forward * speed * Time.fixedDeltaTime);
+        rb.linearVelocity = transform.forward * (speed + jetSpdOnLaunch);
 
         // Rotate missile visually
         rotator.transform.Rotate(new Vector3(0, 0, -visualRotationSpeed * Time.fixedDeltaTime));

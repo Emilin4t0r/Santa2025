@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class SwarmMissile : MonoBehaviour
 {
+    [HideInInspector] public float jetSpdOnLaunch;
     public float speed;
     public float turnSpeed;
     public float visualRotationSpeed;
@@ -13,6 +14,8 @@ public class SwarmMissile : MonoBehaviour
     CapsuleCollider cc;
     Rigidbody rb;
     GameObject pointLight;
+
+    public GameObject radar;
 
     public float lifeTime = 5;
     float blowUpTimer;
@@ -36,6 +39,7 @@ public class SwarmMissile : MonoBehaviour
         {
             finsToHide.SetActive(true);
         }
+        jetSpdOnLaunch = AirplaneController.instance.rb.linearVelocity.magnitude;
         DoInitialLaunchOffset();
     }
 
@@ -58,7 +62,7 @@ public class SwarmMissile : MonoBehaviour
         }
 
         // Move forward
-        transform.Translate(Vector3.forward * speed * Time.fixedDeltaTime);
+        rb.linearVelocity = transform.forward * (speed + jetSpdOnLaunch);
 
         // Rotate missile visually
         rotator.transform.Rotate(new Vector3(0, 0, -visualRotationSpeed * Time.fixedDeltaTime));
@@ -82,10 +86,10 @@ public class SwarmMissile : MonoBehaviour
 
     void DoInitialLaunchOffset()
     {
-        Vector3 deviation3D = Random.insideUnitCircle * launchAccuracy;
-        Quaternion rot = Quaternion.LookRotation(Vector3.forward + deviation3D);
-        Vector3 fwd = transform.rotation * rot * Vector3.forward;
-        transform.eulerAngles = fwd;
+        Vector2 deviation2D = Random.insideUnitCircle * launchAccuracy;
+        Quaternion deviationRot = Quaternion.Euler(deviation2D.y, deviation2D.x, 0f);
+        Vector3 newDirection = deviationRot * transform.forward;
+        transform.rotation = Quaternion.LookRotation(newDirection, Vector3.up);
     }
 
     void BlowUp(float explSizeMultiplier = 0.5f)

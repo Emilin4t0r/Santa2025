@@ -6,6 +6,7 @@ using System.Linq;
 public class HUDWeapons : MonoBehaviour
 {
     public List<HUDWeapon> weapons;
+    public List<Transform> hudSlots;
     [HideInInspector] public List<HUDWeapon> availableWeapons;
     TextMeshProUGUI HUDActiveWeaponText;
 
@@ -60,6 +61,6 @@ public class HUDWeapons : MonoBehaviour
                 weapons[5].gameObject.SetActive(false);
                 availableWeapons.Remove(weapons[5]);                
                 break;
-        }
+        }        
     }
 }

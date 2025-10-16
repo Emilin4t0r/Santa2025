@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 public class SwarmMissiles : MonoBehaviour
 {
     public List<SwarmMissile> missiles;
+    public int hudWeaponIndex;
+    HUDWeapons hudWeapons;
+    HUDWeapon hud;
 
     private void Awake()
     {
@@ -12,11 +15,7 @@ public class SwarmMissiles : MonoBehaviour
     }
 
     private void OnEnable()
-    {
-        if (missiles.Count == 0)
-        {
-            GetMissilesFromChildren();
-        }        
+    {    
         SceneManager.activeSceneChanged += OnSceneChanged;
     }
     private void OnDisable()
@@ -27,7 +26,10 @@ public class SwarmMissiles : MonoBehaviour
     {
         if (now.name == "Gameplay Test")
         {
-            
+            GetMissilesFromChildren();
+            hudWeapons = GameObject.Find("HUDWeapons").GetComponent<HUDWeapons>();
+            hud = hudWeapons.weapons[hudWeaponIndex].GetComponent<HUDWeapon>();
+            hud.SetAmmo(missiles.Count);
         }
     }
 
@@ -53,10 +55,12 @@ public class SwarmMissiles : MonoBehaviour
     }
 
     void FireMissile()
-    {
+    {        
         SwarmMissile msl = missiles[0];
         msl.enabled = true;
+        msl.GetComponent<SwarmMRadar>().enabled = true;
         msl.transform.parent = null;
         missiles.Remove(msl);
+        hud.SetAmmo(missiles.Count);
     }
 }

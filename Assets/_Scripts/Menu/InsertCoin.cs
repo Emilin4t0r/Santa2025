@@ -6,14 +6,38 @@ using UnityEngine.UI;
 
 public class InsertCoin : MonoBehaviour
 {
+    public static InsertCoin Instance;
+
+    public bool skipIntro;
 
     public GameObject insertCoinText;
     public MusicController mc;
     public AudioSource music;
-    public Image fadeToBlackImg;
+    public Image movieImg;
+    public GameObject canvas;
+    public GameObject menuMusicController;
 
     public float flashInterval = 0.5f;
     float nextTimeToFlash;
+    bool fading;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    private void Start()
+    {
+        if (skipIntro)
+        {
+            music.Stop();
+            movieImg.enabled = false;
+            insertCoinText.SetActive(false);
+            fading = true;
+            canvas.SetActive(false);
+            menuMusicController.SetActive(true);
+        }
+    }
 
     private void Update()
     {
@@ -22,6 +46,8 @@ public class InsertCoin : MonoBehaviour
             StartCoroutine(FadeToMainMenu());
         }
 
+        if (fading)
+            return;
         if (Time.time > nextTimeToFlash)
         {
             nextTimeToFlash = Time.time + flashInterval;
@@ -39,10 +65,13 @@ public class InsertCoin : MonoBehaviour
 
     IEnumerator FadeToMainMenu()
     {
+        fading = true;
         float fadeTime = 2;
         mc.FadeMusicOut(music, fadeTime);
-        fadeToBlackImg.DOColor(new Color(0, 0, 0, 1), fadeTime);
+        movieImg.DOColor(new Color(0, 0, 0, 0), fadeTime).SetEase(Ease.Linear);
+        insertCoinText.SetActive(false);
         yield return new WaitForSeconds(fadeTime + 0.05f);
-        SceneManager.LoadScene("MainMenu");
+        canvas.SetActive(false);
+        menuMusicController.SetActive(true);
     }
 }

@@ -6476,7 +6476,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 117f14923cf561f4486198b2e6a3baf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 200
+  jetSpdOnLaunch: 0
+  speed: 100
   turnSpeed: 40
   visualRotationSpeed: 20
   damageRange: {x: 2, y: 5}

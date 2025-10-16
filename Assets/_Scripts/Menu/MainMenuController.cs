@@ -16,18 +16,27 @@ public class MainMenuController : MonoBehaviour
         weaponSelect.SetActive(false);        
     }
 
-    public void ShowTitle()
+    public void ShowTitle(bool skip)
     {
-        title.gameObject.SetActive(true);
-        StartCoroutine(IntroScreenAndFade());
+        if (skip)
+        {
+            title.gameObject.SetActive(false);
+            introBlackScreen.gameObject.SetActive(false);
+        }
+        else
+        {
+            title.gameObject.SetActive(true);
+            StartCoroutine(IntroScreenAndFade());
+        }
     }
     IEnumerator IntroScreenAndFade()
     {
         yield return new WaitForSeconds(3f);
-        title.DOColor(new Color(1, 1, 1, 0), 2f);
-        introBlackScreen.DOColor(new Color(0, 0, 0, 0), 2f);
+        title.DOColor(new Color(1, 1, 1, 0), 2f).SetEase(Ease.Linear);        
         yield return new WaitForSeconds(2.05f);
         title.gameObject.SetActive(false);
+        introBlackScreen.DOColor(new Color(0, 0, 0, 0), 1f).SetEase(Ease.Linear);
+        yield return new WaitForSeconds(1.05f);        
         introBlackScreen.gameObject.SetActive(false);
     }
 

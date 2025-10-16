@@ -11,7 +11,6 @@ public class EnemyTrackCollider : MonoBehaviour
             return;
         if (other.transform.parent == target)
         {
-            print("Enemy in range");
             readyToFire = true;
         }
     }
@@ -21,7 +20,6 @@ public class EnemyTrackCollider : MonoBehaviour
             return;
         if (other.transform.parent == target)
         {
-            print("Enemy not in range");
             readyToFire = false;
         }
     }
