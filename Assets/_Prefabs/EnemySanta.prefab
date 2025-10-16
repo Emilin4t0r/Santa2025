@@ -310,7 +310,7 @@ MonoBehaviour:
   muzzleFlashPrefab: {fileID: 6203035767376176428, guid: 83f4bb4f5f3ad7c489c51040d246ed82, type: 3}
   deathParticle: {fileID: 7070465220517492653, guid: 79cb3226db845d349bcc6607437ee214, type: 3}
   hitPoints: 10
-  trackCollider: {fileID: 0}
+  trackCollider: {fileID: 937771734242039004}
   target: {fileID: 0}
 --- !u!1 &1252505942216007471
 GameObject:

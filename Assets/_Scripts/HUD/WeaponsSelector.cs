@@ -175,7 +175,6 @@ public class WeaponsSelector : MonoBehaviour
 
         for (int i = 0; i < hudWeapons.availableWeapons.Count; ++i)
         {
-            print(i);
             hudWeapons.availableWeapons[i].SetHotkey(i + 1);
             hudWeapons.availableWeapons[i].transform.position = hudWeapons.hudSlots[i].transform.position;
             if (i > 2)

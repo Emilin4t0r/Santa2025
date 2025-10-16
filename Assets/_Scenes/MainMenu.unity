@@ -4738,7 +4738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1e79dc8a0989cf4ab7c3fc4852513d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skipIntro: 1
+  skipIntro: 0
   insertCoinText: {fileID: 323337765}
   mc: {fileID: 1930846891}
   music: {fileID: 1930846892}
