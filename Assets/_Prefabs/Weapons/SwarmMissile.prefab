@@ -7525,9 +7525,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jetSpdOnLaunch: 0
   speed: 150
-  turnSpeed: 75
+  turnSpeed: 150
   visualRotationSpeed: 500
-  damageRange: {x: 1, y: 2}
+  damageRange: {x: 2, y: 5}
   explosion: {fileID: 7070465220517492653, guid: 79cb3226db845d349bcc6607437ee214, type: 3}
   target: {fileID: 0}
   radar: {fileID: 0}

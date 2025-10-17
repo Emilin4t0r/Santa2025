@@ -35,16 +35,9 @@ public class LoadoutImporter : MonoBehaviour
         weaponsDupe.transform.rotation = weaponsParent.rotation;
     }
     
-
-    private void Update()
+    public void StartGame()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            SaveWeaponsToDDOL();
-        }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            SceneManager.LoadScene("Gameplay Test");
-        }
+        SaveWeaponsToDDOL();
+        SceneManager.LoadScene("Gameplay Test");
     }
 }

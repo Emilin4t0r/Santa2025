@@ -52,4 +52,9 @@ public class MainMenuController : MonoBehaviour
             weaponSelect.SetActive(false);
         }
     }
+
+    public void StartGame()
+    {
+        GameObject.Find("LoadoutImporter").GetComponent<LoadoutImporter>().StartGame();
+    }
 }

@@ -66,12 +66,13 @@ public class InsertCoin : MonoBehaviour
     IEnumerator FadeToMainMenu()
     {
         fading = true;
-        float fadeTime = 2;
+        float fadeTime = 3;
         mc.FadeMusicOut(music, fadeTime);
         movieImg.DOColor(new Color(0, 0, 0, 0), fadeTime).SetEase(Ease.Linear);
         insertCoinText.SetActive(false);
+        menuMusicController.SetActive(true);
+
         yield return new WaitForSeconds(fadeTime + 0.05f);
         canvas.SetActive(false);
-        menuMusicController.SetActive(true);
     }
 }
