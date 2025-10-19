@@ -12,11 +12,13 @@ public class Guns : MonoBehaviour
     float originalGunAnimSpeed;
     float nextTimeToFire;
     public List<Transform> guns;
+    public Vector2 camShakeValues;
 
     GameObject shootLoopSound;
     public Transform shootSoundParent;
     float timeToClearSounds;
 
+    public int ammoPerGun;
     [HideInInspector] public int ammoCount;
     bool inGameScene;
     public int hudWeaponIndex;
@@ -56,7 +58,8 @@ public class Guns : MonoBehaviour
         {
             if (tr.CompareTag("Gun"))
             {
-                guns.Add(tr); 
+                guns.Add(tr);
+                ammoCount += ammoPerGun;
             }
         }
     }
@@ -80,9 +83,9 @@ public class Guns : MonoBehaviour
         {
             if (Time.time > nextTimeToFire)
             {
-                Fire();
+                Fire();                
             }
-            EZCameraShake.CameraShaker.Instance.ShakeOnce(0.05f, 15f, 0, 1f);
+            EZCameraShake.CameraShaker.Instance.ShakeOnce(camShakeValues.x, camShakeValues.y, 0, 0.75f);
             timeToClearSounds = Time.time + 0.25f;
         } else
         {
@@ -100,10 +103,10 @@ public class Guns : MonoBehaviour
             foreach (var gun in guns)
             {
                 //Gun animation
-                var gmAnim = gun.gameObject.GetComponent<Animator>();
-                originalGunAnimSpeed = gmAnim.speed;
-                gmAnim.speed = gunAnimSpeed;
-                gmAnim.SetBool("Fire", true);
+                var gAnim = gun.gameObject.GetComponent<Animator>();
+                originalGunAnimSpeed = gAnim.speed;
+                gAnim.speed = gunAnimSpeed;
+                gAnim.SetBool("Fire", true);
             }
             shootLoopSound = SoundSpawner.SpawnSoundLoop(transform.position, shootSoundParent, SoundLibrary.GetClip("shoot_loop2"));
         }
@@ -146,6 +149,8 @@ public class Guns : MonoBehaviour
             bullet.GetComponent<Rigidbody>().AddForce(fwd * shootForce, ForceMode.Impulse);
             Destroy(bullet, 5);
 
+            // (TODO) FLASH GUN POINT LIGHT IN FRONT OF ALL MUZZLES
+
             // Spawn muzzle flash
             int doMzf = Random.Range(0, 3);
             if (doMzf == 0)
@@ -159,7 +164,7 @@ public class Guns : MonoBehaviour
             hud.SetAmmo(ammoCount);
         }
 
-        nextTimeToFire = Time.time + fireRate + Random.Range(0.001f, 0.02f);
+        nextTimeToFire = Time.time + fireRate;
     }
 
     void StopBurst()

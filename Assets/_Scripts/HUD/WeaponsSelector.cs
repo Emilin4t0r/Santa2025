@@ -112,12 +112,15 @@ public class WeaponsSelector : MonoBehaviour
         {
             case "CNN 30MM":
                 singleGuns.enabled = true;
+                LeadReticle.instance.SetActiveGuns(singleGuns);
                 break;
             case "CNN 20MM":
                 chainGuns.enabled = true;
+                LeadReticle.instance.SetActiveGuns(chainGuns);
                 break;
             case "CNN 100MM":
                 airBurst.enabled = true;
+                LeadReticle.instance.SetActiveGuns(airBurst);
                 break;
             case "MSL IR":
                 irMissiles.enabled = true;

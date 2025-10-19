@@ -145,14 +145,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87bdcadd35bc9834cbb9f327bce6adc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 0}
-  muzzleFlashPrefab: {fileID: 0}
-  shootForce: 0
-  fireRate: 0
-  inaccuracy: 0
-  gunAnimSpeed: 0
+  bulletPrefab: {fileID: 3130551460163936705, guid: c319a72d6ab47c34ca061d54b8f52ef3, type: 3}
+  muzzleFlashPrefab: {fileID: 6203035767376176428, guid: 38a66e70a05388f408315b4fc842e7a1, type: 3}
+  shootForce: 750
+  fireRate: 0.2
+  inaccuracy: 0.05
+  gunAnimSpeed: 2.5
   guns: []
+  camShakeValues: {x: 0.12, y: 17}
   shootSoundParent: {fileID: 7334248617765296592}
+  ammoPerGun: 50
   ammoCount: 0
   hudWeaponIndex: 2
 --- !u!1 &2481368241580062457
@@ -203,11 +205,13 @@ MonoBehaviour:
   bulletPrefab: {fileID: 3130551460163936705, guid: 9087bb041ce73d94d9b84cf413917437, type: 3}
   muzzleFlashPrefab: {fileID: 6203035767376176428, guid: 38a66e70a05388f408315b4fc842e7a1, type: 3}
   shootForce: 750
-  fireRate: 0.03
+  fireRate: 0.015
   inaccuracy: 0.04
   gunAnimSpeed: 20
   guns: []
+  camShakeValues: {x: 0.1, y: 30}
   shootSoundParent: {fileID: 2059976577889352195}
+  ammoPerGun: 300
   ammoCount: 0
   hudWeaponIndex: 1
 --- !u!1 &2534343335690245791
@@ -394,7 +398,9 @@ MonoBehaviour:
   inaccuracy: 0.01
   gunAnimSpeed: 5
   guns: []
+  camShakeValues: {x: 0.08, y: 20}
   shootSoundParent: {fileID: 8408002607118470331}
+  ammoPerGun: 150
   ammoCount: 0
   hudWeaponIndex: 0
 --- !u!1 &5206081197396648495

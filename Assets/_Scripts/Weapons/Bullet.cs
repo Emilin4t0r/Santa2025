@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     Vector3 lastPos, scndLastPos, thrdLastPos;
     public string enemyTag;
     GameObject trail, pointLight;
-    float lightKillTimer;
+    [HideInInspector] public float lightKillTimer;
     public GameObject bulletHit;
     public float damage = 1;
     public bool doRandomRicochets;
@@ -41,6 +41,8 @@ public class Bullet : MonoBehaviour
                 if (enemyTag == "Enemy")
                 {
                     collision.gameObject.GetComponent<EnemySanta>().GetHit(damage);
+                    KillBullet();
+                    return;
                 }               
             }
             if (doRandomRicochets)
@@ -62,7 +64,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    void KillBullet()
+    public void KillBullet()
     {
         bulletHit = Instantiate(bulletHit, thrdLastPos, transform.rotation);
         Destroy(bulletHit, 0.5f);

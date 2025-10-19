@@ -16,6 +16,9 @@ public class TargetInfo : MonoBehaviour
     float t_eLock, t_mLock, t_eLaunch;
     public float f_eLock, f_mLock, f_eLaunch;
 
+    public float targetInfoUpdateFreq;
+    float timeToUpdateTargetInfo;
+
     private void Awake()
     {
         instance = this;
@@ -42,19 +45,25 @@ public class TargetInfo : MonoBehaviour
             activeMissiles = radarMissiles;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (bc.lockedOn)
         {
-            float targetDist = Vector3.Distance(ac.transform.position, bc.lockedOn.transform.position);
-            target.text = "TARGET\n" + ((int)targetDist).ToString("D4") + " m\n";
-            float spd = bc.lockedOn.GetComponent<EnemySanta>().currentVelocity.magnitude * 3.6f;
-            target.text += ((int)spd).ToString("D4") + " km/h\n";
-        } else
+            if (Time.time > timeToUpdateTargetInfo)
+            {
+                RefreshTargetInfo();
+                timeToUpdateTargetInfo = Time.time + targetInfoUpdateFreq;
+            }
+            target.rectTransform.position = bc.GetComponent<RectTransform>().position;
+        }
+        else
         {
             target.text = "";
         }
+    }
 
+    private void FixedUpdate()
+    {        
         targetingComputerState.text = "TARGETING MODE:\n";
         targetingComputerState.text = HUD.instance.hudMode == HUD.HUDMode.AirToAir ? "AIR COMBAT" : "GROUND STRIKE";
 
@@ -62,7 +71,8 @@ public class TargetInfo : MonoBehaviour
         {
             FlashEnemyLock();
             RearCamera.instance.TrackTarget(EnemiesController.enemiesAttacking[0].transform);
-        } else
+        }
+        else
         {
             if (enemyLock.gameObject.activeSelf)
                 enemyLock.gameObject.SetActive(false);
@@ -73,16 +83,25 @@ public class TargetInfo : MonoBehaviour
         {
             FlashMslLock("ACQUIRING");
         }
-        else if (activeMissiles.lockedOn) 
+        else if (activeMissiles.lockedOn)
         {
             if (!mslLock.enabled)
                 mslLock.enabled = true;
             mslLock.text = "LOCK";
-        } else
+        }
+        else
         {
             if (mslLock.enabled)
                 mslLock.enabled = false;
         }
+    }
+
+    void RefreshTargetInfo()
+    {
+        float targetDist = Vector3.Distance(ac.transform.position, bc.lockedOn.transform.position);
+        target.text = "TARGET\n" + ((int)targetDist).ToString("D4") + " m\n";
+        float spd = bc.lockedOn.GetComponent<EnemySanta>().currentVelocity.magnitude * 3.6f;
+        target.text += ((int)spd).ToString("D4") + " km/h\n";        
     }
 
     void FlashMslLock(string text)
@@ -120,12 +139,13 @@ public class TargetInfo : MonoBehaviour
     public void TriggerMissileWarning()
     {
         if (!missileWarningActive)
-        StartCoroutine(MissileWarning(Time.time + 1.5f));
+            StartCoroutine(MissileWarning(Time.time + 1.5f));
     }
     IEnumerator MissileWarning(float t_stopFlash)
     {
         missileWarningActive = true;
-        while (Time.time < t_stopFlash) {
+        while (Time.time < t_stopFlash)
+        {
             FlashEnemyLaunch();
             yield return null;
         }

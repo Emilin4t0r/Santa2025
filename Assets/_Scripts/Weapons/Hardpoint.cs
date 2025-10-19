@@ -8,7 +8,7 @@ public class Hardpoint : MonoBehaviour
     public Missiles iRMissiles;
     public Missiles radarMissiles;
     public SwarmMissiles swarmMissiles;
-    public Guns singleGuns, chainGuns;
+    public Guns singleGuns, chainGuns, abGuns;
     public GameObject Hackapel, Landsknecht, Pike_Single, Pike_Double, Huracán_Small, Huracán_Pod, Arquebus, Longbow;
     public enum HardpointType { Small, Large }
     public HardpointType type;
@@ -25,11 +25,9 @@ public class Hardpoint : MonoBehaviour
         {
             case WeaponType.Hackapel:
                 wpn = Instantiate(Hackapel, transform.position, transform.rotation, singleGuns.transform);
-                singleGuns.ammoCount += 100;
                 break;
             case WeaponType.Landsknecht:
                 wpn = Instantiate(Landsknecht, transform.position, transform.rotation, chainGuns.transform);
-                chainGuns.ammoCount += 300;
                 break;
             case WeaponType.Pike_Single:
                 wpn = Instantiate(Pike_Single, transform.position, transform.rotation, iRMissiles.transform);
@@ -84,9 +82,7 @@ public class Hardpoint : MonoBehaviour
                 }
                 break;
             case WeaponType.Arquebus:
-                wpn = Instantiate(Arquebus, transform.position, transform.rotation, transform);
-                singleGuns.guns.Add(wpn.transform);
-                singleGuns.ammoCount += 200;
+                wpn = Instantiate(Arquebus, transform.position, transform.rotation, abGuns.transform);
                 break;
             case WeaponType.Longbow:
                 wpn = Instantiate(Longbow, transform.position, transform.rotation, radarMissiles.transform);

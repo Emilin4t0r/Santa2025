@@ -293,10 +293,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7476456131a346a4fb10f41bc167ba87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 75
+  maxSpeed: 120
   moveAcceleration: 25
   currentMoveSpeed: 0
-  maxTurnRate: 15
+  maxTurnRate: 5
   lateralDampen: 100
   minDistFromGround: 50
   currentVelocity: {x: 0, y: 0, z: 0}

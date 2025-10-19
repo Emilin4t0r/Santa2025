@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class LeadReticle : MonoBehaviour
 {
+    public static LeadReticle instance;
+
     Transform target; // Reference to the moving target
     public Transform gun; // Reference to the aircraft's gun
     Image img;
@@ -13,12 +15,21 @@ public class LeadReticle : MonoBehaviour
     Guns activeGuns;
     BracketController bc;
 
+    private void Awake()
+    {
+        instance = this;
+    }
+
     private void Start()
     {
         canvas = GameObject.Find("HUD(Canvas)").GetComponent<Canvas>();
         bc = BracketController.instance;
         img = GetComponent<Image>();
-        activeGuns = GameObject.Find("ChainGuns").GetComponent<Guns>();
+    }
+
+    public void SetActiveGuns(Guns guns)
+    {
+        activeGuns = guns;
     }
 
     private void Update()
@@ -44,6 +55,12 @@ public class LeadReticle : MonoBehaviour
                 img.enabled = false;
                 return;
             }
+        }
+
+        if (activeGuns == null)
+        {
+            print("No active guns for lead reticle!");
+            return;
         }
 
         // Calculate the predicted position of the target

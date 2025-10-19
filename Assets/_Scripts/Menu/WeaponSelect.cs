@@ -1,61 +1,24 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.EventSystems;
+using DG.Tweening;
 
 public class WeaponSelect : MonoBehaviour
 {
-    public Hardpoint hardpoint;
-    public Hardpoint.HardpointType hardpointType;    
-    TMP_Dropdown dropdown;    
+    TMP_Dropdown dropdown;
+    Transform mainCam;
 
     private void Start()
     {
+        mainCam = Camera.main.transform;
         dropdown = GetComponent<TMP_Dropdown>();
         dropdown.onValueChanged.AddListener(SelectWeapon);
     }
 
+    
     void SelectWeapon(int value)
     {
-        if (hardpointType == Hardpoint.HardpointType.Small)
-        {
-            switch (dropdown.value)
-            {
-                case 1:
-                    hardpoint.SpawnWeapon(Hardpoint.WeaponType.Hackapel);
-                    break;
-                case 2:
-                    hardpoint.SpawnWeapon(Hardpoint.WeaponType.Pike_Single);
-                    break;
-                case 3:
-                    hardpoint.SpawnWeapon(Hardpoint.WeaponType.Huracán_Small);
-                    break;
-                default:
-                    hardpoint.SpawnWeapon(Hardpoint.WeaponType.Empty);
-                    break;
-
-            }
-        } else
-        {
-            switch (dropdown.value)
-            {
-                case 1:
-                    hardpoint.SpawnWeapon(Hardpoint.WeaponType.Landsknecht);
-                    break;
-                case 2:
-                    hardpoint.SpawnWeapon(Hardpoint.WeaponType.Pike_Double);
-                    break;
-                case 3:
-                    hardpoint.SpawnWeapon(Hardpoint.WeaponType.Huracán_Pod);
-                    break;
-                case 4:
-                    hardpoint.SpawnWeapon(Hardpoint.WeaponType.Arquebus);
-                    break;
-                case 5:
-                    hardpoint.SpawnWeapon(Hardpoint.WeaponType.Longbow);
-                    break;
-                default:
-                    hardpoint.SpawnWeapon(Hardpoint.WeaponType.Empty);
-                    break;
-            }
-        }
+        mainCam.DORotate(Vector3.zero, 0.5f);
+        mainCam.DOMove(Vector3.zero, 0.5f);
     }
 }

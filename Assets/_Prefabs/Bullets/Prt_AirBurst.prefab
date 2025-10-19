@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 2344579156285069937}
   - component: {fileID: 5504318160462296254}
   m_Layer: 0
-  m_Name: P_BulletHit
+  m_Name: Prt_AirBurst
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -125,7 +125,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -1025.0353, y: 577.56, z: 862.86}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1601218833754652710}
@@ -140,7 +140,7 @@ ParticleSystem:
   m_GameObject: {fileID: 7070465220517492653}
   serializedVersion: 8
   lengthInSec: 5
-  simulationSpeed: 1.5
+  simulationSpeed: 2
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0

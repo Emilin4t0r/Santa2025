@@ -10,7 +10,6 @@ public class SwarmMRadar : MonoBehaviour
     private void Start()
     {
         missile = GetComponent<SwarmMissile>();
-        nextTimeToScan = Time.time + 0.75f;
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -31,7 +30,8 @@ public class SwarmMRadar : MonoBehaviour
 
     void ScanForEnemies()
     {
-        var cols = Physics.OverlapSphere(transform.position, scanRadius);
+        Vector3 sphereCenter = transform.position + transform.forward * scanRadius;
+        var cols = Physics.OverlapSphere(sphereCenter, scanRadius);
         foreach(Collider col in cols)
         {
             if (col.CompareTag("Enemy")) {
@@ -40,9 +40,10 @@ public class SwarmMRadar : MonoBehaviour
             }
         }
     }
-    void OnDrawGizmosSelected()
+    void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, scanRadius);
+        Vector3 sphereCenter = transform.position + transform.forward * scanRadius;
+        Gizmos.DrawWireSphere(sphereCenter, scanRadius);
     }
 }

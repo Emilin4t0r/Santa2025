@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 2344579156285069937}
   - component: {fileID: 5504318160462296254}
   m_Layer: 0
-  m_Name: P_EnemyDeath
+  m_Name: Prt_EnemyDeath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

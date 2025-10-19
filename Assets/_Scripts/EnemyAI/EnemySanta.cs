@@ -95,8 +95,6 @@ public class EnemySanta : MonoBehaviour
             pos.y = Mathf.MoveTowards(pos.y, targetY, altitudeChangeSpeed * Time.deltaTime);
 
             transform.position = pos;
-
-            print("Hitting ground, hit point y: " + hit.point.y + ", target altitude: " + targetY);
         }
 
         // Debug line to destination

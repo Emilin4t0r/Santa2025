@@ -7524,10 +7524,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jetSpdOnLaunch: 0
-  speed: 150
-  turnSpeed: 150
+  speed: 100
+  turnSpeed: 75
   visualRotationSpeed: 500
-  damageRange: {x: 2, y: 5}
+  damageRange: {x: 1, y: 2}
   explosion: {fileID: 7070465220517492653, guid: 79cb3226db845d349bcc6607437ee214, type: 3}
   target: {fileID: 0}
   radar: {fileID: 0}
@@ -7546,8 +7546,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69b67249c34b6d74c8e942ee7e374277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scanFrequency: 0.15
-  scanRadius: 50
+  scanFrequency: 0.2
+  scanRadius: 80
 --- !u!1 &7033049844628030185
 GameObject:
   m_ObjectHideFlags: 0

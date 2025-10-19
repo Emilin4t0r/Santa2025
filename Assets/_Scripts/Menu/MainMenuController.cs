@@ -36,6 +36,7 @@ public class MainMenuController : MonoBehaviour
         yield return new WaitForSeconds(2.05f);
         title.gameObject.SetActive(false);
         introBlackScreen.DOColor(new Color(0, 0, 0, 0), 1f).SetEase(Ease.Linear);
+        MenuTurntable.instance.spin = true;
         yield return new WaitForSeconds(1.05f);        
         introBlackScreen.gameObject.SetActive(false);
     }
@@ -51,6 +52,15 @@ public class MainMenuController : MonoBehaviour
             baseMenu.SetActive(true);
             weaponSelect.SetActive(false);
         }
+    }
+
+    public void Test1(string a)
+    {
+        print("Entered" + a);
+    }
+    public void Test2(string a)
+    {
+        print("Clicked" + a);
     }
 
     public void StartGame()
