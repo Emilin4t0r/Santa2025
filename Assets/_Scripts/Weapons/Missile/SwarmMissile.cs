@@ -45,24 +45,47 @@ public class SwarmMissile : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //TODO: Try to make the missile fly on an intercept course instead of following the target
-        if (target)
-        {
-            float dist = Vector3.Distance(transform.position, target.position) / 10;
-            Vector3 targetPos = target.position + target.forward * dist;
+        if (rb == null) return;
 
-            // Rotate front towards target
-            Vector3 targetDir = (targetPos - transform.position).normalized;
+        Vector3 shooterPos = transform.position;
+        float missileSpeed = speed + jetSpdOnLaunch; // magnitude of missile velocity
+
+        Vector3 aimPoint;
+
+        if (target == null)
+        {
+            // no target: keep current forward direction
+            aimPoint = transform.position + transform.forward;
+        }
+        else
+        {
+            // target position and velocity
+            Vector3 targetPos = target.position;
+            Vector3 targetVel = target.forward * target.GetComponent<EnemySanta>().currentMoveSpeed;
+
+            // Solve for intercept point
+            Vector3 interceptPoint;
+            bool hasSolution = FirstInterceptPoint(shooterPos, missileSpeed, targetPos, targetVel, out interceptPoint);
+
+            if (hasSolution)
+                aimPoint = interceptPoint;
+            else
+                aimPoint = targetPos; // fallback: pure pursuit
+        }
+
+        // Rotate front towards aimPoint using turnSpeed (degrees per second).
+        Vector3 targetDir = (aimPoint - transform.position).normalized;
+        if (targetDir.sqrMagnitude > 0.0001f)
+        {
             Quaternion targetRot = Quaternion.LookRotation(targetDir);
-            // Rotate at 'turnSpeed' degrees per second
             transform.rotation = Quaternion.RotateTowards(
                 transform.rotation,
                 targetRot,
-                turnSpeed * Time.deltaTime
+                turnSpeed * Time.fixedDeltaTime
             );
         }
 
-        // Move forward
+        // Move forward: set rigidbody linear velocity
         rb.linearVelocity = transform.forward * (speed + jetSpdOnLaunch);
 
         // Rotate missile visually
@@ -71,6 +94,62 @@ public class SwarmMissile : MonoBehaviour
         blowUpTimer += Time.fixedDeltaTime;
         if (blowUpTimer > lifeTime)
             BlowUp();
+    }
+
+    /// <summary>
+    /// Computes intercept point for a shooter at 'shooterPos' with projectile speed 'projSpeed'
+    /// chasing a target at 'targetPos' moving with velocity 'targetVel'.
+    /// Returns true and sets 'interceptPoint' if a positive intercept time exists; otherwise returns false.
+    /// </summary>
+    private bool FirstInterceptPoint(Vector3 shooterPos, float projSpeed, Vector3 targetPos, Vector3 targetVel, out Vector3 interceptPoint)
+    {
+        interceptPoint = targetPos;
+
+        Vector3 r = targetPos - shooterPos;         // relative position
+        Vector3 v = targetVel;                      // target velocity
+        float s = projSpeed;                        // missile speed (assumed constant)
+
+        float a = Vector3.Dot(v, v) - s * s;
+        float b = 2f * Vector3.Dot(r, v);
+        float c = Vector3.Dot(r, r);
+
+        float t = 0;
+        // Solve a*t^2 + b*t + c = 0 for t >= 0
+        if (Mathf.Abs(a) < 1e-6f)
+        {
+            // Degenerate: a ~ 0 => linear equation b*t + c = 0
+            if (Mathf.Abs(b) < 1e-6f)
+            {
+                // No relative motion: target stationary relative to missile origin, or indeterminate
+                return false;
+            }
+            t = -c / b;
+            if (t > 0f)
+            {
+                interceptPoint = targetPos + v * t;
+                return true;
+            }
+            return false;
+        }
+
+        float discr = b * b - 4f * a * c;
+        if (discr < 0f) return false; // no real solution => cannot intercept at given speed
+
+        float sqrtD = Mathf.Sqrt(discr);
+
+        // two roots
+        float t1 = (-b + sqrtD) / (2f * a);
+        float t2 = (-b - sqrtD) / (2f * a);
+
+        // pick the smallest positive time
+        t = float.MaxValue;
+        if (t1 > 0f && t1 < t) t = t1;
+        if (t2 > 0f && t2 < t) t = t2;
+
+        if (t == float.MaxValue) return false; // no positive solution
+
+        interceptPoint = targetPos + v * t;
+        return true;
     }
 
     private void OnTriggerEnter(Collider other)
