@@ -3612,11 +3612,11 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.5
+  m_Time: 0.25
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.08
+    widthMultiplier: 0.2
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -3841,7 +3841,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -6.68, z: -0}
-  m_LocalScale: {x: 0.6571414, y: 0.82333255, z: 0.6571414}
+  m_LocalScale: {x: 0.59905666, y: 0.7505582, z: 0.59905666}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7276200524058135325}
@@ -5752,8 +5752,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0.5}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.075, y: 0.075, z: 0.075}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 534899917551617422}
   - {fileID: 828379489624800230}
@@ -7524,14 +7524,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jetSpdOnLaunch: 0
-  speed: 100
-  turnSpeed: 75
+  speed: 225
+  turnSpeed: 150
   visualRotationSpeed: 500
-  damageRange: {x: 1, y: 2}
+  damageRange: {x: 2, y: 4}
   explosion: {fileID: 7070465220517492653, guid: 79cb3226db845d349bcc6607437ee214, type: 3}
   target: {fileID: 0}
   radar: {fileID: 0}
-  lifeTime: 5
+  lifeTime: 7.5
   launchAccuracy: 5
   finsToHide: {fileID: 3847761042793156235}
 --- !u!114 &3216606383144351468
@@ -7546,7 +7546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69b67249c34b6d74c8e942ee7e374277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scanFrequency: 0.2
+  scanFrequency: 0.1
   scanRadius: 80
 --- !u!1 &7033049844628030185
 GameObject:

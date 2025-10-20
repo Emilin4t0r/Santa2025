@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class Guns : MonoBehaviour
 {
     public GameObject bulletPrefab;
-    public GameObject muzzleFlashPrefab;
     public float shootForce, fireRate, inaccuracy;
     public float gunAnimSpeed;
     float originalGunAnimSpeed;
@@ -17,6 +16,7 @@ public class Guns : MonoBehaviour
     GameObject shootLoopSound;
     public Transform shootSoundParent;
     float timeToClearSounds;
+    public float origMzfScale;
 
     public int ammoPerGun;
     [HideInInspector] public int ammoCount;
@@ -147,24 +147,32 @@ public class Guns : MonoBehaviour
             // Spawn bullet
             var bullet = Instantiate(bulletPrefab, muzzle.position, muzzle.transform.rotation, null);
             bullet.GetComponent<Rigidbody>().AddForce(fwd * shootForce, ForceMode.Impulse);
-            Destroy(bullet, 5);
-
-            // (TODO) FLASH GUN POINT LIGHT IN FRONT OF ALL MUZZLES
+            Destroy(bullet, 5);            
 
             // Spawn muzzle flash
             int doMzf = Random.Range(0, 3);
             if (doMzf == 0)
-            {
-                var mzf = Instantiate(muzzleFlashPrefab, muzzle.position, muzzle.transform.rotation, muzzle.transform);
-                float rand = Random.Range(1.5f, 4f);
-                mzf.transform.localScale = new Vector3(rand, rand, rand);
-                Destroy(mzf, 0.02f);
+            {                               
+                GameObject mfLight = muzzle.GetChild(0).gameObject;                
+                float flashTime = 0.01f;
+                StartCoroutine(FlashMuzzleLight(mfLight, flashTime));
             }
             ammoCount--;
             hud.SetAmmo(ammoCount);
         }
 
         nextTimeToFire = Time.time + fireRate;
+    }
+
+    IEnumerator FlashMuzzleLight(GameObject light, float upTime)
+    {
+        light.SetActive(true);
+        GameObject mzf = light.transform.GetChild(0).gameObject;
+        float rand = Random.Range(1f, 3f);        
+        mzf.transform.localScale = new Vector3(origMzfScale, origMzfScale, origMzfScale) * rand;
+        yield return new WaitForSeconds(upTime);
+        mzf.transform.localScale = new Vector3(origMzfScale, origMzfScale, origMzfScale);
+        light.SetActive(false);
     }
 
     void StopBurst()

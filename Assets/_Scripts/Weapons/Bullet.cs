@@ -7,15 +7,13 @@ public class Bullet : MonoBehaviour
 {
     Vector3 lastPos, scndLastPos, thrdLastPos;
     public string enemyTag;
-    GameObject trail, pointLight;
-    [HideInInspector] public float lightKillTimer;
+    GameObject trail;
     public GameObject bulletHit;
     public float damage = 1;
     public bool doRandomRicochets;
     private void Awake()
     {
         trail = transform.Find("Trail").gameObject;
-        pointLight = transform.Find("Point Light").gameObject;
         trail.SetActive(false);
         Invoke("ActivateVisuals", 0.02f);
     }
@@ -25,11 +23,6 @@ public class Bullet : MonoBehaviour
         thrdLastPos = scndLastPos;
         scndLastPos = lastPos;
         lastPos = transform.position;
-        lightKillTimer += Time.deltaTime;
-        if (lightKillTimer > 0.05f)
-        {
-            pointLight.SetActive(false);
-        }
     }
 
     private void OnCollisionEnter(Collision collision)

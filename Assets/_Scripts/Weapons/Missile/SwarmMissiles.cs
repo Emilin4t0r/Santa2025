@@ -9,6 +9,9 @@ public class SwarmMissiles : MonoBehaviour
     HUDWeapons hudWeapons;
     HUDWeapon hud;
 
+    public float fireRate;
+    float nextTimeToFire;
+
     private void Awake()
     {
         missiles = new List<SwarmMissile>();
@@ -48,9 +51,13 @@ public class SwarmMissiles : MonoBehaviour
     {
         if (missiles.Count <= 0)
             return;
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
-            FireMissile();
+            if (Time.time > nextTimeToFire)
+            {
+                FireMissile();
+                nextTimeToFire = Time.time + fireRate;
+            }
         }
     }
 

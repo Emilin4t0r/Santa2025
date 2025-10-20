@@ -3405,7 +3405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jetSpdOnLaunch: 0
-  speed: 200
+  speed: 250
   turnSpeed: 40
   visualRotationSpeed: 100
   damageRange: {x: 10, y: 10}

@@ -10,7 +10,6 @@ public class RearCamera : MonoBehaviour
 	public bool flipHorizontal;
 	
 
-	bool trackingEnemy;
 	Transform trackTarget;
 	Quaternion origRot;
 
@@ -45,18 +44,20 @@ public class RearCamera : MonoBehaviour
 
     private void Update()
     {
-		if(trackingEnemy)
+		if (trackTarget)
+		{
 			transform.LookAt(trackTarget);
+			cam.fieldOfView = Vector3.Distance(transform.position, trackTarget.position) / 120;
+		}
     }
 
     public void TrackTarget(Transform target)
 	{		
-		trackingEnemy = true;
 		trackTarget = target;
     }
 	public void FreeCamera()
 	{
-        trackingEnemy = false;
 		transform.localRotation = origRot;
+		trackTarget = null;
     }
 }
