@@ -42,7 +42,7 @@ public class ABBullet : Bullet
             {
                 float dist = Vector3.Distance(transform.position, col.transform.position);
                 float dmg = Mathf.Max(damage - dist, 0);
-                col.GetComponent<EnemySanta>().GetHit(dmg);
+                col.GetComponent<EnemySantaUtils>().GetHit(dmg);
                 print("BURST DMG: " + dmg + ", Distance: " + dist);
                 break;
             }
@@ -52,8 +52,7 @@ public class ABBullet : Bullet
     void DoAirburst()
     {
         float dmg = Mathf.Max(damage - distFromLockedOn, 0);
-        bc.lockedOn.GetComponent<EnemySanta>().GetHit(dmg);
-        print("BURST DMG: " + dmg + ", Distance: " + distFromLockedOn);
+        bc.lockedOn.GetComponent<EnemySantaUtils>().GetHit(dmg);
         KillBullet();
     }
 }

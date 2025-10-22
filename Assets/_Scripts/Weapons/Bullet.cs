@@ -33,7 +33,7 @@ public class Bullet : MonoBehaviour
             {
                 if (enemyTag == "Enemy")
                 {
-                    collision.gameObject.GetComponent<EnemySanta>().GetHit(damage);
+                    collision.gameObject.GetComponent<EnemySantaUtils>().GetHit(damage);
                     KillBullet();
                     return;
                 }               

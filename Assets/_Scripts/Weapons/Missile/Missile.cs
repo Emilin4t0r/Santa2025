@@ -58,7 +58,7 @@ public class Missile : MonoBehaviour
         {
             // target position and velocity
             Vector3 targetPos = target.position;
-            Vector3 targetVel = target.forward * target.GetComponent<EnemySanta>().currentMoveSpeed;
+            Vector3 targetVel = target.forward * target.GetComponent<EnemySantaMove>().currentMoveSpeed;
 
             // Solve for intercept point
             Vector3 interceptPoint;
@@ -156,7 +156,7 @@ public class Missile : MonoBehaviour
         {
             BlowUp();
             float rand = Random.Range(damageRange.x, damageRange.y);
-            other.GetComponent<EnemySanta>().GetHit(rand);
+            other.GetComponent<EnemySantaUtils>().GetHit(rand);
         }
         if (other.CompareTag("Ground"))
             BlowUp();

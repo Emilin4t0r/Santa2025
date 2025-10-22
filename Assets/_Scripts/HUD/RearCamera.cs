@@ -59,5 +59,6 @@ public class RearCamera : MonoBehaviour
 	{
 		transform.localRotation = origRot;
 		trackTarget = null;
+		cam.fieldOfView = 20;
     }
 }

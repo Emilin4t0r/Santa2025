@@ -100,7 +100,7 @@ public class TargetInfo : MonoBehaviour
     {
         float targetDist = Vector3.Distance(ac.transform.position, bc.lockedOn.transform.position);
         target.text = "TARGET\n" + ((int)targetDist).ToString("D4") + " m\n";
-        float spd = bc.lockedOn.GetComponent<EnemySanta>().currentVelocity.magnitude * 3.6f;
+        float spd = bc.lockedOn.GetComponent<EnemySantaMove>().currentVelocity.magnitude * 3.6f;
         target.text += ((int)spd).ToString("D4") + " km/h\n";        
     }
 

@@ -184,7 +184,8 @@ GameObject:
   - component: {fileID: 8570900630397139059}
   - component: {fileID: 2290335123668652601}
   - component: {fileID: 9219926240315068477}
-  - component: {fileID: 7831953918460764833}
+  - component: {fileID: 3910790741541197771}
+  - component: {fileID: 4309372759076694684}
   m_Layer: 9
   m_Name: EnemySanta
   m_TagString: Enemy
@@ -281,7 +282,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &7831953918460764833
+--- !u!114 &3910790741541197771
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -290,28 +291,50 @@ MonoBehaviour:
   m_GameObject: {fileID: 1044137971146318919}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7476456131a346a4fb10f41bc167ba87, type: 3}
+  m_Script: {fileID: 11500000, guid: 9fbbe38bbd656264a9261ee65c98925c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 120
-  moveAcceleration: 25
+  maxSpeed: 80
+  moveAcceleration: 8
   currentMoveSpeed: 0
   maxTurnRate: 5
-  lateralDampen: 100
-  minDistFromGround: 50
+  lateralDampen: 1
+  minDistFromGround: 10
   currentVelocity: {x: 0, y: 0, z: 0}
+  forwardProbeTime: 2
+  forwardProbeRadius: 5
+  safetyMargin: 100
+  avoidancePitchSpeed: 45
+  liftSpeed: 300
+  groundProbeOffset: 10
+  minLookAheadDist: 50
+  maxVerticalSpeed: 120
+  verticalSmoothTime: 0.25
+  maxAllowedAltitudeJump: 800
+  target: {fileID: 0}
+--- !u!114 &4309372759076694684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044137971146318919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe45cfa1f551bec44bb4dad07114f924, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   gunMuzzles:
-  - {fileID: 6976284243374152283}
   - {fileID: 3670047663290536064}
+  - {fileID: 6976284243374152283}
   shootForce: 500
-  inaccuracy: 0.02
-  shootFrequency: {x: 1, y: 3}
+  inaccuracy: 0.05
+  shootFrequency: {x: 1, y: 5}
   bulletPrefab: {fileID: 3130551460163936705, guid: 6eab430744c3bfd4899b66397ecc5d7f, type: 3}
   muzzleFlashPrefab: {fileID: 6203035767376176428, guid: 83f4bb4f5f3ad7c489c51040d246ed82, type: 3}
   deathParticle: {fileID: 7070465220517492653, guid: 79cb3226db845d349bcc6607437ee214, type: 3}
   hitPoints: 10
   trackCollider: {fileID: 937771734242039004}
-  target: {fileID: 0}
 --- !u!1 &1252505942216007471
 GameObject:
   m_ObjectHideFlags: 0

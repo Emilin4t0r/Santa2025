@@ -189,5 +189,6 @@ public class Missiles : MonoBehaviour
         msl.transform.parent = null;
         missiles.Remove(msl);
         hud.SetAmmo(missiles.Count);
+        EZCameraShake.CameraShaker.Instance.ShakeOnce(5, 15, 0, 1f);
     }
 }
