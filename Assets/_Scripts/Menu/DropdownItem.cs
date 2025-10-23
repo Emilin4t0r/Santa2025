@@ -60,4 +60,10 @@ public class DropdownItem : MonoBehaviour
         mainCam.DOMove(camCloseupPos, 0.5f);
         MenuTurntable.instance.transform.DORotate(new Vector3(0, 0, 0), 0.5f);
     }
+    public void OnHoverExit()
+    {
+        bool hadSelectedWeapon = hardpoint.ClearWeapon();
+        if (hadSelectedWeapon)
+            weaponInfo.SetInfo("EMPTY");
+    }
 }

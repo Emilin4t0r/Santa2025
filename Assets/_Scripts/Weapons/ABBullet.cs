@@ -53,6 +53,6 @@ public class ABBullet : Bullet
     {
         float dmg = Mathf.Max(damage - distFromLockedOn, 0);
         bc.lockedOn.GetComponent<EnemySantaUtils>().GetHit(dmg);
-        KillBullet();
+        KillBullet(false);
     }
 }

@@ -3463,6 +3463,22 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 237730818}
+          m_TargetAssemblyTypeName: DropdownItem, Assembly-CSharp
+          m_MethodName: OnHoverExit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &276620062
 GameObject:
   m_ObjectHideFlags: 0
@@ -4419,6 +4435,22 @@ MonoBehaviour:
         - m_Target: {fileID: 340356329}
           m_TargetAssemblyTypeName: DropdownItem, Assembly-CSharp
           m_MethodName: OnHoverEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 340356329}
+          m_TargetAssemblyTypeName: DropdownItem, Assembly-CSharp
+          m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -5407,6 +5439,22 @@ MonoBehaviour:
         - m_Target: {fileID: 488301426}
           m_TargetAssemblyTypeName: DropdownItem, Assembly-CSharp
           m_MethodName: OnHoverEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 488301426}
+          m_TargetAssemblyTypeName: DropdownItem, Assembly-CSharp
+          m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -9354,6 +9402,22 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1014179364}
+          m_TargetAssemblyTypeName: DropdownItem, Assembly-CSharp
+          m_MethodName: OnHoverExit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &1023467089 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5911546020964664617, guid: 083696edc0fcb9844841113afde5bd75, type: 3}
@@ -10376,7 +10440,7 @@ MonoBehaviour:
   - name: LANDSKNECHT
     sprite: {fileID: 21300000, guid: f6997207f3cee114684ba052c7f57440, type: 3}
     description: 'Type:\t\t\t20mm Quad-barrel Cannon\nAccuracy:\t\tLow\nRate of Fire:\t\t4,000
-      RPM\nProjectile type:\tArmor Piercing\nMagazine size: \t300 Rounds'
+      RPM\nProjectile type:\tArmor Piercing\nMagazine size: \t500 Rounds'
   - name: PIKE
     sprite: {fileID: 21300000, guid: 1a148e699353ed04dbf87f6a9d23adb0, type: 3}
     description: 'Type:\t\t\tLight Air-to-Air Missile\nRange:\t\tMedium\nManeuverability:
@@ -11130,6 +11194,22 @@ MonoBehaviour:
         - m_Target: {fileID: 1335346662}
           m_TargetAssemblyTypeName: DropdownItem, Assembly-CSharp
           m_MethodName: OnHoverEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1335346662}
+          m_TargetAssemblyTypeName: DropdownItem, Assembly-CSharp
+          m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -16762,6 +16842,22 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1707364859}
+          m_TargetAssemblyTypeName: DropdownItem, Assembly-CSharp
+          m_MethodName: OnHoverExit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1717913773
 GameObject:
   m_ObjectHideFlags: 0
@@ -17282,6 +17378,22 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1755635073}
+          m_TargetAssemblyTypeName: DropdownItem, Assembly-CSharp
+          m_MethodName: OnHoverExit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1765860208
 GameObject:
   m_ObjectHideFlags: 0
@@ -17593,6 +17705,22 @@ MonoBehaviour:
         - m_Target: {fileID: 1777830733}
           m_TargetAssemblyTypeName: DropdownItem, Assembly-CSharp
           m_MethodName: OnHoverEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1777830733}
+          m_TargetAssemblyTypeName: DropdownItem, Assembly-CSharp
+          m_MethodName: OnHoverExit
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

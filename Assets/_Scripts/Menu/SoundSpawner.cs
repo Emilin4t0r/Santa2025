@@ -24,6 +24,18 @@ public class SoundSpawner : MonoBehaviour
         }
     }
 
+    public static void LetLoopEnd(GameObject soundObj)
+    {
+        if (soundObj)
+        {
+            var ac = soundObj.GetComponent<AudioSource>();            
+            Destroy(soundObj, ac.clip.length + 0.01f);
+        }
+        else
+        {
+            return;
+        }
+    }
     public static void EndLoop(GameObject soundObj)
     {
         if (soundObj)
@@ -62,11 +74,13 @@ public class SoundSpawner : MonoBehaviour
         Destroy(sound, 5);
     }
 
-    public static GameObject SpawnSoundLoop(Vector3 pos, Transform parent, AudioClip clip, float spatialBlend = 0, float volume = 0.75f)
+    public static GameObject SpawnSoundLoop(Vector3 pos, Transform parent, AudioClip clip, float spatialBlend = 0, bool randomPitch = false, float volume = 0.75f)
     {
         var sound = Instantiate(staticSoundPrefab, pos, parent.rotation, parent);
         var aSource = sound.GetComponent<AudioSource>();
         aSource.clip = clip;
+        if (randomPitch)
+            aSource.pitch = Random.Range(0.9f, 1.1f);
         aSource.spatialBlend = spatialBlend;
         aSource.loop = true;
         aSource.volume = volume;

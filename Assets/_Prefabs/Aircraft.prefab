@@ -5263,6 +5263,7 @@ GameObject:
   - component: {fileID: 9043550890850511491}
   - component: {fileID: 7073335022761566821}
   - component: {fileID: 6183756817414290884}
+  - component: {fileID: 697795023284650229}
   m_Layer: 3
   m_Name: Collision
   m_TagString: Player
@@ -5397,6 +5398,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0, y: 1.34, z: 1}
   m_Center: {x: 0, y: 2.28, z: -4.25}
+--- !u!114 &697795023284650229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2550536046408318423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d144df0db0ce674b81dba8f56e7c7c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wheels:
+  - {fileID: 7982958753988350981}
+  - {fileID: 7845047921792993028}
+  - {fileID: 4783788859489186251}
 --- !u!1 &2672092511846228330
 GameObject:
   m_ObjectHideFlags: 0
@@ -7056,6 +7073,7 @@ GameObject:
   - component: {fileID: 8776204792773420487}
   - component: {fileID: 2180878593821254453}
   - component: {fileID: 1850424123110682880}
+  - component: {fileID: 8290679592805362151}
   m_Layer: 3
   m_Name: Aircraft
   m_TagString: Player
@@ -7285,6 +7303,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8290679592805362151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3448633395269985640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31ac313c6b1e3f844ad4b838f675d065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  terrainWarningDist: 120
 --- !u!1 &3498258387210596051
 GameObject:
   m_ObjectHideFlags: 0

@@ -60,11 +60,15 @@ public class LeadReticle : MonoBehaviour
         if (activeGuns == null)
         {
             print("No active guns for lead reticle!");
+            if (img.enabled) img.enabled = false;
             return;
+        } else
+        {
+            if (!img.enabled) img.enabled = true;
         }
 
-        // Calculate the predicted position of the target
-        Vector3 predictedPosition = PredictTargetPosition(target.position, target.GetComponent<EnemySantaMove>().currentVelocity, activeGuns.transform.position, activeGuns.transform.forward, activeGuns.shootForce);
+            // Calculate the predicted position of the target
+            Vector3 predictedPosition = PredictTargetPosition(target.position, target.GetComponent<EnemySantaMove>().currentVelocity, activeGuns.transform.position, activeGuns.transform.forward, activeGuns.shootForce);
 
         // Convert the predicted position to canvas space
         Vector2 canvasPosition;

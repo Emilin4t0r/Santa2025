@@ -16,6 +16,13 @@ public class EnemySantaUtils : MonoBehaviour
 
     public EnemyTrackCollider trackCollider;
 
+    EnemySantaMove move;
+
+    private void Start()
+    {
+        move = GetComponent<EnemySantaMove>();
+    }
+
     private void Update()
     {
         //Shoot
@@ -25,7 +32,7 @@ public class EnemySantaUtils : MonoBehaviour
             StartCoroutine(FireBurst(shots));
             float nextShootTime = Time.time + Random.Range(shootFrequency.x, shootFrequency.y);
             shootTimer = nextShootTime;
-        }        
+        }
     }    
 
     IEnumerator FireBurst(int shots)
@@ -82,9 +89,5 @@ public class EnemySantaUtils : MonoBehaviour
         EnemiesController.enemiesAttacking.Remove(gameObject);
         Destroy(partc, 1);
         Destroy(gameObject);        
-    }
-
-    private void OnDrawGizmos()
-    {
     }
 }

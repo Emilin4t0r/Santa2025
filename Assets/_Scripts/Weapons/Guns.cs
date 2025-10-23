@@ -25,6 +25,8 @@ public class Guns : MonoBehaviour
     HUDWeapons hudWeapons;
     HUDWeapon hud;
 
+    public string caliberForAudio;
+
     private void OnEnable()
     {
         SceneManager.activeSceneChanged += OnSceneChanged;
@@ -108,7 +110,9 @@ public class Guns : MonoBehaviour
                 gAnim.speed = gunAnimSpeed;
                 gAnim.SetBool("Fire", true);
             }
-            shootLoopSound = SoundSpawner.SpawnSoundLoop(transform.position, shootSoundParent, SoundLibrary.GetClip("shoot_loop2"));
+            if (SoundLibrary.GetClip(caliberForAudio + "_start") != null)
+                SoundSpawner.SpawnSound(transform.position, shootSoundParent, SoundLibrary.GetClip(caliberForAudio + "_start"));
+            shootLoopSound = SoundSpawner.SpawnSoundLoop(transform.position, shootSoundParent, SoundLibrary.GetClip(caliberForAudio + "_loop"));
         }
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
@@ -187,7 +191,7 @@ public class Guns : MonoBehaviour
         if (shootLoopSound)
         {
             SoundSpawner.EndLoop(shootLoopSound);
-            SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("shoot_tail2"));
+            SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip(caliberForAudio + "_tail"), 0, false);
         }
     }
 }

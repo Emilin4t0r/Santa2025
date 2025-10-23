@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     Vector3 lastPos, scndLastPos, thrdLastPos;
     public string enemyTag;
     GameObject trail;
-    public GameObject bulletHit;
+    public GameObject bulletHit, altBulletHit;
     public float damage = 1;
     public bool doRandomRicochets;
     private void Awake()
@@ -34,7 +34,7 @@ public class Bullet : MonoBehaviour
                 if (enemyTag == "Enemy")
                 {
                     collision.gameObject.GetComponent<EnemySantaUtils>().GetHit(damage);
-                    KillBullet();
+                    KillBullet(true);
                     return;
                 }               
             }
@@ -44,11 +44,11 @@ public class Bullet : MonoBehaviour
                 int random = Random.Range(0, 10); 
                 if (random != 0)
                 {
-                    KillBullet();
+                    KillBullet(false);
                 }
             } else
             {
-                KillBullet();
+                KillBullet(false);
             }
         }
         catch
@@ -57,10 +57,18 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    public void KillBullet()
+    public void KillBullet(bool useAltHit)
     {
-        bulletHit = Instantiate(bulletHit, thrdLastPos, transform.rotation);
-        Destroy(bulletHit, 0.5f);
+        GameObject hit = null;
+        if (useAltHit && altBulletHit != null)
+        {
+            hit = Instantiate(altBulletHit, thrdLastPos, transform.rotation);
+        }
+        else
+        {
+            hit = Instantiate(bulletHit, thrdLastPos, transform.rotation);
+        }
+        Destroy(hit, 2f);
         Destroy(gameObject);
     }
 

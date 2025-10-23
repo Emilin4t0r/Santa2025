@@ -148,15 +148,16 @@ MonoBehaviour:
   bulletPrefab: {fileID: 3130551460163936705, guid: c319a72d6ab47c34ca061d54b8f52ef3, type: 3}
   shootForce: 750
   fireRate: 0.2
-  inaccuracy: 0.03
+  inaccuracy: 0.025
   gunAnimSpeed: 2.5
   guns: []
-  camShakeValues: {x: 0.12, y: 17}
+  camShakeValues: {x: 0.2, y: 17}
   shootSoundParent: {fileID: 7334248617765296592}
   origMzfScale: 2
   ammoPerGun: 50
   ammoCount: 0
   hudWeaponIndex: 2
+  caliberForAudio: 100mm
 --- !u!1 &2481368241580062457
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,15 +206,16 @@ MonoBehaviour:
   bulletPrefab: {fileID: 3130551460163936705, guid: 9087bb041ce73d94d9b84cf413917437, type: 3}
   shootForce: 750
   fireRate: 0.015
-  inaccuracy: 0.025
+  inaccuracy: 0.02
   gunAnimSpeed: 20
   guns: []
-  camShakeValues: {x: 0.1, y: 30}
+  camShakeValues: {x: 0.15, y: 30}
   shootSoundParent: {fileID: 2059976577889352195}
   origMzfScale: 0.7
-  ammoPerGun: 300
+  ammoPerGun: 500
   ammoCount: 0
   hudWeaponIndex: 1
+  caliberForAudio: 20mm
 --- !u!1 &2534343335690245791
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,12 +399,13 @@ MonoBehaviour:
   inaccuracy: 0.01
   gunAnimSpeed: 5
   guns: []
-  camShakeValues: {x: 0.08, y: 20}
+  camShakeValues: {x: 0.1, y: 20}
   shootSoundParent: {fileID: 8408002607118470331}
   origMzfScale: 1
   ammoPerGun: 150
   ammoCount: 0
   hudWeaponIndex: 0
+  caliberForAudio: 30mm
 --- !u!1 &5206081197396648495
 GameObject:
   m_ObjectHideFlags: 0

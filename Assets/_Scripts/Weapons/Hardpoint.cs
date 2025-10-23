@@ -16,11 +16,20 @@ public class Hardpoint : MonoBehaviour
     public GameObject selectedWeapon;
     public bool hideMissileFins = false;
 
+    public bool ClearWeapon()
+    {
+        if (selectedWeapon != null)
+        {
+            Destroy(selectedWeapon.gameObject);
+            return true;
+        }
+        return false;
+    }
+
     public void SpawnWeapon(WeaponType wpnType)
     {
         GameObject wpn = null;
-        if (selectedWeapon != null)
-            Destroy(selectedWeapon.gameObject);
+        ClearWeapon();
         switch (wpnType)
         {
             case WeaponType.Hackapel:
