@@ -326,12 +326,6 @@ MonoBehaviour:
   deathParticle: {fileID: 7070465220517492653, guid: 79cb3226db845d349bcc6607437ee214, type: 3}
   hitPoints: 10
   trackCollider: {fileID: 937771734242039004}
-  visualRoot: {fileID: 9086790706170804789}
-  rollFactor: 1.5
-  maxBankAngle: 40
-  bankSmooth: 6
-  pitchFactor: 0.8
-  maxPitchAngle: 12
 --- !u!1 &1252505942216007471
 GameObject:
   m_ObjectHideFlags: 0

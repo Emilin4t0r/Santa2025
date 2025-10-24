@@ -7524,15 +7524,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jetSpdOnLaunch: 0
-  speed: 225
+  thrust: 100
+  acceleration: 40
+  maxSpeed: 150
   turnSpeed: 150
+  lifeTime: 10
   visualRotationSpeed: 500
-  damageRange: {x: 2, y: 4}
+  launchAccuracy: 5
+  maxDamage: 2
   explosion: {fileID: 7070465220517492653, guid: 79cb3226db845d349bcc6607437ee214, type: 3}
   target: {fileID: 0}
   radar: {fileID: 0}
-  lifeTime: 7.5
-  launchAccuracy: 5
   finsToHide: {fileID: 3847761042793156235}
 --- !u!114 &3216606383144351468
 MonoBehaviour:

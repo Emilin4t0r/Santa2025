@@ -45,6 +45,8 @@ public class EnemySantaMove : MonoBehaviour
     void GetTarget()
     {
         target = AllTargetsManager.instance.GetRandomTarget(transform);
+        if (target == null)
+            return;
         if (target.CompareTag("Player"))
         {
             SoundSpawner.SpawnSound(target.position, target, SoundLibrary.GetClip("rwr_lock"), 0, false);

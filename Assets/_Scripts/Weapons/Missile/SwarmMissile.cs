@@ -3,10 +3,14 @@ using UnityEngine;
 public class SwarmMissile : MonoBehaviour
 {
     [HideInInspector] public float jetSpdOnLaunch;
-    public float speed;
+    public float thrust;
+    public float acceleration;
+    public float maxSpeed;
     public float turnSpeed;
+    public float lifeTime = 5;
     public float visualRotationSpeed;
-    public Vector2 damageRange;
+    public float launchAccuracy;
+    public float maxDamage;
     public GameObject explosion;
     GameObject rotator;
     public Transform target;
@@ -16,12 +20,10 @@ public class SwarmMissile : MonoBehaviour
     GameObject pointLight;
 
     public GameObject radar;
-
-    public float lifeTime = 5;
-    float blowUpTimer;
-
-    public float launchAccuracy;
     public GameObject finsToHide;
+
+    float blowUpTimer;
+    float distToTarget;    
 
     private void Start()
     {
@@ -48,7 +50,9 @@ public class SwarmMissile : MonoBehaviour
         if (rb == null) return;
 
         Vector3 shooterPos = transform.position;
-        float missileSpeed = speed + jetSpdOnLaunch; // magnitude of missile velocity
+        float missileSpeed = thrust + jetSpdOnLaunch; // magnitude of missile velocity
+        thrust += acceleration * Time.fixedDeltaTime;
+        missileSpeed = Mathf.Clamp(missileSpeed, 10, maxSpeed);
 
         Vector3 aimPoint;
 
@@ -71,6 +75,8 @@ public class SwarmMissile : MonoBehaviour
                 aimPoint = interceptPoint;
             else
                 aimPoint = targetPos; // fallback: pure pursuit
+
+            CheckDistanceToTarget(); // Check if close enough to target to detonate
         }
 
         // Rotate front towards aimPoint using turnSpeed (degrees per second).
@@ -86,14 +92,14 @@ public class SwarmMissile : MonoBehaviour
         }
 
         // Move forward: set rigidbody linear velocity
-        rb.linearVelocity = transform.forward * (speed + jetSpdOnLaunch);
+        rb.linearVelocity = transform.forward * (thrust + jetSpdOnLaunch);
 
         // Rotate missile visually
         rotator.transform.Rotate(new Vector3(0, 0, -visualRotationSpeed * Time.fixedDeltaTime));
 
         blowUpTimer += Time.fixedDeltaTime;
         if (blowUpTimer > lifeTime)
-            BlowUp();
+            BlowUp();        
     }
 
     /// <summary>
@@ -152,13 +158,22 @@ public class SwarmMissile : MonoBehaviour
         return true;
     }
 
+    void CheckDistanceToTarget()
+    {
+        float dist = Vector3.Distance(transform.position, target.position);
+        if (dist > distToTarget && distToTarget != 0)
+        {
+            // Missile has passed enemy
+            HitEnemy(target.GetComponent<EnemySantaUtils>());
+        }
+        distToTarget = dist;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy"))
         {
-            BlowUp();
-            float rand = Random.Range(damageRange.x, damageRange.y);
-            other.GetComponent<EnemySantaUtils>().GetHit(rand);
+            HitEnemy(other.GetComponent<EnemySantaUtils>());
         }
         if (other.CompareTag("Ground"))
             BlowUp();
@@ -170,6 +185,14 @@ public class SwarmMissile : MonoBehaviour
         Quaternion deviationRot = Quaternion.Euler(deviation2D.y, deviation2D.x, 0f);
         Vector3 newDirection = deviationRot * transform.forward;
         transform.rotation = Quaternion.LookRotation(newDirection, Vector3.up);
+    }
+
+    void HitEnemy(EnemySantaUtils enemy)
+    {
+        float dmg = Mathf.Max((maxDamage - distToTarget) + 5, 0); // +5 to offset distance from enemy collider's edge to enemy's center
+        enemy.GetHit(dmg);
+        print("SWRM HIT, DMG: " + dmg + ", DIST: " + distToTarget);
+        BlowUp();
     }
 
     void BlowUp(float explSizeMultiplier = 0.5f)

@@ -16,9 +16,11 @@ public class ABBullet : Bullet
     private void FixedUpdate()
     {
         if (bc.lockedOn != null) {
+            // If we have enemy locked, burst when we're closest to it
             CheckDistanceToTarget();
         } else
         {
+            // No enemy locked, search for one using an overlapsphere
             DoOverlapSphereSearch();
         }
     }
@@ -28,7 +30,8 @@ public class ABBullet : Bullet
         float dist = Vector3.Distance(transform.position, bc.lockedOn.transform.position);
         if (dist > distFromLockedOn && distFromLockedOn != 0)
         {
-            DoAirburst();
+            // Bullet has passed enemy
+            DoAirburst(bc.lockedOn.GetComponent<EnemySantaUtils>(), distFromLockedOn);
         }
         distFromLockedOn = dist;
     }
@@ -41,18 +44,17 @@ public class ABBullet : Bullet
             if (col.CompareTag("Enemy"))
             {
                 float dist = Vector3.Distance(transform.position, col.transform.position);
-                float dmg = Mathf.Max(damage - dist, 0);
-                col.GetComponent<EnemySantaUtils>().GetHit(dmg);
-                print("BURST DMG: " + dmg + ", Distance: " + dist);
+                DoAirburst(col.GetComponent<EnemySantaUtils>(), dist);                
                 break;
             }
         }
     }
 
-    void DoAirburst()
+    void DoAirburst(EnemySantaUtils enemy, float distance)
     {
-        float dmg = Mathf.Max(damage - distFromLockedOn, 0);
-        bc.lockedOn.GetComponent<EnemySantaUtils>().GetHit(dmg);
+        float dmg = Mathf.Max((damage - distance) + 5, 0); // +5 to offset distance from enemy collider's edge to enemy's center
+        enemy.GetHit(dmg);
+        print("BURST, DMG: " + dmg + ", DIST: " + distance);
         KillBullet(false);
     }
 }

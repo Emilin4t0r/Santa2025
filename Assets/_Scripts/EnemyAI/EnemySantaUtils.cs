@@ -87,6 +87,7 @@ public class EnemySantaUtils : MonoBehaviour
         SoundSpawner.SpawnSound(transform.position, transform.parent, SoundLibrary.GetClip("enemy_explode"));
         var partc = Instantiate(deathParticle, transform.position, transform.rotation);
         EnemiesController.enemiesAttacking.Remove(gameObject);
+        Radar.instance.enemies.Remove(gameObject);
         Destroy(partc, 1);
         Destroy(gameObject);        
     }

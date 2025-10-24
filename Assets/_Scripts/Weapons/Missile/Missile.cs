@@ -2,14 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class Missile : MonoBehaviour
 {
     [HideInInspector] public float jetSpdOnLaunch;
-    public float speed;
+    public float thrust;
+    public float acceleration;
+    public float maxSpeed;
     public float turnSpeed;
+    public float lifeTime = 5;
     public float visualRotationSpeed;
-    public Vector2 damageRange;
+    public float maxDamage;
     public GameObject explosion;
     public GameObject rotator;
     public GameObject pointLight;
@@ -17,11 +21,11 @@ public class Missile : MonoBehaviour
     TrailRenderer trail;
     CapsuleCollider cc;
     Rigidbody rb;    
-    
-    public float lifeTime = 5;
-    float blowUpTimer;
 
     public GameObject finsToHide;
+
+    float blowUpTimer;
+    float distToTarget;
 
     private void Start()
     {
@@ -45,7 +49,9 @@ public class Missile : MonoBehaviour
         if (rb == null) return;
 
         Vector3 shooterPos = transform.position;
-        float missileSpeed = speed + jetSpdOnLaunch; // magnitude of missile velocity
+        float missileSpeed = thrust + jetSpdOnLaunch; // magnitude of missile velocity
+        thrust += acceleration * Time.fixedDeltaTime;
+        missileSpeed = Mathf.Clamp(missileSpeed, 10, maxSpeed);
 
         Vector3 aimPoint;
 
@@ -83,7 +89,7 @@ public class Missile : MonoBehaviour
         }
 
         // Move forward: set rigidbody linear velocity
-        rb.linearVelocity = transform.forward * (speed + jetSpdOnLaunch);
+        rb.linearVelocity = transform.forward * (thrust + jetSpdOnLaunch);
 
         // Rotate missile visually
         rotator.transform.Rotate(new Vector3(0, 0, -visualRotationSpeed * Time.fixedDeltaTime));
@@ -91,6 +97,8 @@ public class Missile : MonoBehaviour
         blowUpTimer += Time.fixedDeltaTime;
         if (blowUpTimer > lifeTime)
             BlowUp();
+
+        CheckDistanceToTarget();
     }
 
     /// <summary>
@@ -149,17 +157,33 @@ public class Missile : MonoBehaviour
         return true;
     }
 
+    void CheckDistanceToTarget()
+    {
+        float dist = Vector3.Distance(transform.position, target.position);
+        if (dist > distToTarget && distToTarget != 0)
+        {
+            // Missile has passed enemy
+            HitEnemy(target.GetComponent<EnemySantaUtils>());
+        }
+        distToTarget = dist;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy"))
         {
-            BlowUp();
-            float rand = Random.Range(damageRange.x, damageRange.y);
-            other.GetComponent<EnemySantaUtils>().GetHit(rand);
+            HitEnemy(other.GetComponent<EnemySantaUtils>());
         }
         if (other.CompareTag("Ground"))
             BlowUp();
+    }
+
+    void HitEnemy(EnemySantaUtils enemy)
+    {
+        float dmg = Mathf.Max((maxDamage - distToTarget) + 5, 0); // +5 to offset distance from enemy collider's edge to enemy's center
+        enemy.GetHit(dmg);
+        print("MSL HIT, DMG: " + dmg + ", DIST: " + distToTarget);
+        BlowUp();
     }
 
     void BlowUp(float explSizeMultiplier = 0.5f)
