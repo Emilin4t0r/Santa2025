@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Drawing;
 using TMPro;
+using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class TargetInfo : MonoBehaviour
 {
@@ -15,6 +17,8 @@ public class TargetInfo : MonoBehaviour
     public TextMeshProUGUI target, targetingComputerState, enemyLock, enemyLaunch, mslLock;
     float t_eLock, t_mLock, t_eLaunch;
     public float f_eLock, f_mLock, f_eLaunch;
+    Transform mslLockCircle;
+    public Transform radarTrackerParent;
 
     public float targetInfoUpdateFreq;
     float timeToUpdateTargetInfo;
@@ -34,7 +38,9 @@ public class TargetInfo : MonoBehaviour
         enemyLock.gameObject.SetActive(false);
         enemyLaunch.gameObject.SetActive(false);
         mslLock.text = "ACQUIRING";
-        mslLock.enabled = false;
+        mslLock.gameObject.SetActive(false);
+        mslLockCircle = mslLock.transform.GetChild(0);
+        ResetMslLockCircle();
     }
 
     public void SetActiveMissilesToIR(bool yes)
@@ -85,15 +91,38 @@ public class TargetInfo : MonoBehaviour
         }
         else if (activeMissiles.lockedOn)
         {
-            if (!mslLock.enabled)
-                mslLock.enabled = true;
+            if (!mslLock.gameObject.activeSelf)
+                mslLock.gameObject.SetActive(true);
             mslLock.text = "LOCK";
+            Transform reticle = null;
+            foreach (Transform child in radarTrackerParent)
+            {
+                if (child.GetComponent<RadarTracker>().target == activeMissiles.lockedOn)
+                {
+                    reticle = child;
+                }
+            }
+            if (reticle != null) MissileLockCircleOnTarget(reticle);
         }
         else
         {
-            if (mslLock.enabled)
-                mslLock.enabled = false;
+            if (mslLock.gameObject.activeSelf)
+            {
+                mslLock.gameObject.SetActive(false);
+                ResetMslLockCircle();
+            }
         }
+    }
+
+    void ResetMslLockCircle()
+    {
+        mslLockCircle.localPosition = new Vector3(0, 60, 0);
+    }
+    void MissileLockCircleOnTarget(Transform reticle)
+    {
+        Vector3 worldPos = reticle.position;
+        Vector3 localTargetPos = mslLockCircle.transform.parent.InverseTransformPoint(worldPos);
+        mslLockCircle.localPosition = localTargetPos;
     }
 
     void RefreshTargetInfo()
@@ -110,7 +139,7 @@ public class TargetInfo : MonoBehaviour
         t_mLock += Time.fixedDeltaTime;
         if (t_mLock > f_mLock)
         {
-            mslLock.enabled = !mslLock.enabled;
+            mslLock.gameObject.SetActive(!mslLock.gameObject.activeSelf);
             t_mLock = 0;
         }
     }

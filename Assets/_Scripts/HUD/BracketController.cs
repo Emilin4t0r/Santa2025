@@ -30,6 +30,16 @@ public class BracketController : MonoBehaviour
 
     private void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            Time.timeScale = 0.1f;
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Time.timeScale = 1;
+        }
+
         switch (HUD.instance.hudMode)
         {
             case HUD.HUDMode.AirToGround:
@@ -69,8 +79,6 @@ public class BracketController : MonoBehaviour
     void MoveBracket(Transform reticle)
     {
         Vector3 targetPos;
-        targetPos = reticle.localPosition + new Vector3(0, HUD.hudOffset, 0);
-
         if (reticle.name != "RadarTrackers")
             targetPos = reticle.localPosition + new Vector3(0, HUD.hudOffset, 0);
         else

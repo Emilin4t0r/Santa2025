@@ -16,6 +16,11 @@ public class HUDWeapons : MonoBehaviour
         availableWeapons = new List<HUDWeapon>(weapons);
     }
 
+    private void Start()
+    {
+        transform.localPosition += new Vector3(0, HUD.hudOffset, 0);
+    }
+
     public HUDWeapon SetSelectedHUDWeapon(int weapon)
     {
         DeactivateAllHUDWeapons();

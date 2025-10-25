@@ -14,6 +14,8 @@ public class Missile : MonoBehaviour
     public float lifeTime = 5;
     public float visualRotationSpeed;
     public float maxDamage;
+    public float proximityFuseRadius = 8f;
+    public LayerMask enemyLayerMask;
     public GameObject explosion;
     public GameObject rotator;
     public GameObject pointLight;
@@ -74,6 +76,8 @@ public class Missile : MonoBehaviour
                 aimPoint = interceptPoint;
             else
                 aimPoint = targetPos; // fallback: pure pursuit
+
+            CheckDistanceToTarget();
         }
 
         // Rotate front towards aimPoint using turnSpeed (degrees per second).
@@ -97,8 +101,6 @@ public class Missile : MonoBehaviour
         blowUpTimer += Time.fixedDeltaTime;
         if (blowUpTimer > lifeTime)
             BlowUp();
-
-        CheckDistanceToTarget();
     }
 
     /// <summary>
@@ -163,7 +165,7 @@ public class Missile : MonoBehaviour
         if (dist > distToTarget && distToTarget != 0)
         {
             // Missile has passed enemy
-            HitEnemy(target.GetComponent<EnemySantaUtils>());
+            DamageEnemy(target.GetComponent<EnemySantaUtils>());
         }
         distToTarget = dist;
     }
@@ -172,17 +174,19 @@ public class Missile : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            HitEnemy(other.GetComponent<EnemySantaUtils>());
+            DamageEnemy(other.GetComponent<EnemySantaUtils>());
         }
         if (other.CompareTag("Ground"))
             BlowUp();
     }
 
-    void HitEnemy(EnemySantaUtils enemy)
+    void DamageEnemy(EnemySantaUtils enemy)
     {
-        float dmg = Mathf.Max((maxDamage - distToTarget) + 5, 0); // +5 to offset distance from enemy collider's edge to enemy's center
+        if (enemy == null) return;
+        float dist = Vector3.Distance(enemy.gameObject.transform.position, transform.position);
+        float dmg = Mathf.Max((maxDamage - dist) + 5, 0); // +5 to offset distance from enemy collider's edge to enemy's center
         enemy.GetHit(dmg);
-        print("MSL HIT, DMG: " + dmg + ", DIST: " + distToTarget);
+        print("MSL DAMAGED: " + enemy.name + " DMG: " + dmg + " DIST: " + dist);
         BlowUp();
     }
 
