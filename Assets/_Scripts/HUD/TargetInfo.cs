@@ -88,6 +88,18 @@ public class TargetInfo : MonoBehaviour
         if (activeMissiles.seeking)
         {
             FlashMslLock("ACQUIRING");
+            if (bc.lockedOn)
+            {
+                Transform reticle = null;
+                foreach (Transform child in radarTrackerParent)
+                {
+                    if (child.GetComponent<RadarTracker>().target == bc.lockedOn)
+                    {
+                        reticle = child;
+                    }
+                }
+                MissileLockCircleOnTarget(reticle);
+            }
         }
         else if (activeMissiles.lockedOn)
         {

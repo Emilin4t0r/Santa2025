@@ -68,6 +68,7 @@ public class Bullet : MonoBehaviour
         {
             hit = Instantiate(bulletHit, thrdLastPos, transform.rotation);
         }
+        hit.transform.eulerAngles = -transform.forward;
         Destroy(hit, 2f);
         Destroy(gameObject);
     }

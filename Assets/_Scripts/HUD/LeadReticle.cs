@@ -59,7 +59,6 @@ public class LeadReticle : MonoBehaviour
 
         if (activeGuns == null)
         {
-            print("No active guns for lead reticle!");
             if (img.enabled) img.enabled = false;
             return;
         } else

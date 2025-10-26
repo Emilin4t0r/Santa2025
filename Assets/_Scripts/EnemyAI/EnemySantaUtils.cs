@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,8 @@ public class EnemySantaUtils : MonoBehaviour
 
     EnemySantaMove move;
 
+    public event Action<float> OnHit;
+
     private void Start()
     {
         move = GetComponent<EnemySantaMove>();
@@ -28,9 +31,9 @@ public class EnemySantaUtils : MonoBehaviour
         //Shoot
         if (Time.time > shootTimer && trackCollider.readyToFire)
         {
-            int shots = Random.Range(4, 10);
+            int shots = UnityEngine.Random.Range(4, 10);
             StartCoroutine(FireBurst(shots));
-            float nextShootTime = Time.time + Random.Range(shootFrequency.x, shootFrequency.y);
+            float nextShootTime = Time.time + UnityEngine.Random.Range(shootFrequency.x, shootFrequency.y);
             shootTimer = nextShootTime;
         }
     }    
@@ -53,7 +56,7 @@ public class EnemySantaUtils : MonoBehaviour
         foreach (var gm in gunMuzzles)
         {
             // Bullet spread calculations
-            Vector3 deviation3D = Random.insideUnitCircle * inaccuracy;
+            Vector3 deviation3D = UnityEngine.Random.insideUnitCircle * inaccuracy;
             Quaternion rot = Quaternion.LookRotation(Vector3.forward + deviation3D);
             Vector3 fwd = gm.transform.rotation * rot * Vector3.forward;
 
@@ -63,11 +66,11 @@ public class EnemySantaUtils : MonoBehaviour
             Destroy(bullet, 5);
 
             // Spawn muzzle flash
-            int doMzf = Random.Range(0, 2);
+            int doMzf = UnityEngine.Random.Range(0, 2);
             if (doMzf == 0)
             {
                 var mzf = Instantiate(muzzleFlashPrefab, gm.position, gm.transform.rotation, gm.transform);
-                float rand = Random.Range(2f, 3.5f);
+                float rand = UnityEngine.Random.Range(2f, 3.5f);
                 mzf.transform.localScale = new Vector3(rand, rand, rand);
                 Destroy(mzf, 0.02f);
             }
@@ -79,11 +82,16 @@ public class EnemySantaUtils : MonoBehaviour
         if (hitPoints <= 0)
             return;
         hitPoints -= damage;
+
+        if (hitPoints > 0)
+            OnHit?.Invoke(hitPoints);
+
         if (hitPoints <= 0)
         {
             Die();
         }
     }
+
     public void Die()
     {
         SoundSpawner.SpawnSound(transform.position, transform.parent, SoundLibrary.GetClip("enemy_explode"));

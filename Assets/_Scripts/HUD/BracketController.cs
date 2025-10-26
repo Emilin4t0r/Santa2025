@@ -17,6 +17,7 @@ public class BracketController : MonoBehaviour
     Transform closestTemp;
 
     bool acquiringLock;
+    BracketHealth health;
 
     private void Awake()
     {
@@ -27,11 +28,12 @@ public class BracketController : MonoBehaviour
     {
         ac = AirplaneController.instance;
         targeter = Targeter.instance;
+        health = GetComponentInChildren<BracketHealth>();
+        health.gameObject.SetActive(false);
     }
 
     private void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.O))
         {
             Time.timeScale = 0.1f;
@@ -47,28 +49,33 @@ public class BracketController : MonoBehaviour
                 MoveBracket(gtgReticle);
                 break;
             case HUD.HUDMode.AirToAir:
+
                 if (Input.GetKeyDown(KeyCode.Mouse2))
                 {
                     FindNewTarget();
                 }
+
                 if (!acquiringLock)
                 {
                     if (lockedOn)
                     {
-                        // Is locked target not visible anymore on the radar?
+                        // Is locked target not visible anymore on the radar? (or destroyed)
                         if (!IsObjectOnRadar(lockedOn.gameObject))
                         {
-                            lockedOn = null;
+                            ResetLock();
                             bracketTarget = radarTrackerParent;
                             return;
                         }
                     }
                     else
                     {
-                        bracketTarget = radarTrackerParent;
+                        if (health.gameObject.activeSelf)
+                            ResetLock();
+                        bracketTarget = radarTrackerParent;                        
                         targeter.EnableImg(false);
                     }
                 }
+
                 if (bracketTarget)
                 {
                     MoveBracket(bracketTarget);
@@ -98,7 +105,7 @@ public class BracketController : MonoBehaviour
     {
         acquiringLock = true;
         bracketTarget = radarTrackerParent;
-        lockedOn = null;
+        ResetLock();
         if (radarTrackerParent.childCount == 0)
         {
             acquiringLock = false;
@@ -107,16 +114,16 @@ public class BracketController : MonoBehaviour
         }
         // Find radar tracker closest to center of canvas
         closestTemp = radarTrackerParent.GetChild(0);
-        float bestDist = Vector3.Distance(transform.position, radarTrackerParent.GetChild(0).transform.position);
-        foreach (var r in radarTrackerParent.GetComponentsInChildren<Transform>())
+        float bestDist = Vector3.Distance(transform.position, closestTemp.transform.position);
+        foreach (Transform child in radarTrackerParent)
         {
-            if (r == radarTrackerParent)
+            if (child == radarTrackerParent)
                 continue;
-            float dist = Vector3.Distance(targeter.transform.position, r.position);
+            float dist = Vector3.Distance(targeter.transform.position, child.position);
             if (dist < bestDist)
             {
                 bestDist = dist;
-                closestTemp = r;
+                closestTemp = child;
             }
         }
         targeter.StartFlash(lockTime, 0.1f);
@@ -132,13 +139,25 @@ public class BracketController : MonoBehaviour
             lockedOn = closestTemp.GetComponent<RadarTracker>().target;
             bracketTarget = closestTemp;
             targeter.EnableImg(true);
+            var enemyScript = closestTemp.GetComponent<RadarTracker>().target.GetComponent<EnemySantaUtils>();
+            health.gameObject.SetActive(true);
+            health.SetHealth(enemyScript.hitPoints);
+            enemyScript.OnHit += health.ChangeHealth;
         }
         catch
         {
             acquiringLock = false;
-            lockedOn = null;
+            ResetLock();
             bracketTarget = radarTrackerParent;
             targeter.EnableImg(false);
         }
+    }
+
+    void ResetLock()
+    {
+        if (lockedOn)
+            lockedOn.GetComponent<EnemySantaUtils>().OnHit -= health.ChangeHealth;
+        lockedOn = null;
+        health.gameObject.SetActive(false);        
     }
 }

@@ -11,6 +11,7 @@ public class RadarTracker : MonoBehaviour
     AirplaneController ac;
     BracketController bc;
     Image img;
+    TrackerHealth health;
 
     private void Start()
     {
@@ -19,12 +20,13 @@ public class RadarTracker : MonoBehaviour
         img = GetComponent<Image>();
         ac = AirplaneController.instance;
         bc = BracketController.instance;
-        SoundSpawner.SpawnSound(ac.transform.position, ac.transform, SoundLibrary.GetClip("rwr_target"), 0, false);
+        health = GetComponentInChildren<TrackerHealth>();
+        SetHealth(target.GetComponent<EnemySantaUtils>().hitPoints);
+        SoundSpawner.SpawnSound(ac.transform.position, ac.transform, SoundLibrary.GetClip("rwr_target"), 0, false);        
     }
 
     private void FixedUpdate()
     {
-        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, -ac.transform.localEulerAngles.z);
         if (target)
         {
             if (bc.lockedOn)
@@ -32,12 +34,18 @@ public class RadarTracker : MonoBehaviour
                 if (bc.lockedOn.gameObject == target)
                 {
                     if (img.enabled)
+                    {
                         img.enabled = false;
+                        health.gameObject.SetActive(false);
+                    }
                 }
                 else
                 {
                     if (!img.enabled)
+                    {
                         img.enabled = true;
+                        health.gameObject.SetActive(true);
+                    }
                 }
             }            
             Vector2 screenPosition = ProjectTargetPointToScreen(target.transform.position);
@@ -48,6 +56,17 @@ public class RadarTracker : MonoBehaviour
             Radar.instance.enemies.Remove(gameObject);
             Destroy(gameObject);
         }
+    }
+
+    public void SetHealth(float amount)
+    {
+        if (health.gameObject.activeSelf)
+            health.SetHealth(amount);
+    }
+    public void ChangeHealth(float newHealth)
+    {
+        if (health.gameObject.activeSelf)
+            health.ChangeHealth(newHealth, 0.7f);
     }
 
     Vector2 ProjectTargetPointToScreen(Vector3 point)

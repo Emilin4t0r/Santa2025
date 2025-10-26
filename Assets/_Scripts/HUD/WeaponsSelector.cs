@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,13 +18,15 @@ public class WeaponsSelector : MonoBehaviour
 
     public enum WeaponType { SingleGuns, ChainGuns, AirBurst, IRMissiles, RadarMissiles, SwarmMissiles }
 
+    public event Action OnWeaponChanged;
+
     private void OnEnable()
     {        
-        SceneManager.activeSceneChanged += OnSceneChanged;        
+        SceneManager.activeSceneChanged += OnSceneChanged;
     }
     private void OnDisable()
     {
-        SceneManager.activeSceneChanged -= OnSceneChanged;        
+        SceneManager.activeSceneChanged -= OnSceneChanged;
     }
     void OnSceneChanged(Scene old, Scene now)
     {
@@ -193,8 +196,8 @@ public class WeaponsSelector : MonoBehaviour
         singleGuns.enabled = false;
         chainGuns.enabled = false;
         airBurst.enabled = false;
-        irMissiles.enabled = false;
-        radarMissiles.enabled = false;
+        irMissiles.DeactivateWeapon();
+        radarMissiles.DeactivateWeapon();
         swarmMissiles.enabled = false;
     }
 }

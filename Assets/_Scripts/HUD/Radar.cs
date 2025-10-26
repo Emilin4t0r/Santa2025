@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Radar : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Radar : MonoBehaviour
     public List<GameObject> enemies;
     public GameObject radarTrackerUIPrefab;
     public GameObject radarTrackersParentUI;
+    Transform airplane;
 
     private void Awake()
     {
@@ -17,17 +19,32 @@ public class Radar : MonoBehaviour
     private void Start()
     {
         enemies = new List<GameObject>();
+        airplane = AirplaneController.instance.transform;
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
             if (!enemies.Contains(other.gameObject))
             {
+                // Does radar have line of sight?
+                LayerMask groundMask = LayerMask.GetMask("Ground");
+                float distToEnemy = Vector3.Distance(airplane.position, other.transform.position);
+                bool hit = Physics.Raycast(airplane.position, other.transform.position - airplane.position, distToEnemy, groundMask);
+                if (hit) {
+                    Debug.DrawLine(airplane.position, other.transform.position, Color.magenta);
+                    return;
+                } else
+                {
+                    Debug.DrawLine(airplane.position, other.transform.position, Color.cyan, 5f);
+                }
                 enemies.Add(other.gameObject);
                 var tracker = Instantiate(radarTrackerUIPrefab, radarTrackersParentUI.transform);
                 tracker.transform.name = "Tracker" + other.gameObject.name;
-                tracker.GetComponent<RadarTracker>().target = other.gameObject;
+                var trackerScript = tracker.GetComponent<RadarTracker>();
+                trackerScript.target = other.gameObject;
+                var enemyScript = other.GetComponent<EnemySantaUtils>();
+                enemyScript.OnHit += trackerScript.ChangeHealth;
             }
         }
     }
@@ -40,7 +57,9 @@ public class Radar : MonoBehaviour
             {
                 enemies.Remove(other.gameObject);
                 if (radarTrackersParentUI.transform.Find("Tracker" + other.gameObject.name)) {
-                    Destroy(radarTrackersParentUI.transform.Find("Tracker" + other.gameObject.name).gameObject);
+                    var tracker = radarTrackersParentUI.transform.Find("Tracker" + other.gameObject.name).gameObject;
+                    other.GetComponent<EnemySantaUtils>().OnHit -= tracker.GetComponent<RadarTracker>().ChangeHealth;
+                    Destroy(tracker);
                 }
             }
         }

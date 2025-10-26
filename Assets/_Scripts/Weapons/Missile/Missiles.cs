@@ -118,7 +118,10 @@ public class Missiles : MonoBehaviour
                     {
                         if (Radar.instance.enemies.Count > 0)
                         {
-                            lockedOn = Radar.instance.enemies[0];
+                            if (bc.lockedOn)
+                                lockedOn = bc.lockedOn;
+                            else
+                                lockedOn = Radar.instance.enemies.FirstOrDefault();
                             seeking = false;
                         }
                         else
@@ -158,7 +161,6 @@ public class Missiles : MonoBehaviour
             if (acqSound)
                 SoundSpawner.EndLoop(acqSound);
         }
-
     }
 
     void SeekRadarLock()
@@ -171,7 +173,6 @@ public class Missiles : MonoBehaviour
     {
         if (Radar.instance.enemies.Count == 0)
             return;
-        var enemy = Radar.instance.enemies.FirstOrDefault();
         StartSeek();
     }
     void StartSeek()
@@ -191,5 +192,14 @@ public class Missiles : MonoBehaviour
         missiles.Remove(msl);
         hud.SetAmmo(missiles.Count);
         EZCameraShake.CameraShaker.Instance.ShakeOnce(0.75f, 15, 0, 0.5f);
+    }
+
+    public void DeactivateWeapon()
+    {
+        lockedOn = null;
+        seeking = false;
+        SoundSpawner.EndLoop(lockSound);
+        SoundSpawner.EndLoop(acqSound);
+        enabled = false;
     }
 }
