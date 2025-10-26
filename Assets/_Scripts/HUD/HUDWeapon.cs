@@ -11,6 +11,7 @@ public class HUDWeapon : MonoBehaviour
 
     public Color selectedColor, txtSelectedColor;
     public Color deselectedColor, txtDeselectedColor;
+    public bool outOfAmmo;
 
     private void Awake()
     {
@@ -21,20 +22,36 @@ public class HUDWeapon : MonoBehaviour
     public void Deselect()
     {
         bracket.SetActive(false);
-        ammoText.color = txtDeselectedColor;
-        wpnImg.color = deselectedColor;
-        bracketImg.color = deselectedColor;
+        DimColors(true);
     }
     public void Select()
     {
         bracket.SetActive(true);
-        ammoText.color = txtSelectedColor;
-        wpnImg.color = selectedColor;
-        bracketImg.color = selectedColor;
+        if (!outOfAmmo)
+            DimColors(false);
+    }
+    public void DimColors(bool yes)
+    {
+        if (yes)
+        {
+            ammoText.color = txtDeselectedColor;
+            wpnImg.color = deselectedColor;
+            
+        }
+        else
+        {
+            ammoText.color = txtSelectedColor;
+            wpnImg.color = selectedColor;
+        }
     }
     public void SetAmmo(int ammo)
     {
         ammoText.text = ammo.ToString();
+        if (ammo == 0)
+        {
+            DimColors(true);
+            outOfAmmo = true;
+        }
     }
     public void SetHotkey(int hotkey)
     {

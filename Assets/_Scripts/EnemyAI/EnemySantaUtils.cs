@@ -76,6 +76,8 @@ public class EnemySantaUtils : MonoBehaviour
 
     public void GetHit(float damage)
     {
+        if (hitPoints <= 0)
+            return;
         hitPoints -= damage;
         if (hitPoints <= 0)
         {
@@ -88,7 +90,7 @@ public class EnemySantaUtils : MonoBehaviour
         var partc = Instantiate(deathParticle, transform.position, transform.rotation);
         EnemiesController.enemiesAttacking.Remove(gameObject);
         Radar.instance.enemies.Remove(gameObject);
-        Destroy(partc, 1);
+        Destroy(partc, 10);
         Destroy(gameObject);        
     }
 }

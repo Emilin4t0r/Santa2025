@@ -10,31 +10,33 @@ public class SwarmMissile : MonoBehaviour
     public float lifeTime = 5;
     public float visualRotationSpeed;
     public float launchAccuracy;
-    public float maxDamage;
+    public Vector2 damageRange;
+    public float damageRadius;
     public GameObject explosion;
     GameObject rotator;
     public Transform target;
     TrailRenderer trail;
-    CapsuleCollider cc;
+    SphereCollider sc;
     Rigidbody rb;
     GameObject pointLight;
 
-    public GameObject radar;
     public GameObject finsToHide;
+    public float explosionEffectSize = 0.5f;
 
     float blowUpTimer;
-    float distToTarget;    
+    public bool targetSet;
+    SwarmMRadar swarmRadar;
 
     private void Start()
     {
         SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("missile_launch"));
         rotator = transform.Find("MissileRotator").gameObject;
         trail = transform.GetComponentInChildren<TrailRenderer>();
-        cc = GetComponent<CapsuleCollider>();
+        sc = GetComponent<SphereCollider>();
         rb = GetComponent<Rigidbody>();
         pointLight = transform.Find("Point Light").gameObject;
         trail.enabled = true;
-        cc.enabled = true;
+        sc.enabled = true;
         rb.isKinematic = false;
         pointLight.SetActive(true);
         if (finsToHide != null)
@@ -42,6 +44,7 @@ public class SwarmMissile : MonoBehaviour
             finsToHide.SetActive(true);
         }
         jetSpdOnLaunch = AirplaneController.instance.rb.linearVelocity.magnitude;
+        swarmRadar = GetComponent<SwarmMRadar>();
         DoInitialLaunchOffset();
     }
 
@@ -58,6 +61,12 @@ public class SwarmMissile : MonoBehaviour
 
         if (target == null)
         {
+            if (targetSet)
+            {
+                // target was destroyed, reactivate Swarm Radar.
+                swarmRadar.enabled = true;
+                targetSet = false;
+            }
             // no target: keep current forward direction
             aimPoint = transform.position + transform.forward;
         }
@@ -75,8 +84,6 @@ public class SwarmMissile : MonoBehaviour
                 aimPoint = interceptPoint;
             else
                 aimPoint = targetPos; // fallback: pure pursuit
-
-            CheckDistanceToTarget(); // Check if close enough to target to detonate
         }
 
         // Rotate front towards aimPoint using turnSpeed (degrees per second).
@@ -99,7 +106,7 @@ public class SwarmMissile : MonoBehaviour
 
         blowUpTimer += Time.fixedDeltaTime;
         if (blowUpTimer > lifeTime)
-            BlowUp();        
+            Explode();        
     }
 
     /// <summary>
@@ -158,25 +165,27 @@ public class SwarmMissile : MonoBehaviour
         return true;
     }
 
-    void CheckDistanceToTarget()
-    {
-        float dist = Vector3.Distance(transform.position, target.position);
-        if (dist > distToTarget && distToTarget != 0)
-        {
-            // Missile has passed enemy
-            HitEnemy(target.GetComponent<EnemySantaUtils>());
-        }
-        distToTarget = dist;
-    }
-
+    bool targetHasEnteredSphere;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.transform == target)
         {
-            HitEnemy(other.GetComponent<EnemySantaUtils>());
+            targetHasEnteredSphere = true;
         }
         if (other.CompareTag("Ground"))
-            BlowUp();
+        {
+            Explode();
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.transform == target)
+        {
+            if (targetHasEnteredSphere)
+            {
+                Detonate();
+            }
+        }
     }
 
     void DoInitialLaunchOffset()
@@ -187,18 +196,35 @@ public class SwarmMissile : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(newDirection, Vector3.up);
     }
 
-    void HitEnemy(EnemySantaUtils enemy)
+    void Detonate()
     {
-        float dmg = Mathf.Max((maxDamage - distToTarget) + 5, 0); // +5 to offset distance from enemy collider's edge to enemy's center
-        enemy.GetHit(dmg);
-        print("SWRM HIT, DMG: " + dmg + ", DIST: " + distToTarget);
-        BlowUp();
+        var cols = Physics.OverlapSphere(transform.position, damageRadius);
+        foreach (Collider col in cols)
+        {
+            if (col.CompareTag("Enemy"))
+            {
+                DamageEnemy(col.GetComponent<EnemySantaUtils>());
+            }
+        }
+        Explode();
     }
 
-    void BlowUp(float explSizeMultiplier = 0.5f)
+    void DamageEnemy(EnemySantaUtils enemy)
+    {
+        if (enemy == null) return;
+        float dist = Vector3.Distance(enemy.gameObject.transform.position, transform.position);
+        bool insideRange = (damageRadius - dist) > 0;
+        if (!insideRange)
+            return;
+        float dmg = Random.Range(damageRange.x, damageRange.y);
+        enemy.GetHit(dmg);
+        print("SWRM DAMAGED: " + enemy.name + " DMG: " + dmg + " DIST: " + dist);
+    }
+
+    void Explode()
     {
         GameObject expl = Instantiate(explosion, transform.position, Quaternion.identity);
-        expl.transform.localScale *= explSizeMultiplier;
+        expl.transform.localScale *= explosionEffectSize;
         SoundSpawner.SpawnSound(transform.position, AirplaneController.instance.transform, SoundLibrary.GetClip("missile_explode"));
         Destroy(expl, 1);
         Destroy(gameObject);

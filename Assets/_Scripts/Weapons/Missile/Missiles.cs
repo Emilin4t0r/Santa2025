@@ -120,7 +120,8 @@ public class Missiles : MonoBehaviour
                         {
                             lockedOn = Radar.instance.enemies[0];
                             seeking = false;
-                        } else
+                        }
+                        else
                         {
                             seeking = false;
                         }
@@ -167,7 +168,7 @@ public class Missiles : MonoBehaviour
         StartSeek();
     }
     void SeekIRLock()
-    {        
+    {
         if (Radar.instance.enemies.Count == 0)
             return;
         var enemy = Radar.instance.enemies.FirstOrDefault();
@@ -182,7 +183,7 @@ public class Missiles : MonoBehaviour
 
     void FireMissile()
     {
-        Missile msl = missiles[0];
+        Missile msl = missiles[0];             
         msl.enabled = true;
         msl.target = lockedOn.transform;
         lockedOn = null;

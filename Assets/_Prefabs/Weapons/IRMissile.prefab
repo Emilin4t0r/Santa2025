@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1510567363}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.7773}
+  m_LocalPosition: {x: 0, y: 0, z: -0.444}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -78,11 +78,11 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.5
+  m_Time: 0.7
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.1
+    widthMultiplier: 0.5
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -6298,8 +6298,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4623915552872173145}
   - component: {fileID: 1170989305}
-  - component: {fileID: 1170989304}
   - component: {fileID: 7280308103679247811}
+  - component: {fileID: -824065429415341621}
   m_Layer: 0
   m_Name: IRMissile
   m_TagString: Untagged
@@ -6352,29 +6352,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!136 &1170989304
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4623915552872173144}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.11
-  m_Height: 0.87
-  m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0.07}
 --- !u!114 &7280308103679247811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6394,12 +6371,35 @@ MonoBehaviour:
   turnSpeed: 50
   lifeTime: 10
   visualRotationSpeed: 20
-  maxDamage: 8
-  explosion: {fileID: 7070465220517492653, guid: 79cb3226db845d349bcc6607437ee214, type: 3}
+  damageRange: {x: 30, y: 70}
+  damageRadius: 30
+  explosion: {fileID: 5606332623978223097, guid: 21db634490ee48f4c8f3d832a2e1f6d7, type: 3}
   rotator: {fileID: 82978572935944047}
   pointLight: {fileID: 2184178274682458833}
   target: {fileID: 0}
+  explosionEffectSize: 1.5
   finsToHide: {fileID: 4420868212217423339}
+--- !u!135 &-824065429415341621
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4623915552872173144}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 7}
 --- !u!1 &4623915553380296045
 GameObject:
   m_ObjectHideFlags: 0
@@ -10879,7 +10879,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 19800000, guid: 06d796ccd85dc4c4b9c98270196715ae, type: 3}
       propertyPath: InitialModule.gravityModifier.scalar
-      value: 0.25
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 19800002, guid: 06d796ccd85dc4c4b9c98270196715ae, type: 3}
       propertyPath: simulationSpeed
@@ -10899,7 +10899,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 19800004, guid: 06d796ccd85dc4c4b9c98270196715ae, type: 3}
       propertyPath: InitialModule.gravityModifier.scalar
-      value: 0.25
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

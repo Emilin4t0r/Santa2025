@@ -2,6 +2,7 @@ using System.Collections;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class ABBullet : Bullet
 {
@@ -31,7 +32,7 @@ public class ABBullet : Bullet
         if (dist > distFromLockedOn && distFromLockedOn != 0)
         {
             // Bullet has passed enemy
-            DoAirburst(bc.lockedOn.GetComponent<EnemySantaUtils>(), distFromLockedOn);
+            Detonate();
         }
         distFromLockedOn = dist;
     }
@@ -43,18 +44,29 @@ public class ABBullet : Bullet
         {
             if (col.CompareTag("Enemy"))
             {
-                float dist = Vector3.Distance(transform.position, col.transform.position);
-                DoAirburst(col.GetComponent<EnemySantaUtils>(), dist);                
-                break;
+                Detonate();
             }
         }
     }
 
-    void DoAirburst(EnemySantaUtils enemy, float distance)
+    void Detonate()
     {
-        float dmg = Mathf.Max((damage - distance) + 5, 0); // +5 to offset distance from enemy collider's edge to enemy's center
-        enemy.GetHit(dmg);
-        print("BURST, DMG: " + dmg + ", DIST: " + distance);
+        var cols = Physics.OverlapSphere(transform.position, damage);
+        foreach (Collider col in cols)
+        {
+            if (col.CompareTag("Enemy"))
+            {                
+                DoDamage(col.GetComponent<EnemySantaUtils>());
+            }
+        }
         KillBullet(false);
+    }
+
+    void DoDamage(EnemySantaUtils enemy)
+    {
+        float dist = Vector3.Distance(transform.position, enemy.transform.position);
+        float dmg = Mathf.Max((damage - dist) + 5, 0); // +5 to offset distance from enemy collider's edge to enemy's center
+        enemy.GetHit(dmg);
+        print("BURST, DMG: " + dmg + ", DIST: " + dist);        
     }
 }

@@ -63,7 +63,7 @@ public class SwarmMissiles : MonoBehaviour
 
     void FireMissile()
     {        
-        SwarmMissile msl = missiles[0];
+        SwarmMissile msl = missiles[0];        
         msl.enabled = true;
         msl.GetComponent<SwarmMRadar>().enabled = true;
         msl.transform.parent = null;

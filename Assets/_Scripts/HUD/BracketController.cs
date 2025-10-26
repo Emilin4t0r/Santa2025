@@ -11,6 +11,7 @@ public class BracketController : MonoBehaviour
     public Transform bracketTarget;
     public float bracketFollowSpeed;
     public GameObject lockedOn;
+    public float lockTime;
     Targeter targeter;
     AirplaneController ac;
     Transform closestTemp;
@@ -118,8 +119,8 @@ public class BracketController : MonoBehaviour
                 closestTemp = r;
             }
         }
-        targeter.StartFlash(1.5f, 0.1f);
-        StartCoroutine(LockAcquireWaiter(0.75f));
+        targeter.StartFlash(lockTime, 0.1f);
+        StartCoroutine(LockAcquireWaiter(lockTime));
     }
 
     IEnumerator LockAcquireWaiter(float timeToGetLock)

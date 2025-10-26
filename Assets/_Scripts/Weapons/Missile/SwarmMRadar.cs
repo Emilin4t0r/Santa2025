@@ -11,13 +11,6 @@ public class SwarmMRadar : MonoBehaviour
     {
         missile = GetComponent<SwarmMissile>();
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Enemy"))
-        {
-            missile.target = other.transform;
-        }
-    }
 
     private void FixedUpdate()
     {
@@ -36,6 +29,7 @@ public class SwarmMRadar : MonoBehaviour
         {
             if (col.CompareTag("Enemy")) {
                 missile.target = col.transform;
+                missile.targetSet = true;
                 enabled = false;
             }
         }

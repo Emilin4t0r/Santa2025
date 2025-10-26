@@ -76,7 +76,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyTag: Enemy
   bulletHit: {fileID: 7070465220517492653, guid: 7c35f2d4e1b64a94497858b5b6f144cb, type: 3}
-  damage: 0.5
+  altBulletHit: {fileID: 0}
+  damage: 10
   doRandomRicochets: 0
 --- !u!136 &5616326674708750372
 CapsuleCollider:

@@ -13,30 +13,29 @@ public class Missile : MonoBehaviour
     public float turnSpeed;
     public float lifeTime = 5;
     public float visualRotationSpeed;
-    public float maxDamage;
-    public float proximityFuseRadius = 8f;
-    public LayerMask enemyLayerMask;
+    public Vector2 damageRange;
+    public float damageRadius;
     public GameObject explosion;
     public GameObject rotator;
     public GameObject pointLight;
     public Transform target;
     TrailRenderer trail;
-    CapsuleCollider cc;
-    Rigidbody rb;    
+    SphereCollider sc;
+    Rigidbody rb;
+    public float explosionEffectSize = 0.5f;
 
     public GameObject finsToHide;
 
     float blowUpTimer;
-    float distToTarget;
 
     private void Start()
     {
         SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("missile_launch"));
         trail = transform.GetComponentInChildren<TrailRenderer>();
-        cc = GetComponent<CapsuleCollider>();
+        sc = GetComponent<SphereCollider>();
         rb = GetComponent<Rigidbody>();
         trail.enabled = true;
-        cc.enabled = true;
+        sc.enabled = true;
         rb.isKinematic = false;
         pointLight.SetActive(true);
         if (finsToHide != null)
@@ -76,8 +75,6 @@ public class Missile : MonoBehaviour
                 aimPoint = interceptPoint;
             else
                 aimPoint = targetPos; // fallback: pure pursuit
-
-            CheckDistanceToTarget();
         }
 
         // Rotate front towards aimPoint using turnSpeed (degrees per second).
@@ -100,7 +97,7 @@ public class Missile : MonoBehaviour
 
         blowUpTimer += Time.fixedDeltaTime;
         if (blowUpTimer > lifeTime)
-            BlowUp();
+            Explode();
     }
 
     /// <summary>
@@ -159,41 +156,61 @@ public class Missile : MonoBehaviour
         return true;
     }
 
-    void CheckDistanceToTarget()
-    {
-        float dist = Vector3.Distance(transform.position, target.position);
-        if (dist > distToTarget && distToTarget != 0)
-        {
-            // Missile has passed enemy
-            DamageEnemy(target.GetComponent<EnemySantaUtils>());
-        }
-        distToTarget = dist;
-    }
-
+    bool targetHasEnteredSphere;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.transform == target)
         {
-            DamageEnemy(other.GetComponent<EnemySantaUtils>());
+            targetHasEnteredSphere = true;
+            print(target.name + "Has entered sphere");
         }
         if (other.CompareTag("Ground"))
-            BlowUp();
+        {
+            Explode();
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.transform == target)
+        {
+            if (targetHasEnteredSphere)
+            {
+                print(target.name + " exited sphere, detonating...!");
+                Detonate();
+            }            
+        }
+    }
+
+    void Detonate()
+    {
+        var cols = Physics.OverlapSphere(transform.position, damageRadius);
+        foreach (Collider col in cols)
+        {
+            if (col.CompareTag("Enemy"))
+            {
+                DamageEnemy(col.GetComponent<EnemySantaUtils>());
+            }
+        }
+        Explode();
     }
 
     void DamageEnemy(EnemySantaUtils enemy)
     {
         if (enemy == null) return;
         float dist = Vector3.Distance(enemy.gameObject.transform.position, transform.position);
-        float dmg = Mathf.Max((maxDamage - dist) + 5, 0); // +5 to offset distance from enemy collider's edge to enemy's center
+        print("Distance to target " + enemy.name + ": " + dist);
+        bool insideRange = (damageRadius - dist) > 0;
+        if (!insideRange)
+            return;
+        float dmg = Random.Range(damageRange.x, damageRange.y);
         enemy.GetHit(dmg);
-        print("MSL DAMAGED: " + enemy.name + " DMG: " + dmg + " DIST: " + dist);
-        BlowUp();
+        print("MSL DAMAGED: " + enemy.name + " DMG: " + dmg + " DIST: " + dist);        
     }
 
-    void BlowUp(float explSizeMultiplier = 0.5f)
+    void Explode()
     {
         GameObject expl = Instantiate(explosion, transform.position, Quaternion.identity);
-        expl.transform.localScale *= explSizeMultiplier;
+        expl.transform.localScale *= explosionEffectSize;
         SoundSpawner.SpawnSound(transform.position, AirplaneController.instance.transform, SoundLibrary.GetClip("missile_explode"));
         Destroy(expl, 1);
         Destroy(gameObject);
