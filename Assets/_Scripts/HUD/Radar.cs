@@ -21,23 +21,12 @@ public class Radar : MonoBehaviour
         enemies = new List<GameObject>();
         airplane = AirplaneController.instance.transform;
     }
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
             if (!enemies.Contains(other.gameObject))
             {
-                // Does radar have line of sight?
-                LayerMask groundMask = LayerMask.GetMask("Ground");
-                float distToEnemy = Vector3.Distance(airplane.position, other.transform.position);
-                bool hit = Physics.Raycast(airplane.position, other.transform.position - airplane.position, distToEnemy, groundMask);
-                if (hit) {
-                    Debug.DrawLine(airplane.position, other.transform.position, Color.magenta);
-                    return;
-                } else
-                {
-                    Debug.DrawLine(airplane.position, other.transform.position, Color.cyan, 5f);
-                }
                 enemies.Add(other.gameObject);
                 var tracker = Instantiate(radarTrackerUIPrefab, radarTrackersParentUI.transform);
                 tracker.transform.name = "Tracker" + other.gameObject.name;
@@ -60,6 +49,7 @@ public class Radar : MonoBehaviour
                     var tracker = radarTrackersParentUI.transform.Find("Tracker" + other.gameObject.name).gameObject;
                     other.GetComponent<EnemySantaUtils>().OnHit -= tracker.GetComponent<RadarTracker>().ChangeHealth;
                     Destroy(tracker);
+                    // Play sound for losing track
                 }
             }
         }

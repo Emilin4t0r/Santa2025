@@ -122,6 +122,7 @@ public class Missiles : MonoBehaviour
                                 lockedOn = bc.lockedOn;
                             else
                                 lockedOn = Radar.instance.enemies.FirstOrDefault();
+                            print("Locking finished, locked on: " + lockedOn?.name);
                             seeking = false;
                         }
                         else

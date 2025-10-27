@@ -65,7 +65,7 @@ public class ABBullet : Bullet
     void DoDamage(EnemySantaUtils enemy)
     {
         float dist = Vector3.Distance(transform.position, enemy.transform.position);
-        float dmg = Mathf.Max((damage - dist) + 5, 0); // +5 to offset distance from enemy collider's edge to enemy's center
+        float dmg = Mathf.Max((damage - dist) / 12, 0); // 12 is an arbitrary number to lower damage (janky as hell)
         enemy.GetHit(dmg);
         print("BURST, DMG: " + dmg + ", DIST: " + dist);        
     }

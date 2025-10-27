@@ -79,6 +79,7 @@ public class EnemySantaUtils : MonoBehaviour
 
     public void GetHit(float damage)
     {
+        print(gameObject.name + " got hit " + damage + ". health: " + (hitPoints - damage).ToString());
         if (hitPoints <= 0)
             return;
         hitPoints -= damage;
@@ -96,8 +97,10 @@ public class EnemySantaUtils : MonoBehaviour
     {
         SoundSpawner.SpawnSound(transform.position, transform.parent, SoundLibrary.GetClip("enemy_explode"));
         var partc = Instantiate(deathParticle, transform.position, transform.rotation);
+        print(gameObject.name + " Dying... in radar: " + Radar.instance.enemies.Contains(gameObject));
         EnemiesController.enemiesAttacking.Remove(gameObject);
         Radar.instance.enemies.Remove(gameObject);
+        print(gameObject.name + " removed from lists. in radar: " + Radar.instance.enemies.Contains(gameObject));
         Destroy(partc, 10);
         Destroy(gameObject);        
     }

@@ -32,7 +32,7 @@ public class EnemySantaMove : MonoBehaviour
         previousPosition = transform.position;        
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         UpdateVelocity();
 
@@ -64,7 +64,7 @@ public class EnemySantaMove : MonoBehaviour
         // --- Forward movement speed (unchanged) ---
         float distanceToDestination = Vector3.Distance(transform.position, target.position);
         float desiredMoveSpeed = Mathf.Clamp(maxSpeed * (distanceToDestination / 100), maxSpeed / 2, maxSpeed);
-        currentMoveSpeed = Mathf.MoveTowards(currentMoveSpeed, desiredMoveSpeed, moveAcceleration * Time.deltaTime);
+        currentMoveSpeed = Mathf.MoveTowards(currentMoveSpeed, desiredMoveSpeed, moveAcceleration * Time.fixedDeltaTime);
 
         // ---------- Raycast check to trigger escape ----------
         if (!isEscaping)
@@ -98,14 +98,14 @@ public class EnemySantaMove : MonoBehaviour
         {
             // Turn toward escapeDirection (uses escapeTurnRate)
             Quaternion escapeRot = Quaternion.LookRotation(escapeDirection);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, escapeRot, escapeTurnRate * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, escapeRot, escapeTurnRate * Time.fixedDeltaTime);
 
             // Move forward exactly as before (no speed changes)
-            Vector3 move = transform.forward * currentMoveSpeed * Time.deltaTime;
+            Vector3 move = transform.forward * currentMoveSpeed * Time.fixedDeltaTime;
             transform.position += move;
 
             // Countdown escape timer and stop escaping when time's up
-            escapeTimer -= Time.deltaTime;
+            escapeTimer -= Time.fixedDeltaTime;
             if (escapeTimer <= 0f)
             {
                 isEscaping = false;
@@ -120,11 +120,11 @@ public class EnemySantaMove : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(
                 transform.rotation,
                 targetRotation,
-                maxTurnRate * Time.deltaTime
+                maxTurnRate * Time.fixedDeltaTime
             );
 
             // --- Forward movement ---
-            Vector3 moveDirection = transform.forward * currentMoveSpeed * Time.deltaTime;
+            Vector3 moveDirection = transform.forward * currentMoveSpeed * Time.fixedDeltaTime;
             transform.position += moveDirection;
         }
 
@@ -135,7 +135,7 @@ public class EnemySantaMove : MonoBehaviour
     void UpdateVelocity()
     {
         // guard against first frame huge delta
-        float dt = Time.deltaTime;
+        float dt = Time.fixedDeltaTime;
         if (dt <= 0) return;
         currentVelocity = (transform.position - previousPosition) / dt;
         previousPosition = transform.position;

@@ -24,6 +24,11 @@ public class BracketHealth : MonoBehaviour
         sliderImg.color = barColor;
     }
 
+    private void OnEnable()
+    {
+        sliderImg.color = barColor;
+    }
+
     private void Update()
     {
         if (changingHealth)

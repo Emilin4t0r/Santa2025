@@ -132,6 +132,7 @@ public class BracketController : MonoBehaviour
 
     IEnumerator LockAcquireWaiter(float timeToGetLock)
     {
+        var acqLoop = SoundSpawner.SpawnSoundLoop(transform.position, transform, SoundLibrary.GetClip("radar_acq"));
         yield return new WaitForSeconds(timeToGetLock);
         try
         {
@@ -143,6 +144,7 @@ public class BracketController : MonoBehaviour
             health.gameObject.SetActive(true);
             health.SetHealth(enemyScript.hitPoints);
             enemyScript.OnHit += health.ChangeHealth;
+            SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("radar_lock"));
         }
         catch
         {
@@ -151,6 +153,7 @@ public class BracketController : MonoBehaviour
             bracketTarget = radarTrackerParent;
             targeter.EnableImg(false);
         }
+        SoundSpawner.EndLoop(acqLoop);        
     }
 
     void ResetLock()
