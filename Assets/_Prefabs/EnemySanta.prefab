@@ -269,7 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fbbe38bbd656264a9261ee65c98925c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 500
+  maxSpeed: 650
   moveAcceleration: 8
   currentMoveSpeed: 0
   maxTurnRate: 1
@@ -296,7 +296,7 @@ MonoBehaviour:
   gunMuzzles:
   - {fileID: 3670047663290536064}
   - {fileID: 6976284243374152283}
-  shootForce: 500
+  shootForce: 750
   inaccuracy: 0.05
   shootFrequency: {x: 1, y: 5}
   bulletPrefab: {fileID: 3130551460163936705, guid: 6eab430744c3bfd4899b66397ecc5d7f, type: 3}
