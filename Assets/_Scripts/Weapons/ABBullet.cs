@@ -3,11 +3,14 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
+using static UnityEngine.GraphicsBuffer;
 
 public class ABBullet : Bullet
 {
     BracketController bc;
     float distFromLockedOn;
+    GameObject altTarget;
+    public float blastRadius;
 
     private void Start()
     {
@@ -18,17 +21,23 @@ public class ABBullet : Bullet
     {
         if (bc.lockedOn != null) {
             // If we have enemy locked, burst when we're closest to it
-            CheckDistanceToTarget();
+            CheckDistanceToTarget(bc.lockedOn);
         } else
         {
-            // No enemy locked, search for one using an overlapsphere
-            DoOverlapSphereSearch();
+            if (!altTarget)
+            {
+                // No enemy locked, search for one using an overlapsphere
+                DoOverlapSphereSearch();
+            } else
+            {
+                CheckDistanceToTarget(altTarget);
+            }
         }
     }
 
-    void CheckDistanceToTarget()
+    void CheckDistanceToTarget(GameObject target)
     {
-        float dist = Vector3.Distance(transform.position, bc.lockedOn.transform.position);
+        float dist = Vector3.Distance(transform.position, target.transform.position);
         if (dist > distFromLockedOn && distFromLockedOn != 0)
         {
             // Bullet has passed enemy
@@ -39,23 +48,23 @@ public class ABBullet : Bullet
 
     void DoOverlapSphereSearch()
     {
-        var cols = Physics.OverlapSphere(transform.position, damage);
+        var cols = Physics.OverlapSphere(transform.position, blastRadius);
         foreach (Collider col in cols)
         {
             if (col.CompareTag("Enemy"))
             {
-                Detonate();
+                altTarget = col.gameObject;                
             }
         }
     }
 
     void Detonate()
     {
-        var cols = Physics.OverlapSphere(transform.position, damage);
+        var cols = Physics.OverlapSphere(transform.position, blastRadius);
         foreach (Collider col in cols)
         {
             if (col.CompareTag("Enemy"))
-            {                
+            {
                 DoDamage(col.GetComponent<EnemySantaUtils>());
             }
         }
@@ -65,7 +74,7 @@ public class ABBullet : Bullet
     void DoDamage(EnemySantaUtils enemy)
     {
         float dist = Vector3.Distance(transform.position, enemy.transform.position);
-        float dmg = Mathf.Max((damage - dist) / 12, 0); // 12 is an arbitrary number to lower damage (janky as hell)
+        float dmg = Mathf.Max((blastRadius - dist) / 20, 0);
         enemy.GetHit(dmg);
         print("BURST, DMG: " + dmg + ", DIST: " + dist);        
     }

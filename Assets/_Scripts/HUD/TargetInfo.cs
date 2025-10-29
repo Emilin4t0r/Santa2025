@@ -34,7 +34,11 @@ public class TargetInfo : MonoBehaviour
         ac = AirplaneController.instance;
         irMissiles = GameObject.Find("IRMissiles").GetComponent<Missiles>();
         radarMissiles = GameObject.Find("RadarMissiles").GetComponent<Missiles>();
-        SetActiveMissilesToIR(true);
+        SetActiveMissilesToIR(true);        
+    }
+
+    public void LoadHUDAfterBootup()
+    {
         enemyLock.gameObject.SetActive(false);
         enemyLaunch.gameObject.SetActive(false);
         mslLock.text = "ACQUIRING";
@@ -53,6 +57,8 @@ public class TargetInfo : MonoBehaviour
 
     private void Update()
     {
+        if (HUDTurnOn.instance.waitingForBootup)
+            return;
         if (bc.lockedOn)
         {
             if (Time.time > timeToUpdateTargetInfo)
@@ -69,7 +75,9 @@ public class TargetInfo : MonoBehaviour
     }
 
     private void FixedUpdate()
-    {        
+    {
+        if (HUDTurnOn.instance.waitingForBootup)
+            return;
         targetingComputerState.text = "TARGETING MODE:\n";
         targetingComputerState.text = HUD.instance.hudMode == HUD.HUDMode.AirToAir ? "AIR COMBAT" : "GROUND STRIKE";
 

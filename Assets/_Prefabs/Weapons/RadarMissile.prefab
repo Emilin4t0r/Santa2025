@@ -3426,7 +3426,7 @@ MonoBehaviour:
   rotator: {fileID: 5601313196210564179}
   pointLight: {fileID: 6587551992809151081}
   target: {fileID: 0}
-  explosionEffectSize: 5
+  explosionEffectSize: 12
   finsToHide: {fileID: 9178081238182885936}
 --- !u!135 &1748275063524191661
 SphereCollider:

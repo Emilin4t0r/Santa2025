@@ -7439,11 +7439,11 @@ MonoBehaviour:
   thrust: 150
   acceleration: 25
   maxSpeed: 175
-  turnSpeed: 150
+  turnSpeed: 125
   lifeTime: 5
   visualRotationSpeed: 5000
   launchAccuracy: 5
-  damageRange: {x: 10, y: 30}
+  damageRange: {x: 5, y: 10}
   damageRadius: 25
   explosion: {fileID: 7070465220517492653, guid: 7c35f2d4e1b64a94497858b5b6f144cb, type: 3}
   target: {fileID: 0}

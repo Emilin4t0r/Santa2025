@@ -100,8 +100,9 @@ MonoBehaviour:
   enemyTag: Enemy
   bulletHit: {fileID: 7070465220517492653, guid: 9d9e7a0fe7d7525488c6b273b1b4f75a, type: 3}
   altBulletHit: {fileID: 0}
-  damage: 100
+  damage: 10
   doRandomRicochets: 0
+  blastRadius: 100
 --- !u!1 &5719891472711463007
 GameObject:
   m_ObjectHideFlags: 0
