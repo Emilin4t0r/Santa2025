@@ -6389,7 +6389,7 @@ GameObject:
   - component: {fileID: 4623915552872173145}
   - component: {fileID: 1170989305}
   - component: {fileID: 7280308103679247811}
-  - component: {fileID: -824065429415341621}
+  - component: {fileID: 8794163020312119886}
   m_Layer: 0
   m_Name: IRMissile
   m_TagString: Untagged
@@ -6455,22 +6455,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jetSpdOnLaunch: 0
-  thrust: 50
-  acceleration: 150
-  maxSpeed: 200
-  turnSpeed: 50
+  thrust: 40
+  acceleration: 125
+  maxSpeed: 300
+  turnSpeed: 40
   lifeTime: 10
   visualRotationSpeed: 250
-  damageRange: {x: 30, y: 70}
+  damageRange: {x: 20, y: 40}
   damageRadius: 30
   explosion: {fileID: 5606332623978223097, guid: 21db634490ee48f4c8f3d832a2e1f6d7, type: 3}
   rotator: {fileID: 82978572935944047}
   pointLight: {fileID: 2184178274682458833}
   target: {fileID: 0}
-  explosionEffectSize: 6
+  explosionEffectSize: 10
   finsToHide: {fileID: 4420868212217423339}
---- !u!135 &-824065429415341621
-SphereCollider:
+  navigationConstant: 3
+--- !u!136 &8794163020312119886
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -6487,9 +6488,11 @@ SphereCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 0
-  serializedVersion: 3
-  m_Radius: 5
-  m_Center: {x: 0, y: 0, z: 7}
+  serializedVersion: 2
+  m_Radius: 0.15
+  m_Height: 1
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4623915553380296045
 GameObject:
   m_ObjectHideFlags: 0

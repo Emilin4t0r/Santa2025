@@ -20,6 +20,7 @@ public class EnemySantaUtils : MonoBehaviour
     EnemySantaMove move;
 
     public event Action<float> OnHit;
+    GameObject shootLoopSound;
 
     private void Start()
     {
@@ -41,12 +42,18 @@ public class EnemySantaUtils : MonoBehaviour
     IEnumerator FireBurst(int shots)
     {
         TargetInfo.instance.TriggerMissileWarning();
+        shootLoopSound = SoundSpawner.SpawnSoundLoop(transform.position, transform, SoundLibrary.GetClip("shoot_loop2"), 0.65f);
         int shotsFired = 0;
         while (shotsFired < shots)
         {
             Fire();
             shotsFired++;
             yield return new WaitForSeconds(0.1f);
+        }
+        if (shootLoopSound)
+        {
+            SoundSpawner.EndLoop(shootLoopSound);
+            SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("shoot_tail2"), 0.65f, false);
         }
         yield return null;
     }
@@ -94,7 +101,7 @@ public class EnemySantaUtils : MonoBehaviour
 
     public void Die()
     {
-        SoundSpawner.SpawnSound(transform.position, transform.parent, SoundLibrary.GetClip("enemy_explode"));
+        SoundSpawner.SpawnSound(transform.position, transform.parent, SoundLibrary.GetClip("enemy_explode"), 0, true, 0.9f);
         var partc = Instantiate(deathParticle, transform.position, transform.rotation);
         EnemiesController.enemiesAttacking.Remove(gameObject);
         Radar.instance.enemies.Remove(gameObject);

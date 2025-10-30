@@ -13,7 +13,7 @@ public class InsertCoin : MonoBehaviour
     public GameObject insertCoinText;
     public MusicController mc;
     public AudioSource music;
-    public Image movieImg;
+    public RawImage movieImg;
     public GameObject canvas;
     public GameObject menuMusicController;
 

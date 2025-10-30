@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
@@ -20,7 +20,7 @@ public class Missile : MonoBehaviour
     public GameObject pointLight;
     public Transform target;
     TrailRenderer trail;
-    SphereCollider sc;
+    CapsuleCollider sc;
     Rigidbody rb;
     public float explosionEffectSize = 0.5f;
 
@@ -28,11 +28,15 @@ public class Missile : MonoBehaviour
 
     float blowUpTimer;
 
+    [Header("Proportional Navigation")]
+    [Tooltip("Navigation constant (N). Typical 2-5. Higher = more aggressive lead.")]
+    public float navigationConstant = 3f;
+
     private void Start()
     {
         SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("missile_launch"));
         trail = transform.GetComponentInChildren<TrailRenderer>();
-        sc = GetComponent<SphereCollider>();
+        sc = GetComponent<CapsuleCollider>();
         rb = GetComponent<Rigidbody>();
         trail.enabled = true;
         sc.enabled = true;
@@ -50,134 +54,90 @@ public class Missile : MonoBehaviour
         if (rb == null) return;
 
         Vector3 shooterPos = transform.position;
-        float missileSpeed = thrust + jetSpdOnLaunch; // magnitude of missile velocity
         thrust += acceleration * Time.fixedDeltaTime;
-        missileSpeed = Mathf.Clamp(missileSpeed, 10, maxSpeed);
+        float missileSpeed = Mathf.Clamp(thrust + jetSpdOnLaunch, 10f, maxSpeed);
 
-        Vector3 aimPoint;
+        Vector3 aimPoint = transform.position + transform.forward; // fallback aim
 
-        if (target == null)
+        if (target != null)
         {
-            // no target: keep current forward direction
-            aimPoint = transform.position + transform.forward;
+            // get target pos & velocity (best available)
+            Vector3 targetPos = target.position;
+            Vector3 targetVel = GetTargetVelocity(target);
+
+            // ---------- Proportional Navigation Guidance ----------
+            // r: vector from missile to target
+            Vector3 r = targetPos - transform.position;
+            float rSqr = r.sqrMagnitude;
+            if (rSqr < 0.0001f) rSqr = 0.0001f;
+            Vector3 rHat = r.normalized;
+
+            // missile velocity (current)
+            Vector3 v_m = rb.linearVelocity;
+            // if missile hasn't yet got a velocity magnitude, approximate it with forward*speed
+            if (v_m.sqrMagnitude < 0.01f)
+            {
+                v_m = transform.forward * missileSpeed;
+            }
+
+            // AI copypaste math
+            Vector3 v_rel = targetVel - v_m;
+            Vector3 omega = Vector3.Cross(r, v_rel) / rSqr;
+            Vector3 a_cmd = navigationConstant * Vector3.Cross(omega, v_m);
+            Vector3 predictedVel = v_m + a_cmd * Time.fixedDeltaTime;
+            Vector3 desiredForward = predictedVel.sqrMagnitude > 0.001f ? predictedVel.normalized : transform.forward;
+
+            // optionally compute aimPoint for debug/visualization: a short point along desiredForward
+            aimPoint = transform.position + desiredForward * 50f;
+
+            // Rotate missile toward desiredForward using your turnSpeed limit
+            Quaternion desiredRot = Quaternion.LookRotation(desiredForward);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, desiredRot, turnSpeed * Time.fixedDeltaTime);
         }
         else
         {
-            // target position and velocity
-            Vector3 targetPos = target.position;
-            Vector3 targetVel = target.forward * target.GetComponent<EnemySantaMove>().currentMoveSpeed;
-
-            // Solve for intercept point
-            Vector3 interceptPoint;
-            bool hasSolution = FirstInterceptPoint(shooterPos, missileSpeed, targetPos, targetVel, out interceptPoint);
-
-            if (hasSolution)
-                aimPoint = interceptPoint;
-            else
-                aimPoint = targetPos; // fallback: pure pursuit
+            // no target - keep current forward (aimPoint already set)
+            aimPoint = transform.position + transform.forward;
         }
 
-        // Rotate front towards aimPoint using turnSpeed (degrees per second).
-        Vector3 targetDir = (aimPoint - transform.position).normalized;
-        if (targetDir.sqrMagnitude > 0.0001f)
+        // Check if close enough to detonate
+        if (target != null)
         {
-            Quaternion targetRot = Quaternion.LookRotation(targetDir);
-            transform.rotation = Quaternion.RotateTowards(
-                transform.rotation,
-                targetRot,
-                turnSpeed * Time.fixedDeltaTime
-            );
+            float dist = Vector3.Distance(transform.position, target.position);
+            if (dist <= damageRadius * 0.8f)
+            {
+                Detonate();
+                return;
+            }
         }
 
-        // Move forward: set rigidbody linear velocity
-        rb.linearVelocity = transform.forward * (thrust + jetSpdOnLaunch);
+        // Move forward: set rigidbody linear velocity consistently using missileSpeed
+        rb.linearVelocity = transform.forward * missileSpeed;
 
         // Rotate missile visually
-        rotator.transform.Rotate(new Vector3(0, 0, -visualRotationSpeed * Time.fixedDeltaTime));
+        if (rotator != null)
+            rotator.transform.Rotate(new Vector3(0, 0, -visualRotationSpeed * Time.fixedDeltaTime));
 
         blowUpTimer += Time.fixedDeltaTime;
         if (blowUpTimer > lifeTime)
             Explode();
     }
-
-    /// <summary>
-    /// Computes intercept point for a shooter at 'shooterPos' with projectile speed 'projSpeed'
-    /// chasing a target at 'targetPos' moving with velocity 'targetVel'.
-    /// Returns true and sets 'interceptPoint' if a positive intercept time exists; otherwise returns false.
-    /// </summary>
-    private bool FirstInterceptPoint(Vector3 shooterPos, float projSpeed, Vector3 targetPos, Vector3 targetVel, out Vector3 interceptPoint)
+    
+    Vector3 GetTargetVelocity(Transform t)
     {
-        interceptPoint = targetPos;
-
-        Vector3 r = targetPos - shooterPos;         // relative position
-        Vector3 v = targetVel;                      // target velocity
-        float s = projSpeed;                        // missile speed (assumed constant)
-
-        float a = Vector3.Dot(v, v) - s * s;
-        float b = 2f * Vector3.Dot(r, v);
-        float c = Vector3.Dot(r, r);
-
-        float t = 0;
-        // Solve a*t^2 + b*t + c = 0 for t >= 0
-        if (Mathf.Abs(a) < 1e-6f)
-        {
-            // Degenerate: a ~ 0 => linear equation b*t + c = 0
-            if (Mathf.Abs(b) < 1e-6f)
-            {
-                // No relative motion: target stationary relative to missile origin, or indeterminate
-                return false;
-            }
-            t = -c / b;
-            if (t > 0f)
-            {
-                interceptPoint = targetPos + v * t;
-                return true;
-            }
-            return false;
-        }
-
-        float discr = b * b - 4f * a * c;
-        if (discr < 0f) return false; // no real solution => cannot intercept at given speed
-
-        float sqrtD = Mathf.Sqrt(discr);
-
-        // two roots
-        float t1 = (-b + sqrtD) / (2f * a);
-        float t2 = (-b - sqrtD) / (2f * a);
-
-        // pick the smallest positive time
-        t = float.MaxValue;
-        if (t1 > 0f && t1 < t) t = t1;
-        if (t2 > 0f && t2 < t) t = t2;
-
-        if (t == float.MaxValue) return false; // no positive solution
-
-        interceptPoint = targetPos + v * t;
-        return true;
+        if (t == null) return Vector3.zero;
+        var mv = t.GetComponent<EnemySantaMove>();
+        if (mv != null) return mv.currentVelocity;
+        var trgRb = t.GetComponent<Rigidbody>();
+        if (trgRb != null) return trgRb.linearVelocity;
+        return Vector3.zero;
     }
-
-    bool targetHasEnteredSphere;
+    
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform == target)
-        {
-            targetHasEnteredSphere = true;
-            print(target.name + "Has entered sphere");
-        }
         if (other.CompareTag("Ground"))
         {
             Explode();
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.transform == target)
-        {
-            if (targetHasEnteredSphere)
-            {
-                print(target.name + " exited sphere, detonating...!");
-                Detonate();
-            }            
         }
     }
 

@@ -22,7 +22,7 @@ public class MusicController : MonoBehaviour
     public void InstantStart()
     {
         musicEntrance.Stop();
-        musicLoop.Play();
+        //musicLoop.Play();
         StartCoroutine(ShowTitleAfterTime(0, true));
     }
 

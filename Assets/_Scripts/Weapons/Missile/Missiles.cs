@@ -69,6 +69,8 @@ public class Missiles : MonoBehaviour
             }
             else
             {
+                if (seeking)
+                    return;
                 if (requireRadarLock)
                 {
                     SeekRadarLock();

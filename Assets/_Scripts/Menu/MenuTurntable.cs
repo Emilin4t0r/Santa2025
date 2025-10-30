@@ -17,7 +17,7 @@ public class MenuTurntable : MonoBehaviour
 
     private void Start()
     {
-        spin = false;
+        spin = true;
         mainCam = Camera.main.transform;
     }
 

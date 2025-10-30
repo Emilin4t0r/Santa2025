@@ -7438,7 +7438,7 @@ MonoBehaviour:
   jetSpdOnLaunch: 0
   thrust: 150
   acceleration: 25
-  maxSpeed: 175
+  maxSpeed: 80
   turnSpeed: 125
   lifeTime: 5
   visualRotationSpeed: 5000
