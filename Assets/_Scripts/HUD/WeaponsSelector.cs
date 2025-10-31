@@ -37,7 +37,7 @@ public class WeaponsSelector : MonoBehaviour
 
         if (inGameScene)
         {
-            hudWeapons = GameObject.Find("HUDWeapons").GetComponent<HUDWeapons>();                  
+            hudWeapons = GameObject.Find("HUDWeapons").GetComponent<HUDWeapons>();
         }
     }
 
@@ -182,8 +182,8 @@ public class WeaponsSelector : MonoBehaviour
         for (int i = 0; i < hudWeapons.availableWeapons.Count; ++i)
         {
             hudWeapons.availableWeapons[i].SetHotkey(i + 1);
-            hudWeapons.availableWeapons[i].transform.position = hudWeapons.hudSlots[i].transform.position;
-            if (i > 2)
+            hudWeapons.availableWeapons[i].transform.localPosition = hudWeapons.hudSlots[i].transform.localPosition;
+            if (i > 2) // Opposite side hotkey number placement
             {
                 Transform hkeyTrsf = hudWeapons.availableWeapons[i].hotkeyText.transform;
                 hkeyTrsf.localPosition = new Vector3(30, hkeyTrsf.localPosition.y, hkeyTrsf.localPosition.z);

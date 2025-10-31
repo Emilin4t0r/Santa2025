@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.ProBuilder;
 using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
@@ -27,6 +28,7 @@ public class MainMenuController : MonoBehaviour
         {
             title.gameObject.SetActive(true);
             StartCoroutine(IntroScreenAndFade());
+            SoundSpawner.SpawnSound(transform.position, null, SoundLibrary.GetClip("santa_intro_announce"), 0); 
         }
     }
     IEnumerator IntroScreenAndFade()

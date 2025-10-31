@@ -51,7 +51,14 @@ public class SoundSpawner : MonoBehaviour
 
     public static void SpawnSound(Vector3 pos, Transform parent, AudioClip clip, float spatialBlend = 0, bool randomPitch = true, float volume = 0.75f)
     {
-        var sound = Instantiate(staticSoundPrefab, pos, parent.rotation, parent);
+        GameObject sound = null;
+        if (parent)
+        {
+            sound = Instantiate(staticSoundPrefab, pos, parent.rotation, parent);
+        } else
+        {
+            sound = Instantiate(staticSoundPrefab, pos, Quaternion.identity, null);
+        }
         var aSource = sound.GetComponent<AudioSource>();
         if (randomPitch)
             aSource.pitch = Random.Range(0.9f, 1.1f);
@@ -59,7 +66,7 @@ public class SoundSpawner : MonoBehaviour
         aSource.clip = clip;
         aSource.volume = volume;
         aSource.Play();
-        Destroy(sound, 5);
+        Destroy(sound, clip.length + 1);
     }
 
     public static void SpawnSoundWithPitch(Vector3 pos, Transform parent, AudioClip clip, float spatialBlend = 0, float pitch = 1, float volume = 0.75f)

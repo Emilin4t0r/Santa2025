@@ -1,21 +1,38 @@
+using System.Collections;
 using UnityEngine;
 
 public class AircraftUtils : MonoBehaviour
 {
     AirplaneController ac;
+    AircraftPhysics ap;
 
-    public float terrainWarningDist, terrainWarningDistDown;
+    public float terrainWarningDist, terrainWarningDistDown, turnOnDelay;
     bool warningAboutTerrain;
-    float nextTerrainWarningTime;
+    float nextTerrainWarningTime;    
+
+    private void Awake()
+    {
+        ac = GetComponent<AirplaneController>();
+        ap = GetComponent<AircraftPhysics>();
+    }
 
     private void Start()
     {
-        ac = GetComponent<AirplaneController>();
+        ac.enabled = false;
+        ac.enabled = false;
+        StartCoroutine(TurnOnAfter(turnOnDelay));
     }
 
     private void FixedUpdate()
     {
         TerrainWarning();
+    }
+
+    IEnumerator TurnOnAfter(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        ac.enabled = true;
+        ac.enabled = true;
     }
 
     void TerrainWarning()

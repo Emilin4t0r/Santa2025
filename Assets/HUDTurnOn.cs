@@ -1,30 +1,26 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HUDTurnOn : MonoBehaviour
 {
     public static HUDTurnOn instance;
 
-    public Canvas canvas;
+    public Image mainHudMask;
     Animator anim;
     public GameObject loadHUD;
     public bool waitingForBootup;
 
     private void Awake()
     {
-        instance = this;
+        instance = this;        
     }
 
     void Start()
     {
         waitingForBootup = true;
         anim = GetComponent<Animator>();
-        Invoke("Bootup", 1);
-    }
-
-    void Bootup()
-    {
-        canvas.enabled = false;
-        anim.SetTrigger("TurnOn");        
+        anim.SetTrigger("TurnOn");
+        mainHudMask.color = new Color(1, 1, 1, 0);
     }
 
     private void Update()
@@ -36,8 +32,8 @@ public class HUDTurnOn : MonoBehaviour
             {
                 print("Boot anim finished!");
                 loadHUD.SetActive(false);
+                mainHudMask.color = new Color(1, 1, 1, 1);
                 waitingForBootup = false;
-                TargetInfo.instance.LoadHUDAfterBootup();
             }
         }
     }
