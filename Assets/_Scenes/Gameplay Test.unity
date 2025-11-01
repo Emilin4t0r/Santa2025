@@ -163090,6 +163090,10 @@ PrefabInstance:
       propertyPath: m_VersionIndex
       value: 1032
       objectReference: {fileID: 0}
+    - target: {fileID: 8659740392809673327, guid: f3a637a10b8bcc34b8d8c086b883d343, type: 3}
+      propertyPath: m_TargetTexture
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
