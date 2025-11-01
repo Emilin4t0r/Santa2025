@@ -9,9 +9,12 @@ public class SwarmMissile : MonoBehaviour
     public float turnSpeed;
     public float lifeTime = 5;
     public float visualRotationSpeed;
-    public float launchAccuracy;
+    public float deviationMagnitude;
+    public float deviationFrequency;
     public Vector2 damageRange;
     public float damageRadius;
+    public float armingDelay = 0.7f;
+    float armingTimer;
     public GameObject explosion;
     GameObject rotator;
     public Transform target;
@@ -24,6 +27,7 @@ public class SwarmMissile : MonoBehaviour
     public float explosionEffectSize = 0.5f;
 
     float blowUpTimer;
+    float nextTimeToDeviate;
     public bool targetSet;
     SwarmMRadar swarmRadar;
 
@@ -45,12 +49,18 @@ public class SwarmMissile : MonoBehaviour
         }
         jetSpdOnLaunch = AirplaneController.instance.rb.linearVelocity.magnitude;
         swarmRadar = GetComponent<SwarmMRadar>();
-        DoInitialLaunchOffset();
+        swarmRadar.enabled = false;
+        DeviateCourseRandomly();
     }
 
     private void FixedUpdate()
     {
         if (rb == null) return;
+
+        if (!swarmRadar.enabled && armingTimer < armingDelay)
+            armingTimer += Time.fixedDeltaTime;
+        else
+            swarmRadar.enabled = true;
 
         Vector3 shooterPos = transform.position;
         float missileSpeed = thrust + jetSpdOnLaunch; // magnitude of missile velocity
@@ -69,6 +79,12 @@ public class SwarmMissile : MonoBehaviour
             }
             // no target: keep current forward direction
             aimPoint = transform.position + transform.forward;
+
+            if (Time.time > nextTimeToDeviate)
+            {
+                nextTimeToDeviate = Time.time + deviationFrequency;
+                DeviateCourseRandomly();
+            }            
         }
         else
         {
@@ -188,12 +204,11 @@ public class SwarmMissile : MonoBehaviour
         }
     }
 
-    void DoInitialLaunchOffset()
+    void DeviateCourseRandomly()
     {
-        Vector2 deviation2D = Random.insideUnitCircle * launchAccuracy;
-        Quaternion deviationRot = Quaternion.Euler(deviation2D.y, deviation2D.x, 0f);
-        Vector3 newDirection = deviationRot * transform.forward;
-        transform.rotation = Quaternion.LookRotation(newDirection, Vector3.up);
+        Vector3 dev = Random.insideUnitSphere * deviationMagnitude;
+        Vector3 newDir = (transform.forward + dev).normalized;
+        transform.rotation = Quaternion.LookRotation(newDir, Vector3.up);
     }
 
     void Detonate()

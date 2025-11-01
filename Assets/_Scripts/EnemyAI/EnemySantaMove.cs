@@ -49,7 +49,7 @@ public class EnemySantaMove : MonoBehaviour
             return;
         if (target.CompareTag("Player"))
         {
-            SoundSpawner.SpawnSound(target.position, target, SoundLibrary.GetClip("rwr_lock"), 0, false);
+            SoundSpawner.SpawnSound(target.position, target, SoundLibrary.GetClip("rwr_lock"), 0, 0);
             EnemiesController.enemiesAttacking.Add(gameObject);
         }
         utils.trackCollider.target = target;

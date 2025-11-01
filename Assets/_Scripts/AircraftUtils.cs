@@ -8,7 +8,9 @@ public class AircraftUtils : MonoBehaviour
 
     public float terrainWarningDist, terrainWarningDistDown, turnOnDelay;
     bool warningAboutTerrain;
-    float nextTerrainWarningTime;    
+    float nextTerrainWarningTime;
+
+    AudioSource engineSfxLoop;
 
     private void Awake()
     {
@@ -20,6 +22,9 @@ public class AircraftUtils : MonoBehaviour
     {
         ac.enabled = false;
         ac.enabled = false;
+        engineSfxLoop = GetComponent<AudioSource>();
+        engineSfxLoop.Stop();
+        SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("jet_player_ignition"), 0, 0, 0.3f);
         StartCoroutine(TurnOnAfter(turnOnDelay));
     }
 
@@ -33,6 +38,7 @@ public class AircraftUtils : MonoBehaviour
         yield return new WaitForSeconds(delay);
         ac.enabled = true;
         ac.enabled = true;
+        engineSfxLoop.Play();
     }
 
     void TerrainWarning()
@@ -51,7 +57,7 @@ public class AircraftUtils : MonoBehaviour
             {                
                 if (!warningAboutTerrain)
                 {
-                    SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("terrain"), 0, false);
+                    SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("terrain"), 0, 0);
                     warningAboutTerrain = true;
                     nextTerrainWarningTime = Time.time + 2;
                 }

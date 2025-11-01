@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class RadarTracker : MonoBehaviour
 {
     public GameObject target;
+    public float targetFollowSpeed;
     Camera mainCam;
     Canvas canvas;
     AirplaneController ac;
@@ -22,7 +23,7 @@ public class RadarTracker : MonoBehaviour
         bc = BracketController.instance;
         health = GetComponentInChildren<TrackerHealth>();
         SetHealth(target.GetComponent<EnemySantaUtils>().hitPoints);
-        SoundSpawner.SpawnSound(ac.transform.position, ac.transform, SoundLibrary.GetClip("rwr_target"), 0, false);        
+        SoundSpawner.SpawnSound(ac.transform.position, ac.transform, SoundLibrary.GetClip("rwr_target"), 0, 0);        
     }
 
     private void FixedUpdate()
@@ -79,6 +80,8 @@ public class RadarTracker : MonoBehaviour
     {
         // Convert screen position to canvas position
         RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.GetComponent<RectTransform>(), screenPosition, mainCam, out Vector2 canvasPosition);
-        transform.localPosition = canvasPosition + new Vector2(0, -HUD.hudOffset);
+        Vector2 targetPos = canvasPosition + new Vector2(0, -HUD.hudOffset);
+        float step = Vector2.Distance(transform.localPosition, targetPos) * Time.deltaTime * targetFollowSpeed;
+        transform.localPosition = Vector2.MoveTowards(transform.localPosition, targetPos, step);
     }
 }

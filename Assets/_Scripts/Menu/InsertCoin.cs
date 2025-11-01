@@ -74,7 +74,7 @@ public class InsertCoin : MonoBehaviour
 
         yield return new WaitForSeconds(fadeTime + 0.05f);
         faded = true;
-        SoundSpawner.SpawnSound(transform.position, menuMusicController.transform, SoundLibrary.GetClip("coin_insert"), 0, false);
+        SoundSpawner.SpawnSound(transform.position, menuMusicController.transform, SoundLibrary.GetClip("coin_insert"), 0, 0);
         canvas.SetActive(false);
     }
 }

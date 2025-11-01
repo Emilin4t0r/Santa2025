@@ -15,6 +15,9 @@ public class Missile : MonoBehaviour
     public float visualRotationSpeed;
     public Vector2 damageRange;
     public float damageRadius;
+    public float armingDelay = 0.7f;
+    float armingTimer;
+    bool armed;
     public GameObject explosion;
     public GameObject rotator;
     public GameObject pointLight;
@@ -53,13 +56,18 @@ public class Missile : MonoBehaviour
     {
         if (rb == null) return;
 
-        Vector3 shooterPos = transform.position;
+        if (!armed && armingTimer < armingDelay)        
+            armingTimer += Time.fixedDeltaTime;            
+        else        
+            armed = true;
+        
+            Vector3 shooterPos = transform.position;
         thrust += acceleration * Time.fixedDeltaTime;
         float missileSpeed = Mathf.Clamp(thrust + jetSpdOnLaunch, 10f, maxSpeed);
 
         Vector3 aimPoint = transform.position + transform.forward; // fallback aim
 
-        if (target != null)
+        if (target != null || !armed)
         {
             // get target pos & velocity (best available)
             Vector3 targetPos = target.position;

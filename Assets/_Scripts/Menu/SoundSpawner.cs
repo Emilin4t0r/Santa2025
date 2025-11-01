@@ -49,7 +49,7 @@ public class SoundSpawner : MonoBehaviour
         }
     }
 
-    public static void SpawnSound(Vector3 pos, Transform parent, AudioClip clip, float spatialBlend = 0, bool randomPitch = true, float volume = 0.75f)
+    public static void SpawnSound(Vector3 pos, Transform parent, AudioClip clip, float spatialBlend = 0, float randomPitchScale = 0.1f, float volume = 0.75f)
     {
         GameObject sound = null;
         if (parent)
@@ -59,9 +59,8 @@ public class SoundSpawner : MonoBehaviour
         {
             sound = Instantiate(staticSoundPrefab, pos, Quaternion.identity, null);
         }
-        var aSource = sound.GetComponent<AudioSource>();
-        if (randomPitch)
-            aSource.pitch = Random.Range(0.9f, 1.1f);
+        var aSource = sound.GetComponent<AudioSource>();        
+        aSource.pitch = Random.Range(1 - randomPitchScale, 1 + randomPitchScale);
         aSource.spatialBlend = spatialBlend;
         aSource.clip = clip;
         aSource.volume = volume;

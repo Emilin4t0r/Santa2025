@@ -30,10 +30,14 @@ public class Guns : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.activeSceneChanged += OnSceneChanged;
+        if (Input.GetKey(KeyCode.Mouse0))
+            StartBurst();
     }
     private void OnDisable()
     {
         SceneManager.activeSceneChanged -= OnSceneChanged;
+        StopBurst();
+        ClearShootSounds();
     }
 
     void OnSceneChanged(Scene old, Scene now)
@@ -102,17 +106,7 @@ public class Guns : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            foreach (var gun in guns)
-            {
-                //Gun animation
-                var gAnim = gun.gameObject.GetComponent<Animator>();
-                originalGunAnimSpeed = gAnim.speed;
-                gAnim.speed = gunAnimSpeed;
-                gAnim.SetBool("Fire", true);
-            }
-            if (SoundLibrary.GetClip(caliberForAudio + "_start") != null)
-                SoundSpawner.SpawnSound(transform.position, shootSoundParent, SoundLibrary.GetClip(caliberForAudio + "_start"));
-            shootLoopSound = SoundSpawner.SpawnSoundLoop(transform.position, shootSoundParent, SoundLibrary.GetClip(caliberForAudio + "_loop"));
+            StartBurst();
         }
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
@@ -179,6 +173,20 @@ public class Guns : MonoBehaviour
         light.SetActive(false);
     }
 
+    void StartBurst()
+    {
+        foreach (var gun in guns)
+        {
+            //Gun animation
+            var gAnim = gun.gameObject.GetComponent<Animator>();
+            originalGunAnimSpeed = gAnim.speed;
+            gAnim.speed = gunAnimSpeed;
+            gAnim.SetBool("Fire", true);
+        }
+        if (SoundLibrary.GetClip(caliberForAudio + "_start") != null)
+            SoundSpawner.SpawnSound(transform.position, shootSoundParent, SoundLibrary.GetClip(caliberForAudio + "_start"));
+        shootLoopSound = SoundSpawner.SpawnSoundLoop(transform.position, shootSoundParent, SoundLibrary.GetClip(caliberForAudio + "_loop"));
+    }
     void StopBurst()
     {
         foreach (var gun in guns)
@@ -191,7 +199,7 @@ public class Guns : MonoBehaviour
         if (shootLoopSound)
         {
             SoundSpawner.EndLoop(shootLoopSound);
-            SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip(caliberForAudio + "_tail"), 0, false);
+            SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip(caliberForAudio + "_tail"), 0, 0);
         }
     }
 }

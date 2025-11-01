@@ -73,11 +73,11 @@ public class MusicController : MonoBehaviour
 
     public void FadeToLowPass(AudioLowPassFilter filter)
     {
-        StartCoroutine(FadeLowPassCoroutine(filter, 5000, 1.5f));
+        //StartCoroutine(FadeLowPassCoroutine(filter, 5000, 1.5f));
     }    
     public void FadeFromLowPass(AudioLowPassFilter filter)
     {
-        StartCoroutine(FadeLowPassCoroutine(filter, 22000, 1.5f));
+        //StartCoroutine(FadeLowPassCoroutine(filter, 22000, 1.5f));
     }
     IEnumerator FadeLowPassCoroutine(AudioLowPassFilter filter, float targetCutoff, float fadeOutTime)
     {

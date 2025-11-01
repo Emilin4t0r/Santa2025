@@ -79,6 +79,7 @@ MonoBehaviour:
   altBulletHit: {fileID: 0}
   damage: 10
   doRandomRicochets: 0
+  dropForce: 5000
 --- !u!136 &5616326674708750372
 CapsuleCollider:
   m_ObjectHideFlags: 0

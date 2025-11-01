@@ -124,7 +124,7 @@ public class EnemyAI : MonoBehaviour
                             if (r == 0)
                             {                                
                                 // Fire missile
-                                SoundSpawner.SpawnSound(ac.transform.position, ac.transform, SoundLibrary.GetClip("rwr_missile"), 0, false);
+                                SoundSpawner.SpawnSound(ac.transform.position, ac.transform, SoundLibrary.GetClip("rwr_missile"), 0, 0);
                                 TargetInfo.instance.TriggerMissileWarning();
                                 missilesFired++;
                             }

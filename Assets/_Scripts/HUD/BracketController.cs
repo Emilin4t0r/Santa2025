@@ -144,7 +144,7 @@ public class BracketController : MonoBehaviour
             health.gameObject.SetActive(true);
             health.SetHealth(enemyScript.hitPoints);
             enemyScript.OnHit += health.ChangeHealth;
-            SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("radar_lock"), 0, false);
+            SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("radar_lock"), 0, 0);
         }
         catch
         {

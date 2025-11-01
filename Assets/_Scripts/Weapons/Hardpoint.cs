@@ -46,16 +46,8 @@ public class Hardpoint : MonoBehaviour
                 }
                 break;
             case WeaponType.Pike_Double:
-                wpn = Instantiate(Pike_Double, transform.position, Pike_Double.transform.rotation, transform);
-                if (transform.localRotation.z > 0)
-                {
-                    wpn.transform.localEulerAngles = new Vector3(0, 0, 270);
-                    wpn.transform.localScale = new Vector3(-1, 1, 1);
-                }
-                else
-                {
-                    wpn.transform.localEulerAngles = new Vector3(0, 0, 90);
-                }
+                wpn = Instantiate(Pike_Double, transform.position, Pike_Double.transform.rotation, transform);               
+                wpn.transform.localEulerAngles = new Vector3(0, 0, 90);                               
                 wpn.transform.parent = iRMissiles.transform;
                 if (hideMissileFins)
                 {
@@ -66,11 +58,11 @@ public class Hardpoint : MonoBehaviour
                 }
                 break;
             case WeaponType.Huracán_Small:
-                wpn = Instantiate(Huracán_Small, transform.position, transform.rotation, transform);
+                wpn = Instantiate(Huracán_Small, transform.position, transform.rotation, transform);                
                 if (transform.localRotation.z > 0)
                 {
                     wpn.transform.localScale = new Vector3(-1, 1, 1);
-                }
+                }                
                 wpn.transform.parent = swarmMissiles.transform;
                 if (hideMissileFins)
                 {

@@ -53,7 +53,7 @@ public class EnemySantaUtils : MonoBehaviour
         if (shootLoopSound)
         {
             SoundSpawner.EndLoop(shootLoopSound);
-            SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("shoot_tail2"), 0.65f, false);
+            SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("shoot_tail2"), 0.65f, 0);
         }
         yield return null;
     }
@@ -101,7 +101,7 @@ public class EnemySantaUtils : MonoBehaviour
 
     public void Die()
     {
-        SoundSpawner.SpawnSound(transform.position, transform.parent, SoundLibrary.GetClip("enemy_explode"), 0, true, 0.9f);
+        SoundSpawner.SpawnSound(transform.position, transform.parent, SoundLibrary.GetClip("enemy_explode"), 0, 0.1f, 0.9f);
         var partc = Instantiate(deathParticle, transform.position, transform.rotation);
         EnemiesController.enemiesAttacking.Remove(gameObject);
         Radar.instance.enemies.Remove(gameObject);
