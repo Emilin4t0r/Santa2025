@@ -74,12 +74,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e64d22ac55d9a0949960f6e2f1a31c20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyTag: Enemy
+  enemyTags:
+  - Enemy
   bulletHit: {fileID: 7070465220517492653, guid: 7c35f2d4e1b64a94497858b5b6f144cb, type: 3}
   altBulletHit: {fileID: 0}
   damage: 10
   doRandomRicochets: 0
-  dropForce: 5000
 --- !u!136 &5616326674708750372
 CapsuleCollider:
   m_ObjectHideFlags: 0

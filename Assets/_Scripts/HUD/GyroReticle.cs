@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class GyroReticle : MonoBehaviour
 {
-    public Transform gunForwardDirection;
-    public float aimDistance = 100f; // Distance from the gun to project the reticle
+    public float aimDistance = 100f; // how far ahead the reticle is projected
     public float reticleLagSmoothing = 0.1f; // Smoothing factor for reticle lag
 
     AirplaneController ac;
@@ -26,53 +25,21 @@ public class GyroReticle : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Calculate the initial velocity of the bullet
-        Vector3 initialVelocity = gunForwardDirection.forward * 1000;//Guns.instance.shootForce;
+        Vector3 velocity = rbac.linearVelocity;
+        float speed = velocity.magnitude;
+        if (speed < 0.05f)
+            return; // don't move reticle when stationary
 
-        // Get the airplane's velocity and angular velocity
-        Vector3 airplaneVelocity = rbac.linearVelocity;
-        Vector3 airplaneAngularVelocity = rbac.angularVelocity;
+        Vector3 velocityDir = velocity / speed;
+        Vector3 targetWorldPos = ac.transform.position + velocityDir * aimDistance;
 
-        // Predict the bullet position at the specified distance
-        Vector3 targetPosition = PredictBulletPositionAtDistance(gunForwardDirection.position, initialVelocity, airplaneVelocity, airplaneAngularVelocity, aimDistance);
-
-        // Convert the world position of the target to the local position on the canvas
-        Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(mainCam, targetPosition);
+        Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(mainCam, targetWorldPos);
         RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.GetComponent<RectTransform>(), screenPoint, mainCam, out Vector2 localPoint);
 
-        // Invert the localPoint to achieve the inverse movement
-        localPoint = -localPoint;
+        // invert for HUD-style movement
+        //localPoint = -localPoint;
 
-        // Smoothly update the reticle position for a lag effect
         reticlePosition = Vector2.Lerp(reticlePosition, localPoint, reticleLagSmoothing);
-
-        // Update the reticle position
         transform.localPosition = reticlePosition;
-    }
-
-    Vector3 PredictBulletPositionAtDistance(Vector3 initialPosition, Vector3 initialVelocity, Vector3 airplaneVelocity, Vector3 airplaneAngularVelocity, float distance)
-    {
-        // Calculate the time it takes for the bullet to travel the specified distance
-        float time = distance / initialVelocity.magnitude;
-
-        // Predict the rotation of the airplane after the specified time
-        Quaternion futureRotation = Quaternion.Euler(airplaneAngularVelocity * Mathf.Rad2Deg * time);
-
-        // Calculate the future direction of the gun
-        Vector3 futureForward = futureRotation * gunForwardDirection.forward;
-
-        // Calculate the horizontal displacement considering both initial and future velocities
-        Vector3 horizontalDisplacement = (initialVelocity + airplaneVelocity) * time;
-
-        // Calculate the vertical displacement due to gravity
-        float verticalDisplacement = initialVelocity.y * time - 0.5f * 9.81f * time * time;
-
-        // Combine horizontal and vertical displacements to get the predicted position
-        Vector3 predictedPosition = initialPosition + new Vector3(horizontalDisplacement.x, verticalDisplacement, horizontalDisplacement.z);
-
-        // Adjust predicted position based on future gun direction
-        predictedPosition += futureForward * distance;
-
-        return predictedPosition;
     }
 }

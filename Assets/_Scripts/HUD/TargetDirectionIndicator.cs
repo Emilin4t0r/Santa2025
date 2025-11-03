@@ -5,6 +5,7 @@ public class TargetDirectionIndicator : MonoBehaviour
 {
     public Transform arrowU, arrowD, arrowL, arrowR;
     public Transform currentThreat;
+    public GameObject threatText;
 
     [Range(0f, 1f)]
     public float threshold = 0.5f; // Minimum component ratio to activate an arrow
@@ -53,6 +54,9 @@ public class TargetDirectionIndicator : MonoBehaviour
             else if (localDir.x < 0)
                 arrowL.gameObject.SetActive(true);
         }
+
+        if (!threatText.activeSelf)
+            threatText.SetActive(true);
     }
 
     void DisableAllArrows()
@@ -61,5 +65,7 @@ public class TargetDirectionIndicator : MonoBehaviour
         arrowD.gameObject.SetActive(false);
         arrowL.gameObject.SetActive(false);
         arrowR.gameObject.SetActive(false);
+        if (threatText.activeSelf)
+            threatText.SetActive(false);
     }
 }

@@ -35,15 +35,11 @@ public class AirplaneController : MonoBehaviour
     AircraftPhysics aircraftPhysics;
     public Rigidbody rb;
 
-    // AUDIO
-    AudioSource flyingSound;
-    GameObject enemyLockSound;
     private void Awake()
     {
         instance = this;
         aircraftPhysics = GetComponent<AircraftPhysics>();
         rb = GetComponent<Rigidbody>();
-        flyingSound = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -54,6 +50,9 @@ public class AirplaneController : MonoBehaviour
             {
                 Pitch = Mathf.Clamp(-MouseAim.Ycoord / 75 + Input.GetAxis("Vertical"), -1, 1);
                 Roll = Mathf.Clamp(MouseAim.Xcoord / 75, -1, 1);
+            } else
+            {
+                Pitch = Mathf.Clamp(Input.GetAxis("Vertical"), -1, 1);
             }
             Yaw = -Input.GetAxis("Horizontal");
         } else
@@ -62,6 +61,9 @@ public class AirplaneController : MonoBehaviour
             {
                 Pitch = Mathf.Clamp(-MouseAim.Ycoord / 75 + Input.GetAxis("Vertical"), -1, 1);
                 Yaw = Mathf.Clamp(-MouseAim.Xcoord / 75, -1, 1);
+            } else
+            {
+                Pitch = Mathf.Clamp(Input.GetAxis("Vertical"), -1, 1);
             }
             Roll = Input.GetAxis("Horizontal");
         }
@@ -98,11 +100,6 @@ public class AirplaneController : MonoBehaviour
                 EZCameraShake.CameraShaker.Instance.ShakeOnce(Pitch / 15 * (spd / 100), Pitch * 15 * (spd / 100), 0, 1f);
             }
         }
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            Destroy(enemyLockSound);
-            SoundSpawner.SpawnSoundLoop(transform.position, transform, SoundLibrary.GetClip("rwr_missile"));
-        }
     }
 
     private void FixedUpdate()
@@ -114,18 +111,7 @@ public class AirplaneController : MonoBehaviour
             wheel.brakeTorque = brakesTorque;
             // small torque to wake up wheel collider
             wheel.motorTorque = 0.01f;
-        }
-
-        flyingSound.pitch = 0.8f + (thrustPercent / 3);
-        /*if (EnemiesController.enemiesAttacking.Count > 0)
-        {
-            if (enemyLockSound == null)
-                enemyLockSound = SoundSpawner.SpawnSoundLoop(transform.position, transform, SoundLibrary.GetClip("rwr_lock"));
-        } else
-        {
-            if (enemyLockSound != null)
-                SoundSpawner.EndLoop(enemyLockSound);
-        }*/
+        }        
     }
 
     public void SetControlSurfacesAngles(float pitch, float roll, float yaw, float flap)

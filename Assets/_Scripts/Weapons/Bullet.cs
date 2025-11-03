@@ -6,7 +6,7 @@ using UnityEngine.Experimental.GlobalIllumination;
 public class Bullet : MonoBehaviour
 {
     Vector3 lastPos, scndLastPos, thrdLastPos;
-    public string enemyTag;
+    public string[] enemyTags;
     GameObject trail;
     public GameObject bulletHit, altBulletHit;
     public float damage = 1;
@@ -29,15 +29,22 @@ public class Bullet : MonoBehaviour
     {
         try
         {
-            if (collision.gameObject.CompareTag(enemyTag))
+            foreach (var tag in enemyTags)
             {
-                if (enemyTag == "Enemy")
+                if (collision.gameObject.CompareTag(tag))
                 {
-                    collision.gameObject.GetComponent<EnemySantaUtils>().GetHit(damage);
-                    KillBullet(true);
-                    return;
-                }               
+                    // collision.gameObject is valid enemy for bullet.
+
+                    if (tag == "Enemy")
+                    {
+                        collision.gameObject.GetComponent<EnemySantaUtils>().GetHit(damage);
+                        KillBullet(true);
+                        return;
+                    }
+                    // if tag == player -> do damage to player
+                }
             }
+
             if (doRandomRicochets)
             {
                 // 1/10 chance bullet doesn't get destroyed on hit

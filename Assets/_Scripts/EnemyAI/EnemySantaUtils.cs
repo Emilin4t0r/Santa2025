@@ -9,40 +9,46 @@ public class EnemySantaUtils : MonoBehaviour
     public float shootForce;
     public float inaccuracy;
     public Vector2 shootFrequency;
-    float shootTimer = 3;
+    public Vector2 shotsPerBurst;
+    public float nextShootTime = 0;
     public GameObject bulletPrefab, muzzleFlashPrefab;
     public GameObject deathParticle;
 
     public float hitPoints = 10;
 
-    public EnemyTrackCollider trackCollider;
+    public EnemyGunsRange trackCollider;
 
     EnemySantaMove move;
+    AirplaneController ac;
 
     public event Action<float> OnHit;
     GameObject shootLoopSound;
 
+    bool firing;
+
     private void Start()
     {
         move = GetComponent<EnemySantaMove>();
+        ac = AirplaneController.instance;
     }
 
     private void Update()
     {
         //Shoot
-        if (Time.time > shootTimer && trackCollider.readyToFire)
+        if (Time.time > nextShootTime && trackCollider.readyToFire && !firing)
         {
-            int shots = UnityEngine.Random.Range(4, 10);
+            firing = true;
+            int shots = UnityEngine.Random.Range((int)shotsPerBurst.x, (int)shotsPerBurst.y);
             StartCoroutine(FireBurst(shots));
-            float nextShootTime = Time.time + UnityEngine.Random.Range(shootFrequency.x, shootFrequency.y);
-            shootTimer = nextShootTime;
+            nextShootTime = Time.time + UnityEngine.Random.Range(shootFrequency.x, shootFrequency.y);
         }
     }    
 
     IEnumerator FireBurst(int shots)
     {
-        TargetInfo.instance.TriggerMissileWarning();
-        shootLoopSound = SoundSpawner.SpawnSoundLoop(transform.position, transform, SoundLibrary.GetClip("shoot_loop2"), 0.65f);
+        if (move.target == ac.transform)
+            TargetInfo.instance.TriggerMissileWarning();
+        shootLoopSound = SoundSpawner.SpawnSoundLoop(transform.position, transform, SoundLibrary.GetClip("shoot_loop2"), 1, false, 0.9f);
         int shotsFired = 0;
         while (shotsFired < shots)
         {
@@ -53,8 +59,9 @@ public class EnemySantaUtils : MonoBehaviour
         if (shootLoopSound)
         {
             SoundSpawner.EndLoop(shootLoopSound);
-            SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("shoot_tail2"), 0.65f, 0);
+            SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("shoot_tail2"), 1, 0, 0.9f);
         }
+        firing = false;
         yield return null;
     }
 
@@ -105,6 +112,8 @@ public class EnemySantaUtils : MonoBehaviour
         var partc = Instantiate(deathParticle, transform.position, transform.rotation);
         EnemiesController.enemiesAttacking.Remove(gameObject);
         Radar.instance.enemies.Remove(gameObject);
+        if (trackCollider.readyToFire)
+            TargetInfo.instance.AddEnemiesInGunrange(-1);
         Destroy(partc, 10);
         Destroy(gameObject);        
     }

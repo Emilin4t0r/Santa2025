@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - AircraftTrigger
   - Gun
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -20,8 +21,8 @@ TagManager:
   - Ground
   - PostProcessing
   - Enemy
-  - 
-  - 
+  - PlayerTarget
+  - Arena
   - 
   - 
   - 

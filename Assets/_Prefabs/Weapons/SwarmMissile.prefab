@@ -3420,7 +3420,7 @@ Transform:
   m_GameObject: {fileID: 1507626868865106786}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3435,7 +3435,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1507626868865106786}
   serializedVersion: 8
   lengthInSec: 5
-  simulationSpeed: 3
+  simulationSpeed: 5
   stopAction: 0
   cullingMode: 3
   ringBufferMode: 0
@@ -3932,7 +3932,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.25
+      scalar: 0
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -3986,7 +3986,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 4
-    angle: 6
+    angle: 1
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -4292,34 +4292,25 @@ ParticleSystem:
     curve:
       serializedVersion: 2
       minMaxState: 1
-      scalar: 1
+      scalar: 0.2
       minScalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0
-          inSlope: 1.2310137
-          outSlope: 1.2310137
+          value: 0.6615372
+          inSlope: 0.22267532
+          outSlope: 0.22267532
           tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 0.81233865
-          value: 1
-          inSlope: 1.4823244
-          outSlope: -0.17678112
-          tangentMode: 1
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
           time: 1
-          value: 0.69959855
-          inSlope: -1.6007636
-          outSlope: -1.6007636
+          value: 0.8842125
+          inSlope: 0.22267532
+          outSlope: 0.22267532
           tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
@@ -4833,7 +4824,7 @@ ParticleSystem:
     y:
       serializedVersion: 2
       minMaxState: 3
-      scalar: -1
+      scalar: 0
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -5477,8 +5468,8 @@ ParticleSystem:
     y:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 4
-      minScalar: 8
+      scalar: 0
+      minScalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -8050,7 +8041,7 @@ Transform:
   m_GameObject: {fileID: 1507626868865106788}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: -0.29}
+  m_LocalPosition: {x: 0, y: 0, z: 0.24}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12793,7 +12784,7 @@ Transform:
   m_GameObject: {fileID: 1507626868865106790}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.196}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12808,7 +12799,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1507626868865106790}
   serializedVersion: 8
   lengthInSec: 5
-  simulationSpeed: 3
+  simulationSpeed: 5
   stopAction: 0
   cullingMode: 3
   ringBufferMode: 0
@@ -12917,7 +12908,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 6
+      scalar: 3.4105473
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -13314,7 +13305,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.25
+      scalar: 0
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -13368,7 +13359,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 4
-    angle: 6
+    angle: 1
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -13454,7 +13445,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.04
+      value: 0.01
       mode: 0
       spread: 0
       speed:
@@ -13511,7 +13502,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
     arc:
-      value: 0.04
+      value: 360
       mode: 0
       spread: 0
       speed:
@@ -13674,34 +13665,25 @@ ParticleSystem:
     curve:
       serializedVersion: 2
       minMaxState: 1
-      scalar: 1
+      scalar: 0.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0
-          inSlope: 1.2310137
-          outSlope: 1.2310137
+          value: 0.61538696
+          inSlope: -0.31578994
+          outSlope: -0.31578994
           tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 0.81233865
-          value: 1
-          inSlope: 1.4823244
-          outSlope: -0.17678112
-          tangentMode: 1
-          weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
-        - serializedVersion: 3
           time: 1
-          value: 0.69959855
-          inSlope: -1.6007636
-          outSlope: -1.6007636
+          value: 0.29959702
+          inSlope: -0.31578994
+          outSlope: -0.31578994
           tangentMode: 34
           weightedMode: 0
           inWeight: 0.33333334
@@ -14176,7 +14158,7 @@ ParticleSystem:
     flipU: 0
     flipV: 0
   VelocityModule:
-    enabled: 1
+    enabled: 0
     x:
       serializedVersion: 2
       minMaxState: 3
@@ -14859,8 +14841,8 @@ ParticleSystem:
     y:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 4
-      minScalar: 8
+      scalar: 0
+      minScalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -21453,8 +21435,8 @@ MonoBehaviour:
   turnSpeed: 140
   lifeTime: 5
   visualRotationSpeed: 5000
-  deviationMagnitude: 0.125
-  deviationFrequency: 0.05
+  deviationMagnitude: 0.1
+  deviationFrequency: 0.04
   damageRange: {x: 10, y: 25}
   damageRadius: 25
   armingDelay: 0.5

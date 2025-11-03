@@ -97,7 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0172acd3df8b7dc40bbc2cb0e273b5d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyTag: Enemy
+  enemyTags:
+  - Enemy
   bulletHit: {fileID: 7070465220517492653, guid: 9d9e7a0fe7d7525488c6b273b1b4f75a, type: 3}
   altBulletHit: {fileID: 0}
   damage: 10

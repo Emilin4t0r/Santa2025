@@ -241,7 +241,7 @@ public class SwarmMissile : MonoBehaviour
         GameObject expl = Instantiate(explosion, transform.position, Quaternion.identity);
         expl.transform.localScale *= explosionEffectSize;
         SoundSpawner.SpawnSound(transform.position, AirplaneController.instance.transform, SoundLibrary.GetClip("missile_explode"));
-        Destroy(expl, 1);
+        Destroy(expl, 7);
         Destroy(gameObject);
     }
 }

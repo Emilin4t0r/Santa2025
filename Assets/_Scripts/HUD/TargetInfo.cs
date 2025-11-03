@@ -23,6 +23,7 @@ public class TargetInfo : MonoBehaviour
     public float targetInfoUpdateFreq;
     float timeToUpdateTargetInfo;
 
+    int enemiesWithinGunsrange;
     private void Awake()
     {
         instance = this;
@@ -79,8 +80,7 @@ public class TargetInfo : MonoBehaviour
         targetingComputerState.text = HUD.instance.hudMode == HUD.HUDMode.AirToAir ? "AIR COMBAT" : "GROUND STRIKE";
 
         if (EnemiesController.enemiesAttacking.Count > 0)
-        {
-            FlashEnemyLock();
+        {            
             RearCamera.instance.TrackTarget(EnemiesController.enemiesAttacking[0].transform);
         }
         else
@@ -129,6 +129,15 @@ public class TargetInfo : MonoBehaviour
                 ResetMslLockCircle();
             }
         }
+
+        if (enemiesWithinGunsrange > 0)
+        {
+            FlashEnemyLock();
+        } else
+        {
+            if (enemyLock.gameObject.activeSelf)
+                enemyLock.gameObject.SetActive(false);
+        }
     }
 
     void ResetMslLockCircle()
@@ -161,13 +170,23 @@ public class TargetInfo : MonoBehaviour
         }
     }
 
+    GameObject rwr_lockSound;
+    public void AddEnemiesInGunrange(int enemy)
+    {
+        enemiesWithinGunsrange = Mathf.Max(enemiesWithinGunsrange + enemy, 0);
+        if (enemiesWithinGunsrange == 1 && rwr_lockSound == null)
+            rwr_lockSound = SoundSpawner.SpawnSoundLoop(ac.transform.position, ac.transform, SoundLibrary.GetClip("rwr_lock"), 0, false, 0.5f);
+        else if (enemiesWithinGunsrange == 0)
+            SoundSpawner.EndLoop(rwr_lockSound);
+    }
+
     void FlashEnemyLock()
     {
         t_eLock += Time.fixedDeltaTime;
         if (t_eLock > f_eLock)
-        {
+        {            
             enemyLock.gameObject.SetActive(!enemyLock.gameObject.activeSelf);
-            t_eLock = 0;
+            t_eLock = 0;            
         }
     }
 
@@ -181,15 +200,16 @@ public class TargetInfo : MonoBehaviour
         }
     }
 
-    bool missileWarningActive;
+    bool missileWarningActive;    
     public void TriggerMissileWarning()
     {
         if (!missileWarningActive)
-            StartCoroutine(MissileWarning(Time.time + 1.5f));
+            StartCoroutine(MissileWarning(Time.time + 1));
     }
     IEnumerator MissileWarning(float t_stopFlash)
     {
         missileWarningActive = true;
+        SoundSpawner.SpawnSound(ac.transform.position, ac.transform, SoundLibrary.GetClip("rwr_missile"), 0, 0);
         while (Time.time < t_stopFlash)
         {
             FlashEnemyLaunch();

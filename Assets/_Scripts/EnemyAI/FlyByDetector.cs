@@ -43,7 +43,7 @@ public class FlybyDetector : MonoBehaviour
 
             if (relativeSpeed >= flybySpeedThreshold)
             {
-                SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("jet_flyby_short"), 0.8f, 0.35f, 0.6f);
+                SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("jet_flyby_short"), 1, 0.35f, 0.6f);
                 soundSpawned = true;
                 StartCoroutine(SoundReloader());
             }

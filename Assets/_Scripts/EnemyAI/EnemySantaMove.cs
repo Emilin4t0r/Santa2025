@@ -14,13 +14,13 @@ public class EnemySantaMove : MonoBehaviour
     public Vector3 currentVelocity; // Current velocity vector
 
     [Header("Ground Avoidance")]
-    public float forwardProbeDistance = 200f;         // how far in front of the jet we probe
-    public float groundClearanceThreshold = 50;    // variable1 — if clearance < this, we escape
-    public float escapeDuration = 2.0f;               // variable2 — how long we fly the escape vector
-    public float escapeTurnRate = 60f;                // how fast we rotate to face escape vector (deg/s)
+    public float forwardProbeDistance = 200f; // how far in front of the jet to probe
+    public float groundClearanceThreshold = 50; // if clearance < this, start escape
+    public float escapeDuration = 2.0f; // how long we fly the escape vector
+    public float escapeTurnRate = 60f; // how fast we rotate to face escape vector (deg/s)
     bool isEscaping = false;
     float escapeTimer = 0f;
-    Vector3 escapeDirection = Vector3.up;            // world-space direction to head toward while escaping
+    Vector3 escapeDirection = Vector3.up; // world-space direction to head toward while escaping
 
     public Transform target;
     EnemySantaUtils utils;
@@ -29,7 +29,7 @@ public class EnemySantaMove : MonoBehaviour
     {
         utils = GetComponent<EnemySantaUtils>();
         GetTarget();
-        previousPosition = transform.position;        
+        previousPosition = transform.position;
     }
 
     private void FixedUpdate()
@@ -49,10 +49,8 @@ public class EnemySantaMove : MonoBehaviour
             return;
         if (target.CompareTag("Player"))
         {
-            SoundSpawner.SpawnSound(target.position, target, SoundLibrary.GetClip("rwr_lock"), 0, 0);
             EnemiesController.enemiesAttacking.Add(gameObject);
         }
-        utils.trackCollider.target = target;
     }
 
     void Move()
@@ -61,7 +59,7 @@ public class EnemySantaMove : MonoBehaviour
         Vector3 toTarget = (target.position - transform.position).normalized;
         Quaternion targetRotation = Quaternion.LookRotation(toTarget);
 
-        // --- Forward movement speed (unchanged) ---
+        // --- Forward movement speed ---
         float distanceToDestination = Vector3.Distance(transform.position, target.position);
         float desiredMoveSpeed = Mathf.Clamp(maxSpeed * (distanceToDestination / 100), maxSpeed / 2, maxSpeed);
         currentMoveSpeed = Mathf.MoveTowards(currentMoveSpeed, desiredMoveSpeed, moveAcceleration * Time.fixedDeltaTime);
@@ -69,13 +67,21 @@ public class EnemySantaMove : MonoBehaviour
         // ---------- Raycast check to trigger escape ----------
         if (!isEscaping)
         {
-            // Probe a point in front of the plane
+            LayerMask arenaMask = LayerMask.GetMask("Arena");
+
             Vector3 probePoint = transform.position + transform.forward * forwardProbeDistance;
             LayerMask groundMask = LayerMask.GetMask("Ground");
 
-            // Raycast down from reasonably high above the probePoint to find terrain Y
-            // (use a large height to be robust; tweak if you have a very large world)
-            if (Physics.Raycast(probePoint + Vector3.up * 20000f, Vector3.down, out RaycastHit hitAhead, 40000f, groundMask))
+            if (Physics.Raycast(transform.position, transform.position + transform.forward, out RaycastHit hitArena, forwardProbeDistance, arenaMask)) // Avoid Arena walls & ceiling
+            {
+                // Start escaping for escapeDuration seconds
+                isEscaping = true;
+                escapeTimer = escapeDuration;
+                // Escape direction: fly away from the arena hit point and bias backward
+                Vector3 away = (transform.position - hitArena.point).normalized;
+                escapeDirection = (away + -Vector3.forward * 0.6f).normalized;
+            }
+            else if (Physics.Raycast(probePoint + Vector3.up * 5f, Vector3.down, out RaycastHit hitAhead, 40000f, groundMask)) // Avoid the ground
             {
                 float clearance = probePoint.y - hitAhead.point.y;
                 if (clearance < groundClearanceThreshold)
@@ -100,10 +106,6 @@ public class EnemySantaMove : MonoBehaviour
             Quaternion escapeRot = Quaternion.LookRotation(escapeDirection);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, escapeRot, escapeTurnRate * Time.fixedDeltaTime);
 
-            // Move forward exactly as before (no speed changes)
-            Vector3 move = transform.forward * currentMoveSpeed * Time.fixedDeltaTime;
-            transform.position += move;
-
             // Countdown escape timer and stop escaping when time's up
             escapeTimer -= Time.fixedDeltaTime;
             if (escapeTimer <= 0f)
@@ -122,11 +124,11 @@ public class EnemySantaMove : MonoBehaviour
                 targetRotation,
                 maxTurnRate * Time.fixedDeltaTime
             );
-
-            // --- Forward movement ---
-            Vector3 moveDirection = transform.forward * currentMoveSpeed * Time.fixedDeltaTime;
-            transform.position += moveDirection;
         }
+
+        // Move forward
+        Vector3 move = transform.forward * currentMoveSpeed * Time.fixedDeltaTime;
+        transform.position += move;
 
         // Debug line to destination
         Debug.DrawLine(transform.position, target.position, Color.blue);

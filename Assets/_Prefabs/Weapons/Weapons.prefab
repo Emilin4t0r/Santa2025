@@ -452,7 +452,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missiles: []
   hudWeaponIndex: 5
-  fireRate: 0.1
+  fireRate: 0.075
 --- !u!1 &6278855861181191603
 GameObject:
   m_ObjectHideFlags: 0
