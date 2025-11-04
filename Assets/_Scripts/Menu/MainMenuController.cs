@@ -27,8 +27,7 @@ public class MainMenuController : MonoBehaviour
         else
         {
             title.gameObject.SetActive(true);
-            StartCoroutine(IntroScreenAndFade());
-            SoundSpawner.SpawnSound(transform.position, null, SoundLibrary.GetClip("santa_intro_announce"), 0); 
+            StartCoroutine(IntroScreenAndFade());            
         }
     }
     IEnumerator IntroScreenAndFade()

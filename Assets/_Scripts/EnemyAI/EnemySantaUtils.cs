@@ -113,7 +113,7 @@ public class EnemySantaUtils : MonoBehaviour
         EnemiesController.enemiesAttacking.Remove(gameObject);
         Radar.instance.enemies.Remove(gameObject);
         if (trackCollider.readyToFire)
-            TargetInfo.instance.AddEnemiesInGunrange(-1);
+            TargetInfo.instance.ChangeEnemiesInGunrange(transform, true);
         Destroy(partc, 10);
         Destroy(gameObject);        
     }

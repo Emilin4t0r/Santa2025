@@ -454,10 +454,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fbbe38bbd656264a9261ee65c98925c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 1000
+  maxSpeed: 175
   moveAcceleration: 8
   currentMoveSpeed: 0
-  maxTurnRate: 15
+  maxTurnRate: 30
   lateralDampen: 1
   minDistFromGround: 10
   currentVelocity: {x: 0, y: 0, z: 0}
@@ -465,6 +465,12 @@ MonoBehaviour:
   groundClearanceThreshold: 50
   escapeDuration: 2
   escapeTurnRate: 60
+  disengageChancePerSecond: 0.33
+  minDistBeforeDisengage: 1000
+  disengageDuration: 5
+  reengageDistanceMultiplier: 1.6
+  reengageExtraDistance: 100
+  minTimeBetweenDisengages: 6
   target: {fileID: 0}
 --- !u!114 &4309372759076694684
 MonoBehaviour:
@@ -6928,6 +6934,7 @@ MonoBehaviour:
   yokeRoot: {fileID: 2827334082776060979}
   gripRoot: {fileID: 8833984646585142925}
   tiltMultiplier: 0.8
+  xOffset: 0
 --- !u!1 &7373713494262496380
 GameObject:
   m_ObjectHideFlags: 0
@@ -7175,6 +7182,7 @@ MonoBehaviour:
   yokeRoot: {fileID: 3829674907424353164}
   gripRoot: {fileID: 1774407513768594434}
   tiltMultiplier: 0.8
+  xOffset: 0
 --- !u!1 &8833984646585142925
 GameObject:
   m_ObjectHideFlags: 0

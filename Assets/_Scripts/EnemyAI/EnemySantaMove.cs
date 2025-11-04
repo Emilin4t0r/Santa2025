@@ -1,8 +1,11 @@
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 using static UnityEngine.GraphicsBuffer;
 
 public class EnemySantaMove : MonoBehaviour
 {
+    enum AIState { Chase, Disengage, Reengage }
+
     [Header("Movement")]
     public float maxSpeed = 200f; // Speed of movement
     public float moveAcceleration = 10f;
@@ -17,10 +20,27 @@ public class EnemySantaMove : MonoBehaviour
     public float forwardProbeDistance = 200f; // how far in front of the jet to probe
     public float groundClearanceThreshold = 50; // if clearance < this, start escape
     public float escapeDuration = 2.0f; // how long we fly the escape vector
-    public float escapeTurnRate = 60f; // how fast we rotate to face escape vector (deg/s)
     bool isEscaping = false;
     float escapeTimer = 0f;
     Vector3 escapeDirection = Vector3.up; // world-space direction to head toward while escaping
+
+    [Header("Disengage / Re-engage")]
+    public float disengageChancePerSecond = 0.12f; // chance per second to start a disengage while in range
+    public float minDistBeforeDisengage = 800f; // distance from target to consider disengage
+    public float disengageDuration = 2.5f; // how long it flies away when disengaging
+    public float reengageDistanceMultiplier = 1.6f; // how much farther away it wants to be before resuming chase
+    public float reengageExtraDistance = 100f; // added to computed reengage distance
+    public float minTimeBetweenDisengages = 6f; // cooldown to avoid too frequent disengages
+
+    AIState state = AIState.Chase;
+    float disengageTimer = 0f;
+    float lastDisengageTime = -999f;
+    Vector3 disengageDirection = Vector3.back;
+    float desiredReengageDistance = 0f;
+
+    // stored info about the target at the moment of disengage
+    Vector3 lastTargetPositionAtDisengage = Vector3.zero;
+    float storedDistanceAtDisengage = 0f;
 
     public Transform target;
     EnemySantaUtils utils;
@@ -36,10 +56,8 @@ public class EnemySantaMove : MonoBehaviour
     {
         UpdateVelocity();
 
-        if (target != null)
-            Move();
-        else
-            GetTarget();
+        // always run Move so the jet keeps flying during Disengage/Reengage/escape
+        Move();
     }
 
     void GetTarget()
@@ -55,13 +73,21 @@ public class EnemySantaMove : MonoBehaviour
 
     void Move()
     {
-        // --- Rotation (turning) ---
-        Vector3 toTarget = (target.position - transform.position).normalized;
-        Quaternion targetRotation = Quaternion.LookRotation(toTarget);
+        // compute distanceToDestination only if we have a live target
+        float distanceToDestination = float.PositiveInfinity;
+        Vector3 toTarget = Vector3.forward;
+        Quaternion targetRotation = transform.rotation;
+        if (target != null)
+        {
+            toTarget = (target.position - transform.position).normalized;
+            targetRotation = Quaternion.LookRotation(toTarget);
+            distanceToDestination = Vector3.Distance(transform.position, target.position);
+        }
 
-        // --- Forward movement speed ---
-        float distanceToDestination = Vector3.Distance(transform.position, target.position);
-        float desiredMoveSpeed = Mathf.Clamp(maxSpeed * (distanceToDestination / 100), maxSpeed / 2, maxSpeed);
+        // --- Forward movement speed (based on distance to target if present) ---
+        float desiredMoveSpeed = maxSpeed;
+        if (!float.IsInfinity(distanceToDestination))
+            desiredMoveSpeed = Mathf.Clamp(maxSpeed * (distanceToDestination / 100f), maxSpeed / 2f, maxSpeed);
         currentMoveSpeed = Mathf.MoveTowards(currentMoveSpeed, desiredMoveSpeed, moveAcceleration * Time.fixedDeltaTime);
 
         // ---------- Raycast check to trigger escape ----------
@@ -99,39 +125,150 @@ public class EnemySantaMove : MonoBehaviour
             }
         }
 
-        // ---------- If escaping: ignore target and fly toward escapeDirection for escapeDuration ----------
+        // ---------- If escaping: ignore other AI and fly toward escapeDirection ----------
         if (isEscaping)
         {
-            // Turn toward escapeDirection (uses escapeTurnRate)
             Quaternion escapeRot = Quaternion.LookRotation(escapeDirection);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, escapeRot, escapeTurnRate * Time.fixedDeltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, escapeRot, maxTurnRate * Time.fixedDeltaTime);
 
-            // Countdown escape timer and stop escaping when time's up
             escapeTimer -= Time.fixedDeltaTime;
             if (escapeTimer <= 0f)
             {
                 isEscaping = false;
             }
 
-            // debug: draw escape dir
             Debug.DrawLine(transform.position, transform.position + escapeDirection * 200f, Color.red);
         }
         else
         {
-            // ---------- Normal chase behaviour ----------
-            transform.rotation = Quaternion.RotateTowards(
-                transform.rotation,
-                targetRotation,
-                maxTurnRate * Time.fixedDeltaTime
-            );
+            // ---------- AI state logic: Chase / Disengage / Reengage ----------
+            switch (state)
+            {
+                case AIState.Chase:
+                    // If we don't have a target, try to acquire one
+                    if (target == null)
+                    {
+                        GetTarget();
+                    }
+
+                    // now (if we have a target) possibly start a disengage
+                    if (target != null)
+                    {
+                        distanceToDestination = Vector3.Distance(transform.position, target.position);
+
+                        if (Time.time - lastDisengageTime >= minTimeBetweenDisengages
+                            && distanceToDestination <= minDistBeforeDisengage)
+                        {
+                            if (Random.value < disengageChancePerSecond * Time.fixedDeltaTime)
+                            {
+                                StartDisengage(distanceToDestination);
+                                break;
+                            }
+                        }
+
+                        // normal chase rotation
+                        transform.rotation = Quaternion.RotateTowards(
+                            transform.rotation,
+                            Quaternion.LookRotation((target.position - transform.position).normalized),
+                            maxTurnRate * Time.fixedDeltaTime
+                        );
+                    }
+                    else
+                    {
+                        // No target available — just keep current forward heading (or you could idle-turn)
+                    }
+                    break;
+
+                case AIState.Disengage:
+                    // Turn toward disengageDirection
+                    Quaternion disengageRot = Quaternion.LookRotation(disengageDirection);
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, disengageRot, maxTurnRate * Time.fixedDeltaTime);
+
+                    disengageTimer -= Time.fixedDeltaTime;
+                    if (disengageTimer <= 0f)
+                    {
+                        // finished flying away — start reengage phase:
+                        SetState(AIState.Reengage);
+
+
+                        // compute how far away we want to be before re-entering chase based on storedDistanceAtDisengage
+                        desiredReengageDistance = storedDistanceAtDisengage * reengageDistanceMultiplier + reengageExtraDistance;
+                        desiredReengageDistance = Mathf.Max(desiredReengageDistance, minDistBeforeDisengage + 50f);
+                    }
+
+                    Debug.DrawLine(transform.position, transform.position + disengageDirection * 200f, Color.yellow);
+                    break;
+
+                case AIState.Reengage:
+                    // Use the stored target position from when we disengaged to measure separation
+                    float currentDistanceFromOldTarget = Vector3.Distance(transform.position, lastTargetPositionAtDisengage);
+
+                    // If we're already further than desired distance, go back to chase and pick a new target
+                    if (currentDistanceFromOldTarget >= desiredReengageDistance)
+                    {
+                        SetState(AIState.Chase);
+                        lastDisengageTime = Time.time;
+                        // pick a new target now that we're re-engaging
+                        GetTarget();
+                        break;
+                    }
+
+                    // Otherwise, back off from the old target position until we hit desired distance
+                    Vector3 awayFromOldTarget = (transform.position - lastTargetPositionAtDisengage).normalized;
+                    Quaternion backOffRot = Quaternion.LookRotation(awayFromOldTarget);
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, backOffRot, maxTurnRate * Time.fixedDeltaTime);
+
+                    break;
+            }
         }
 
         // Move forward
         Vector3 move = transform.forward * currentMoveSpeed * Time.fixedDeltaTime;
         transform.position += move;
 
-        // Debug line to destination
-        Debug.DrawLine(transform.position, target.position, Color.blue);
+        // If we have a target draw debug line to it, otherwise draw to the last stored position for debugging
+        if (target != null)
+            Debug.DrawLine(transform.position, target.position, Color.blue);
+        else
+            Debug.DrawLine(transform.position, lastTargetPositionAtDisengage, Color.cyan);
+    }
+
+    void SetState(AIState _state)
+    {
+        state = _state;
+    }
+
+    void StartDisengage(float currentDistance)
+    {
+        if (target != null)
+        {
+            // store info about the target at the moment of disengage
+            lastTargetPositionAtDisengage = target.position;
+            storedDistanceAtDisengage = currentDistance;
+
+            // if this was a player target, remove from attacking list
+            if (target.CompareTag("Player"))
+            {
+                EnemiesController.enemiesAttacking.Remove(gameObject);
+            }
+
+            // forget the target immediately
+            target = null;
+        }
+
+        // pick a disengage direction: generally away from the stored target position with some random yaw
+        Vector3 dirAway;
+        if (lastTargetPositionAtDisengage != Vector3.zero)
+            dirAway = (transform.position - lastTargetPositionAtDisengage).normalized;
+        else
+            dirAway = -transform.forward;
+
+        float randomYaw = Random.Range(-40f, 40f);
+        Quaternion yaw = Quaternion.AngleAxis(randomYaw, Vector3.up);
+        disengageDirection = (yaw * dirAway).normalized;
+        
+        SetState(AIState.Disengage);
+        disengageTimer = disengageDuration;
     }
 
     void UpdateVelocity()

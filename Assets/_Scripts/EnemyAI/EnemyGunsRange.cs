@@ -8,31 +8,35 @@ public class EnemyGunsRange : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!moveScript.target)
-            return;
-
-        if (other.transform.parent == moveScript.target)
+        if (other == null || moveScript.target == null) return;
+        
+        if (moveScript.target != null && other.transform.parent == moveScript.target)
         {
+            // schedule first shot and set ready flag
             utils.nextShootTime = Time.time + Random.Range(0.2f, 2f);
             readyToFire = true;
         }
-        if (other.CompareTag("AircraftTrigger"))
-        {
-            TargetInfo.instance.AddEnemiesInGunrange(1);
-        }
+
+        if (!other.CompareTag("AircraftTrigger")) return;
+
+        // tell HUD that *this enemy* is now in gunrange
+        if (TargetInfo.instance != null)
+            TargetInfo.instance.ChangeEnemiesInGunrange(moveScript.transform, false);
     }
+
     private void OnTriggerExit(Collider other)
     {
-        if (!moveScript.target)
-            return;
-
-        if (other.transform.parent == moveScript.target)
+        if (other == null) return;
+        
+        if (moveScript.target != null && other.transform.parent == moveScript.target)
         {
-            readyToFire = false;            
+            readyToFire = false;
         }
-        if (other.CompareTag("AircraftTrigger"))
-        {            
-            TargetInfo.instance.AddEnemiesInGunrange(-1);
-        }
+
+        if (!other.CompareTag("AircraftTrigger")) return;
+
+        // tell HUD to remove this enemy from the list
+        if (TargetInfo.instance != null)
+            TargetInfo.instance.ChangeEnemiesInGunrange(moveScript.transform, true);
     }
 }

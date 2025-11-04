@@ -23,7 +23,7 @@ public class TargetInfo : MonoBehaviour
     public float targetInfoUpdateFreq;
     float timeToUpdateTargetInfo;
 
-    int enemiesWithinGunsrange;
+    List <Transform> enemiesWithinGunsrange;
     private void Awake()
     {
         instance = this;
@@ -33,6 +33,7 @@ public class TargetInfo : MonoBehaviour
     {
         bc = BracketController.instance;
         ac = AirplaneController.instance;
+        enemiesWithinGunsrange = new List <Transform>();
         irMissiles = GameObject.Find("IRMissiles").GetComponent<Missiles>();
         radarMissiles = GameObject.Find("RadarMissiles").GetComponent<Missiles>();
         SetActiveMissilesToIR(true);
@@ -130,7 +131,7 @@ public class TargetInfo : MonoBehaviour
             }
         }
 
-        if (enemiesWithinGunsrange > 0)
+        if (enemiesWithinGunsrange.Count > 0)
         {
             FlashEnemyLock();
         } else
@@ -166,18 +167,40 @@ public class TargetInfo : MonoBehaviour
         if (t_mLock > f_mLock)
         {
             mslLock.gameObject.SetActive(!mslLock.gameObject.activeSelf);
-            t_mLock = 0;
+            t_mLock = 0;            
         }
     }
 
     GameObject rwr_lockSound;
-    public void AddEnemiesInGunrange(int enemy)
+    public void ChangeEnemiesInGunrange(Transform enemy, bool remove)
     {
-        enemiesWithinGunsrange = Mathf.Max(enemiesWithinGunsrange + enemy, 0);
-        if (enemiesWithinGunsrange == 1 && rwr_lockSound == null)
+        if (enemy == null) return;
+        if (enemiesWithinGunsrange == null) enemiesWithinGunsrange = new List<Transform>();
+
+        if (!remove)
+        {
+            if (!enemiesWithinGunsrange.Contains(enemy))
+                enemiesWithinGunsrange.Add(enemy);
+        }
+        else
+        {
+            if (enemiesWithinGunsrange.Contains(enemy))
+                enemiesWithinGunsrange.Remove(enemy);
+        }
+
+        if (enemiesWithinGunsrange.Count == 1 && rwr_lockSound == null)
+        {
             rwr_lockSound = SoundSpawner.SpawnSoundLoop(ac.transform.position, ac.transform, SoundLibrary.GetClip("rwr_lock"), 0, false, 0.5f);
-        else if (enemiesWithinGunsrange == 0)
+        }
+        else if (enemiesWithinGunsrange.Count == 0)
+        {
             SoundSpawner.EndLoop(rwr_lockSound);
+            rwr_lockSound = null;
+        }
+    }
+    public bool IsInGunrangeEnemies(Transform enemy)
+    {        
+        return enemiesWithinGunsrange.Contains(enemy); ;
     }
 
     void FlashEnemyLock()
@@ -186,7 +209,8 @@ public class TargetInfo : MonoBehaviour
         if (t_eLock > f_eLock)
         {            
             enemyLock.gameObject.SetActive(!enemyLock.gameObject.activeSelf);
-            t_eLock = 0;            
+            t_eLock = 0;
+            print("enemies in gun range: " + enemiesWithinGunsrange.Count);
         }
     }
 

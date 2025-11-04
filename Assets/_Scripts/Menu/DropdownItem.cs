@@ -58,7 +58,7 @@ public class DropdownItem : MonoBehaviour
         weaponInfo.SetInfo(label.text);
         mainCam.DORotate(camCloseupRot, 0.5f);
         mainCam.DOMove(camCloseupPos, 0.5f);
-        MenuTurntable.instance.transform.DORotate(new Vector3(0, 0, 0), 0.5f);
+        MenuTurntable.instance.transform.DORotate(new Vector3(0, 0, 0), 0.5f);        
     }
     public void OnHoverExit()
     {

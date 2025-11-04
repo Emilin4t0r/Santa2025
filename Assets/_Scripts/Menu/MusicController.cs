@@ -29,7 +29,7 @@ public class MusicController : MonoBehaviour
     void SetAudioSourcePlayTimes()
     {
         double dspStart = AudioSettings.dspTime + 0.1;
-        musicEntrance.PlayScheduled(dspStart);
+        musicEntrance.PlayScheduled(dspStart);        
 
         // Calculate exact length in seconds from samples/frequency (more exact than clip.length)
         double entranceLength = (double)musicEntrance.clip.samples / musicEntrance.clip.frequency;
@@ -43,6 +43,12 @@ public class MusicController : MonoBehaviour
     }
     IEnumerator ShowTitleAfterTime(double time, bool skipAnimations)
     {
+        double timeToPlayAnnounceSound = time - 2;
+        while(AudioSettings.dspTime < timeToPlayAnnounceSound)
+        {
+            yield return null;
+        }
+        SoundSpawner.SpawnSound(transform.position, null, SoundLibrary.GetClip("santa_intro_announce"), 0, 0);
         while (AudioSettings.dspTime < time)
         {
             yield return null;

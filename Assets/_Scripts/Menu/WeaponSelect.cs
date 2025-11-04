@@ -12,7 +12,7 @@ public class WeaponSelect : MonoBehaviour
     {
         mainCam = Camera.main.transform;
         dropdown = GetComponent<TMP_Dropdown>();
-        dropdown.onValueChanged.AddListener(SelectWeapon);
+        dropdown.onValueChanged.AddListener(SelectWeapon);        
     }
 
     
@@ -20,5 +20,7 @@ public class WeaponSelect : MonoBehaviour
     {
         mainCam.DORotate(Vector3.zero, 0.5f);
         mainCam.DOMove(Vector3.zero, 0.5f);
+
+        SoundSpawner.SpawnSound(transform.position, null, SoundLibrary.GetClip("select_weapon"), 0, 0.2f);
     }
 }

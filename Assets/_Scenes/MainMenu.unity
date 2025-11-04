@@ -307,6 +307,7 @@ MonoBehaviour:
   yokeRoot: {fileID: 71042910}
   gripRoot: {fileID: 1122533954}
   tiltMultiplier: 0.8
+  xOffset: 0
 --- !u!1 &56214048
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,6 +504,7 @@ GameObject:
   - component: {fileID: 80697203}
   - component: {fileID: 80697202}
   - component: {fileID: 80697201}
+  - component: {fileID: 80697205}
   - component: {fileID: 80697204}
   m_Layer: 0
   m_Name: DropdownLargeHardpoint (1)
@@ -652,6 +654,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b724a0925699654bb7e14fb6462cf48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &80697205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80697199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlayHoverSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlaySelectSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &96547801
 GameObject:
   m_ObjectHideFlags: 0
@@ -2851,6 +2898,7 @@ GameObject:
   - component: {fileID: 183585534}
   - component: {fileID: 183585533}
   - component: {fileID: 183585532}
+  - component: {fileID: 183585536}
   - component: {fileID: 183585535}
   m_Layer: 0
   m_Name: DropdownLargeHardpoint (1)
@@ -3000,6 +3048,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b724a0925699654bb7e14fb6462cf48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &183585536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 183585530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlayHoverSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlaySelectSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &185752901
 GameObject:
   m_ObjectHideFlags: 0
@@ -3600,6 +3693,18 @@ MonoBehaviour:
         - m_Target: {fileID: 237730818}
           m_TargetAssemblyTypeName: DropdownItem, Assembly-CSharp
           m_MethodName: OnHoverEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlayHoverSound
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -4581,6 +4686,18 @@ MonoBehaviour:
         - m_Target: {fileID: 340356329}
           m_TargetAssemblyTypeName: DropdownItem, Assembly-CSharp
           m_MethodName: OnHoverEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlayHoverSound
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -5666,6 +5783,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlayHoverSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - eventID: 1
     callback:
       m_PersistentCalls:
@@ -5966,6 +6095,7 @@ GameObject:
   - component: {fileID: 506319613}
   - component: {fileID: 506319612}
   - component: {fileID: 506319611}
+  - component: {fileID: 506319615}
   - component: {fileID: 506319614}
   m_Layer: 0
   m_Name: DropdownSmallHardpoint
@@ -6112,6 +6242,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b724a0925699654bb7e14fb6462cf48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &506319615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 506319609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlayHoverSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlaySelectSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &509029917
 GameObject:
   m_ObjectHideFlags: 0
@@ -6597,6 +6772,7 @@ GameObject:
   - component: {fileID: 662620516}
   - component: {fileID: 662620515}
   - component: {fileID: 662620514}
+  - component: {fileID: 662620517}
   m_Layer: 0
   m_Name: ButtonPlay
   m_TagString: Untagged
@@ -6742,6 +6918,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 662620512}
   m_CullTransparentMesh: 1
+--- !u!114 &662620517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662620512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlayHoverSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlaySelectSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &698600204
 GameObject:
   m_ObjectHideFlags: 0
@@ -7487,6 +7708,50 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 806819712}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &816057023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 816057025}
+  - component: {fileID: 816057024}
+  m_Layer: 0
+  m_Name: MenuButtonSounds
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &816057024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 816057023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db12b9035b6971748b0ead1adaad71cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &816057025
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 816057023}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1951.677, y: 729.30347, z: 3489.7283}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &817209959
 GameObject:
   m_ObjectHideFlags: 0
@@ -8361,6 +8626,7 @@ GameObject:
   - component: {fileID: 906199982}
   - component: {fileID: 906199981}
   - component: {fileID: 906199980}
+  - component: {fileID: 906199984}
   - component: {fileID: 906199983}
   m_Layer: 0
   m_Name: DropdownLargeHardpoint
@@ -8510,6 +8776,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b724a0925699654bb7e14fb6462cf48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &906199984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 906199978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlayHoverSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlaySelectSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &907344945
 GameObject:
   m_ObjectHideFlags: 0
@@ -8874,6 +9185,7 @@ GameObject:
   - component: {fileID: 973845751}
   - component: {fileID: 973845750}
   - component: {fileID: 973845749}
+  - component: {fileID: 973845753}
   - component: {fileID: 973845752}
   m_Layer: 0
   m_Name: DropdownSmallHardpoint (1)
@@ -9020,6 +9332,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b724a0925699654bb7e14fb6462cf48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &973845753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973845747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlayHoverSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlaySelectSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &988170725
 GameObject:
   m_ObjectHideFlags: 0
@@ -9406,6 +9763,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlayHoverSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - eventID: 1
     callback:
       m_PersistentCalls:
@@ -9668,6 +10037,7 @@ GameObject:
   - component: {fileID: 1057347060}
   - component: {fileID: 1057347059}
   - component: {fileID: 1057347058}
+  - component: {fileID: 1057347061}
   m_Layer: 0
   m_Name: ButtonStart
   m_TagString: Untagged
@@ -9789,6 +10159,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1057347056}
   m_CullTransparentMesh: 1
+--- !u!114 &1057347061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057347056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlayHoverSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlaySelectSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1065878096
 GameObject:
   m_ObjectHideFlags: 0
@@ -11187,6 +11602,18 @@ MonoBehaviour:
         - m_Target: {fileID: 1335346662}
           m_TargetAssemblyTypeName: DropdownItem, Assembly-CSharp
           m_MethodName: OnHoverEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlayHoverSound
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -13626,6 +14053,7 @@ MonoBehaviour:
   yokeRoot: {fileID: 2027895434}
   gripRoot: {fileID: 883117564}
   tiltMultiplier: 0.8
+  xOffset: 0
 --- !u!1 &1455495769
 GameObject:
   m_ObjectHideFlags: 0
@@ -13638,6 +14066,7 @@ GameObject:
   - component: {fileID: 1455495773}
   - component: {fileID: 1455495772}
   - component: {fileID: 1455495771}
+  - component: {fileID: 1455495775}
   - component: {fileID: 1455495774}
   m_Layer: 0
   m_Name: DropdownSmallHardpoint (1)
@@ -13784,6 +14213,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b724a0925699654bb7e14fb6462cf48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1455495775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455495769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlayHoverSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlaySelectSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1455867626
 GameObject:
   m_ObjectHideFlags: 0
@@ -16928,6 +17402,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlayHoverSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - eventID: 1
     callback:
       m_PersistentCalls:
@@ -17067,6 +17553,7 @@ GameObject:
   - component: {fileID: 1749830696}
   - component: {fileID: 1749830695}
   - component: {fileID: 1749830694}
+  - component: {fileID: 1749830698}
   - component: {fileID: 1749830697}
   m_Layer: 0
   m_Name: DropdownLargeHardpoint
@@ -17216,6 +17703,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b724a0925699654bb7e14fb6462cf48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1749830698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1749830692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlayHoverSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlaySelectSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1752353578
 GameObject:
   m_ObjectHideFlags: 0
@@ -17452,6 +17984,18 @@ MonoBehaviour:
         - m_Target: {fileID: 1755635073}
           m_TargetAssemblyTypeName: DropdownItem, Assembly-CSharp
           m_MethodName: OnHoverEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlayHoverSound
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -17788,6 +18332,18 @@ MonoBehaviour:
         - m_Target: {fileID: 1777830733}
           m_TargetAssemblyTypeName: DropdownItem, Assembly-CSharp
           m_MethodName: OnHoverEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlayHoverSound
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -18711,6 +19267,7 @@ GameObject:
   - component: {fileID: 1854573937}
   - component: {fileID: 1854573936}
   - component: {fileID: 1854573935}
+  - component: {fileID: 1854573938}
   m_Layer: 0
   m_Name: ButtonQuit
   m_TagString: Untagged
@@ -18820,6 +19377,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1854573933}
   m_CullTransparentMesh: 1
+--- !u!114 &1854573938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854573933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlayHoverSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlaySelectSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1875343107
 GameObject:
   m_ObjectHideFlags: 0
@@ -19475,6 +20077,7 @@ GameObject:
   - component: {fileID: 1976343779}
   - component: {fileID: 1976343778}
   - component: {fileID: 1976343777}
+  - component: {fileID: 1976343781}
   - component: {fileID: 1976343780}
   m_Layer: 0
   m_Name: DropdownSmallHardpoint
@@ -19621,6 +20224,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b724a0925699654bb7e14fb6462cf48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1976343781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1976343775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlayHoverSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlaySelectSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1980499827
 GameObject:
   m_ObjectHideFlags: 0
@@ -19769,6 +20417,7 @@ GameObject:
   - component: {fileID: 2012896910}
   - component: {fileID: 2012896909}
   - component: {fileID: 2012896908}
+  - component: {fileID: 2012896911}
   m_Layer: 0
   m_Name: ButtonSettings
   m_TagString: Untagged
@@ -19878,6 +20527,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2012896906}
   m_CullTransparentMesh: 1
+--- !u!114 &2012896911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2012896906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlayHoverSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 816057024}
+          m_TargetAssemblyTypeName: MenuButtonSounds, Assembly-CSharp
+          m_MethodName: PlaySelectSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &2025380694
 GameObject:
   m_ObjectHideFlags: 0
@@ -21393,3 +22087,4 @@ SceneRoots:
   - {fileID: 509029919}
   - {fileID: 2119161080}
   - {fileID: 1475733421}
+  - {fileID: 816057025}

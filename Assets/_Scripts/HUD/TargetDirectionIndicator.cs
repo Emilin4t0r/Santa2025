@@ -18,9 +18,14 @@ public class TargetDirectionIndicator : MonoBehaviour
         }
 
         if (currentThreat != null)
+        {
             UpdateArrows();
+        }
         else
+        {
             DisableAllArrows();
+            ToggleThreatText(false);
+        }
     }
 
     void UpdateArrows()
@@ -56,7 +61,12 @@ public class TargetDirectionIndicator : MonoBehaviour
         }
 
         if (!threatText.activeSelf)
-            threatText.SetActive(true);
+            ToggleThreatText(true);
+    }
+
+    void ToggleThreatText(bool state)
+    {
+        threatText.SetActive(state);
     }
 
     void DisableAllArrows()
@@ -64,8 +74,6 @@ public class TargetDirectionIndicator : MonoBehaviour
         arrowU.gameObject.SetActive(false);
         arrowD.gameObject.SetActive(false);
         arrowL.gameObject.SetActive(false);
-        arrowR.gameObject.SetActive(false);
-        if (threatText.activeSelf)
-            threatText.SetActive(false);
+        arrowR.gameObject.SetActive(false);            
     }
 }
