@@ -8,7 +8,6 @@ public class Guns : MonoBehaviour
     public GameObject bulletPrefab;
     public float shootForce, fireRate, inaccuracy;
     public float gunAnimSpeed;
-    float originalGunAnimSpeed;
     float nextTimeToFire;
     public List<Transform> guns;
     public Vector2 camShakeValues;
@@ -179,7 +178,6 @@ public class Guns : MonoBehaviour
         {
             //Gun animation
             var gAnim = gun.gameObject.GetComponent<Animator>();
-            originalGunAnimSpeed = gAnim.speed;
             gAnim.speed = gunAnimSpeed;
             gAnim.SetBool("Fire", true);
         }
@@ -192,9 +190,9 @@ public class Guns : MonoBehaviour
         foreach (var gun in guns)
         {
             //Gun animation
-            var gmAnim = gun.gameObject.GetComponent<Animator>();
-            gmAnim.speed = originalGunAnimSpeed;
-            gmAnim.SetBool("Fire", false);
+            var gAnim = gun.gameObject.GetComponent<Animator>();
+            gAnim.speed = 1;
+            gAnim.SetBool("Fire", false);
         }
         if (shootLoopSound)
         {

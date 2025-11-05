@@ -1,0 +1,32 @@
+using DG.Tweening;
+using NUnit.Framework;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ExplosionsTimer : MonoBehaviour
+{
+    public List<GameObject> explosions;
+
+    public float timeBetweenExplosions;
+    float nextExplosionTime;
+    int iNextExplosion;
+    bool stopExplosions;
+
+    private void Update()
+    {
+        if (stopExplosions)
+            return;
+        if (Time.time > nextExplosionTime)
+        {
+            explosions[iNextExplosion].SetActive(true);
+            SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("missile_explode"), 0, 0.15f, 1);
+            nextExplosionTime = Time.time + timeBetweenExplosions;
+            ++iNextExplosion;
+
+            if (iNextExplosion == explosions.Count)
+            {
+                stopExplosions = true;
+            }
+        }
+    }
+}
