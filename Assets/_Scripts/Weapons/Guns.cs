@@ -41,7 +41,7 @@ public class Guns : MonoBehaviour
 
     void OnSceneChanged(Scene old, Scene now)
     {
-        if (now.name == "Gameplay Test")
+        if (now.name == "Gameplay")
             inGameScene = true;
         else
             inGameScene = false;

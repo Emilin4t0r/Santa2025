@@ -25,6 +25,6 @@ public class JetExhaust : MonoBehaviour
         main.startColor = new Color(1f, 0.8431373f, 0.1411765f, thr / 3);
 
         flyingSound.pitch = 0.8f + (thr / 3);
-        flyingSound.volume = flyingSoundBaseVol * thr;
+        flyingSound.volume = Mathf.Max(flyingSoundBaseVol * thr, 0.1f);
     }
 }

@@ -27,7 +27,7 @@ public class SwarmMissiles : MonoBehaviour
     }
     void OnSceneChanged(Scene old, Scene now)
     {
-        if (now.name == "Gameplay Test")
+        if (now.name == "Gameplay")
         {
             GetMissilesFromChildren();
             hudWeapons = GameObject.Find("HUDWeapons").GetComponent<HUDWeapons>();

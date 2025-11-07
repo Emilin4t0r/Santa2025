@@ -55,17 +55,13 @@ public class MainMenuController : MonoBehaviour
         }
     }
 
-    public void Test1(string a)
-    {
-        print("Entered" + a);
-    }
-    public void Test2(string a)
-    {
-        print("Clicked" + a);
-    }
-
     public void StartGame()
     {
+        StartCoroutine(GameStarter());
+    }
+    IEnumerator GameStarter()
+    {
+        yield return new WaitForSeconds(1);
         GameObject.Find("LoadoutImporter").GetComponent<LoadoutImporter>().StartGame();
     }
 }

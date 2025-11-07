@@ -80,7 +80,7 @@ public class BracketHealth : MonoBehaviour
             sliderImg.color = barColor;
         }
 
-        changeHealthCoroutine = StartCoroutine(ChangeHealthCor(newHealth, 0.5f));
+        changeHealthCoroutine = StartCoroutine(ChangeHealthCor(newHealth, 0.35f));
     }
 
     IEnumerator ChangeHealthCor(float newHealth, float transitionDuration)

@@ -74,8 +74,8 @@ public class ABBullet : Bullet
     void DoDamage(EnemySantaUtils enemy)
     {
         float dist = Vector3.Distance(transform.position, enemy.transform.position);
-        float dmg = Mathf.Max((blastRadius - dist) / 20, 0);
+        float dmg = Mathf.Max((blastRadius - dist) / 15, 0);
         enemy.GetHit(dmg);
-        print("BURST, DMG: " + dmg + ", DIST: " + dist);        
+        print("BURST, DMG: " + dmg + ", DIST: " + dist);
     }
 }

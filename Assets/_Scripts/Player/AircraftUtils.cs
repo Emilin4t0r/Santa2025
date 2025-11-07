@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class AircraftUtils : MonoBehaviour
@@ -21,7 +22,7 @@ public class AircraftUtils : MonoBehaviour
     private void Start()
     {
         ac.enabled = false;
-        ac.enabled = false;
+        ap.enabled = false;
         engineSfxLoop = GetComponent<AudioSource>();
         engineSfxLoop.Stop();
         SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("jet_player_ignition"), 0, 0, 0.3f);
@@ -37,8 +38,21 @@ public class AircraftUtils : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         ac.enabled = true;
-        ac.enabled = true;
+        ap.enabled = true;
         engineSfxLoop.Play();
+        ac.thrustPercent = 1;
+        StartCoroutine(StartBoost());
+    }
+
+    IEnumerator StartBoost()
+    {
+        var t = Time.time + 2;
+        EZCameraShake.CameraShaker.Instance.ShakeOnce(5, 15, 0, 2.5f);
+        while (Time.time < t)
+        {
+            ac.GetComponent<Rigidbody>().AddForce(-Vector3.forward * 50000, ForceMode.Force);
+            yield return null;
+        }
     }
 
     void TerrainWarning()

@@ -23,7 +23,7 @@ public class TargetInfo : MonoBehaviour
     public float targetInfoUpdateFreq;
     float timeToUpdateTargetInfo;
 
-    List <Transform> enemiesWithinGunsrange;
+    List<Transform> enemiesWithinGunsrange;
     private void Awake()
     {
         instance = this;
@@ -33,7 +33,7 @@ public class TargetInfo : MonoBehaviour
     {
         bc = BracketController.instance;
         ac = AirplaneController.instance;
-        enemiesWithinGunsrange = new List <Transform>();
+        enemiesWithinGunsrange = new List<Transform>();
         irMissiles = GameObject.Find("IRMissiles").GetComponent<Missiles>();
         radarMissiles = GameObject.Find("RadarMissiles").GetComponent<Missiles>();
         SetActiveMissilesToIR(true);
@@ -47,7 +47,7 @@ public class TargetInfo : MonoBehaviour
 
     public void LoadHUDAfterBootup()
     {
-        
+
     }
 
     public void SetActiveMissilesToIR(bool yes)
@@ -81,7 +81,7 @@ public class TargetInfo : MonoBehaviour
         targetingComputerState.text = HUD.instance.hudMode == HUD.HUDMode.AirToAir ? "AIR COMBAT" : "GROUND STRIKE";
 
         if (EnemiesController.enemiesAttacking.Count > 0)
-        {            
+        {
             RearCamera.instance.TrackTarget(EnemiesController.enemiesAttacking[0].transform);
         }
         else
@@ -134,10 +134,13 @@ public class TargetInfo : MonoBehaviour
         if (enemiesWithinGunsrange.Count > 0)
         {
             FlashEnemyLock();
-        } else
+            enemyLockWarningActive = true;
+        }
+        else
         {
             if (enemyLock.gameObject.activeSelf)
                 enemyLock.gameObject.SetActive(false);
+            enemyLockWarningActive = false;
         }
     }
 
@@ -157,7 +160,7 @@ public class TargetInfo : MonoBehaviour
         float targetDist = Vector3.Distance(ac.transform.position, bc.lockedOn.transform.position);
         target.text = "TARGET\n" + ((int)targetDist).ToString("D4") + " m\n";
         float spd = bc.lockedOn.GetComponent<EnemySantaMove>().currentVelocity.magnitude * 3.6f;
-        target.text += ((int)spd).ToString("D4") + " km/h\n";        
+        target.text += ((int)spd).ToString("D4") + " km/h\n";
     }
 
     void FlashMslLock(string text)
@@ -167,7 +170,7 @@ public class TargetInfo : MonoBehaviour
         if (t_mLock > f_mLock)
         {
             mslLock.gameObject.SetActive(!mslLock.gameObject.activeSelf);
-            t_mLock = 0;            
+            t_mLock = 0;
         }
     }
 
@@ -190,7 +193,7 @@ public class TargetInfo : MonoBehaviour
 
         if (enemiesWithinGunsrange.Count == 1 && rwr_lockSound == null)
         {
-            rwr_lockSound = SoundSpawner.SpawnSoundLoop(ac.transform.position, ac.transform, SoundLibrary.GetClip("rwr_lock"), 0, false, 0.5f);
+            rwr_lockSound = SoundSpawner.SpawnSoundLoop(ac.transform.position, ac.transform, SoundLibrary.GetClip("rwr_lock"), 0, false, 0.7f);
         }
         else if (enemiesWithinGunsrange.Count == 0)
         {
@@ -199,22 +202,22 @@ public class TargetInfo : MonoBehaviour
         }
     }
     public bool IsInGunrangeEnemies(Transform enemy)
-    {        
+    {
         return enemiesWithinGunsrange.Contains(enemy); ;
     }
 
+    bool enemyLockWarningActive;
     void FlashEnemyLock()
     {
         t_eLock += Time.fixedDeltaTime;
         if (t_eLock > f_eLock)
-        {            
+        {
             enemyLock.gameObject.SetActive(!enemyLock.gameObject.activeSelf);
             t_eLock = 0;
-            print("enemies in gun range: " + enemiesWithinGunsrange.Count);
         }
     }
 
-    void FlashEnemyLaunch()
+    void FlashEnemyFire()
     {
         t_eLaunch += Time.fixedDeltaTime;
         if (t_eLaunch > f_eLaunch)
@@ -224,22 +227,22 @@ public class TargetInfo : MonoBehaviour
         }
     }
 
-    bool missileWarningActive;    
-    public void TriggerMissileWarning()
+    bool enemyFireWarningActive;
+    public void TriggerEnemyFireWarning()
     {
-        if (!missileWarningActive)
-            StartCoroutine(MissileWarning(Time.time + 1));
+        if (!enemyFireWarningActive && enemyLockWarningActive)
+            StartCoroutine(EnemyFireWarning(Time.time + 1));
     }
-    IEnumerator MissileWarning(float t_stopFlash)
+    IEnumerator EnemyFireWarning(float t_stopFlash)
     {
-        missileWarningActive = true;
+        enemyFireWarningActive = true;
         SoundSpawner.SpawnSound(ac.transform.position, ac.transform, SoundLibrary.GetClip("rwr_missile"), 0, 0);
         while (Time.time < t_stopFlash)
         {
-            FlashEnemyLaunch();
+            FlashEnemyFire();
             yield return null;
         }
         enemyLaunch.gameObject.SetActive(false);
-        missileWarningActive = false;
+        enemyFireWarningActive = false;
     }
 }

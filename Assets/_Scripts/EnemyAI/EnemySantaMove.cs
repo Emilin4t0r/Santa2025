@@ -4,7 +4,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class EnemySantaMove : MonoBehaviour
 {
-    enum AIState { Chase, Disengage, Reengage }
+    public enum AIState { Chase, Disengage, Reengage }
 
     [Header("Movement")]
     public float maxSpeed = 200f; // Speed of movement
@@ -32,7 +32,7 @@ public class EnemySantaMove : MonoBehaviour
     public float reengageExtraDistance = 100f; // added to computed reengage distance
     public float minTimeBetweenDisengages = 6f; // cooldown to avoid too frequent disengages
 
-    AIState state = AIState.Chase;
+    [HideInInspector] public AIState state = AIState.Chase;
     float disengageTimer = 0f;
     float lastDisengageTime = -999f;
     Vector3 disengageDirection = Vector3.back;
@@ -44,6 +44,8 @@ public class EnemySantaMove : MonoBehaviour
 
     public Transform target;
     EnemySantaUtils utils;
+    [HideInInspector] public float turnAmt;
+    float lastYRot;
 
     private void Start()
     {
@@ -231,6 +233,10 @@ public class EnemySantaMove : MonoBehaviour
             Debug.DrawLine(transform.position, target.position, Color.blue);
         else
             Debug.DrawLine(transform.position, lastTargetPositionAtDisengage, Color.cyan);
+
+        // Calculate turn speed
+        turnAmt = lastYRot - transform.localEulerAngles.y;
+        lastYRot = transform.localEulerAngles.y;
     }
 
     void SetState(AIState _state)
@@ -238,7 +244,7 @@ public class EnemySantaMove : MonoBehaviour
         state = _state;
     }
 
-    void StartDisengage(float currentDistance)
+    public void StartDisengage(float currentDistance)
     {
         if (target != null)
         {

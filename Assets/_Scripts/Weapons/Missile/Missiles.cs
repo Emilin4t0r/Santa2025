@@ -35,7 +35,7 @@ public class Missiles : MonoBehaviour
     }
     void OnSceneChanged(Scene old, Scene now)
     {
-        if (now.name == "Gameplay Test")
+        if (now.name == "Gameplay")
         {
             seeking = false;
             bc = BracketController.instance;

@@ -24,7 +24,7 @@ public class LoadoutImporter : MonoBehaviour
 
     void OnSceneChanged(Scene old, Scene now)
     {
-        if (now.name == "Gameplay Test")
+        if (now.name == "Gameplay")
             GiveWeaponsToAircraft(GameObject.Find("WeaponsParent").transform);
     }
 
@@ -38,6 +38,6 @@ public class LoadoutImporter : MonoBehaviour
     public void StartGame()
     {
         SaveWeaponsToDDOL();
-        SceneManager.LoadScene("Gameplay Test");
+        SceneManager.LoadScene("Gameplay");
     }
 }

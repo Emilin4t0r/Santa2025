@@ -6,6 +6,7 @@ public class TargetDirectionIndicator : MonoBehaviour
     public Transform arrowU, arrowD, arrowL, arrowR;
     public Transform currentThreat;
     public GameObject threatText;
+    public float threatFlashFrequency;
 
     [Range(0f, 1f)]
     public float threshold = 0.5f; // Minimum component ratio to activate an arrow
@@ -15,6 +16,9 @@ public class TargetDirectionIndicator : MonoBehaviour
         if (EnemiesController.enemiesAttacking.Count > 0)
         {
             currentThreat = EnemiesController.enemiesAttacking[0].transform;
+        } else
+        {
+            currentThreat = null;
         }
 
         if (currentThreat != null)
@@ -60,8 +64,17 @@ public class TargetDirectionIndicator : MonoBehaviour
                 arrowL.gameObject.SetActive(true);
         }
 
-        if (!threatText.activeSelf)
-            ToggleThreatText(true);
+        FlashThreatText();
+    }
+
+    float nextThreatFlash;
+    void FlashThreatText()
+    {
+        if (Time.time > nextThreatFlash)
+        {
+            ToggleThreatText(!threatText.activeSelf);
+            nextThreatFlash = Time.time + threatFlashFrequency;
+        }
     }
 
     void ToggleThreatText(bool state)
