@@ -17,7 +17,7 @@ public class ObjectPlacer : MonoBehaviour {
     Vector3 worldPosition = Vector3.zero;
     Ray ray;
 
-    private void OnDrawGizmosSelected()
+    /*private void OnDrawGizmosSelected()
     {
         ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
         RaycastHit hit;
@@ -43,5 +43,5 @@ public class ObjectPlacer : MonoBehaviour {
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(worldPosition, brushSize);
         }
-    }
+    }*/
 }

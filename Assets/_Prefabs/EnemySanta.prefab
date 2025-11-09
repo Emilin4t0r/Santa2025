@@ -461,15 +461,16 @@ MonoBehaviour:
   lateralDampen: 1
   minDistFromGround: 10
   currentVelocity: {x: 0, y: 0, z: 0}
-  forwardProbeDistance: 200
+  forwardProbeDistance: 500
   groundClearanceThreshold: 50
-  escapeDuration: 2
+  escapeDuration: 5
   disengageChancePerSecond: 0.12
   minDistBeforeDisengage: 1000
   disengageDuration: 5
   reengageDistanceMultiplier: 1.6
   reengageExtraDistance: 100
   minTimeBetweenDisengages: 8
+  state: 0
   target: {fileID: 0}
   turnAmt: 0
 --- !u!114 &4309372759076694684
@@ -499,6 +500,7 @@ MonoBehaviour:
   trackCollider: {fileID: 937771734242039004}
   aircraftVisual: {fileID: 9086790706170804789}
   visualRollAmt: 100
+  trail: {fileID: 0}
 --- !u!114 &2636427578931482135
 MonoBehaviour:
   m_ObjectHideFlags: 0

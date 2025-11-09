@@ -5,7 +5,7 @@ using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
 public class EnemySantaUtils : MonoBehaviour
-{    
+{
     public List<Transform> gunMuzzles;
     public float shootForce;
     public float inaccuracy;
@@ -14,21 +14,25 @@ public class EnemySantaUtils : MonoBehaviour
     public float nextShootTime = 0;
     public GameObject bulletPrefab, muzzleFlashPrefab;
     public GameObject deathParticle;
-    public float hitPoints = 10;
+    public float hitPoints = 100;
     public EnemyGunsRange trackCollider;
     public Transform aircraftVisual;
     public float visualRollAmt;
+    public TrailRenderer trail;
 
     EnemySantaMove move;
     AirplaneController ac;
     public event Action<float> OnHit;
     GameObject shootLoopSound;
     bool firing;
-    
+
+    Vector3 spawnPoint, spawnRot;
     private void Start()
     {
         move = GetComponent<EnemySantaMove>();
         ac = AirplaneController.instance;
+        spawnPoint = transform.position;
+        spawnRot = transform.eulerAngles;
     }
 
     private void Update()
@@ -49,7 +53,7 @@ public class EnemySantaUtils : MonoBehaviour
         if (currentRot.z > 180f) currentRot.z -= 360f;
         float newRoll = Mathf.Lerp(currentRot.z, targetRoll, Time.deltaTime * 0.75f);
         aircraftVisual.localEulerAngles = new Vector3(0f, 0f, newRoll);
-    }    
+    }
 
     IEnumerator FireBurst(int shots)
     {
@@ -100,17 +104,31 @@ public class EnemySantaUtils : MonoBehaviour
 
     public void GetHit(float damage)
     {
+        print(gameObject.name + " Getting hit with " + damage + " damage. HP before: " + hitPoints);
         if (hitPoints <= 0)
             return;
         hitPoints -= damage;
+        OnHit?.Invoke(hitPoints);
 
-        if (hitPoints > 0)
-            OnHit?.Invoke(hitPoints);
+        if (move.state != EnemySantaMove.AIState.Disengage && move.target != null)
+        {
+            var distanceToDestination = Vector3.Distance(transform.position, move.target.position);
+            move.StartDisengage(distanceToDestination);
+        }
+
+        print(gameObject.name + " damaged, HP now: " + hitPoints);
 
         if (hitPoints <= 0)
         {
             Die();
         }
+    }
+
+    IEnumerator TurnTrailOffFor(float seconds)
+    {
+        trail.enabled = false;
+        yield return new WaitForSeconds(seconds);
+        trail.enabled = true;
     }
 
     public void Die()
@@ -122,6 +140,11 @@ public class EnemySantaUtils : MonoBehaviour
         if (trackCollider.readyToFire)
             TargetInfo.instance.ChangeEnemiesInGunrange(transform, true);
         Destroy(partc, 10);
-        Destroy(gameObject);        
+        TurnTrailOffFor(0.2f);
+        move.target = null;
+        transform.position = spawnPoint;
+        transform.eulerAngles = spawnRot;
+        move.currentMoveSpeed = 0;
+        hitPoints = 100;        
     }
 }

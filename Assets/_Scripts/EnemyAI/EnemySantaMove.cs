@@ -93,39 +93,39 @@ public class EnemySantaMove : MonoBehaviour
         currentMoveSpeed = Mathf.MoveTowards(currentMoveSpeed, desiredMoveSpeed, moveAcceleration * Time.fixedDeltaTime);
 
         // ---------- Raycast check to trigger escape ----------
-        if (!isEscaping)
+
+        LayerMask arenaMask = LayerMask.GetMask("Arena");
+        LayerMask groundMask = LayerMask.GetMask("Ground");
+
+        Vector3 probePoint = transform.position + transform.forward * forwardProbeDistance;
+
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hitArena, forwardProbeDistance, arenaMask)) // Avoid Arena walls & ceiling
         {
-            LayerMask arenaMask = LayerMask.GetMask("Arena");
-
-            Vector3 probePoint = transform.position + transform.forward * forwardProbeDistance;
-            LayerMask groundMask = LayerMask.GetMask("Ground");
-
-            if (Physics.Raycast(transform.position, transform.position + transform.forward, out RaycastHit hitArena, forwardProbeDistance, arenaMask)) // Avoid Arena walls & ceiling
+            // Start escaping for escapeDuration seconds
+            isEscaping = true;
+            escapeTimer = escapeDuration;
+            // Escape direction: fly away from the arena hit point and bias backward
+            Vector3 away = (transform.position - hitArena.point).normalized;
+            escapeDirection = (away + -Vector3.forward * 0.6f).normalized;
+            
+        }
+        else if (Physics.Raycast(probePoint + Vector3.up * 5f, Vector3.down, out RaycastHit hitAhead, 40000f, groundMask)) // Avoid the ground
+        {
+            float clearance = probePoint.y - hitAhead.point.y;
+            if (clearance < groundClearanceThreshold)
             {
                 // Start escaping for escapeDuration seconds
                 isEscaping = true;
                 escapeTimer = escapeDuration;
-                // Escape direction: fly away from the arena hit point and bias backward
-                Vector3 away = (transform.position - hitArena.point).normalized;
-                escapeDirection = (away + -Vector3.forward * 0.6f).normalized;
-            }
-            else if (Physics.Raycast(probePoint + Vector3.up * 5f, Vector3.down, out RaycastHit hitAhead, 40000f, groundMask)) // Avoid the ground
-            {
-                float clearance = probePoint.y - hitAhead.point.y;
-                if (clearance < groundClearanceThreshold)
-                {
-                    // Start escaping for escapeDuration seconds
-                    isEscaping = true;
-                    escapeTimer = escapeDuration;
-                    // Escape direction: fly away from the ground hit point and bias upward
-                    Vector3 away = (transform.position - hitAhead.point).normalized;
-                    escapeDirection = (away + Vector3.up * 0.6f).normalized;
-                    // ensure some forward component so we don't point straight down/up awkwardly
-                    if (Vector3.Dot(escapeDirection, transform.forward) < 0.05f)
-                        escapeDirection = (transform.forward + Vector3.up * 0.5f).normalized;
-                }
+                // Escape direction: fly away from the ground hit point and bias upward
+                Vector3 away = (transform.position - hitAhead.point).normalized;
+                escapeDirection = (away + Vector3.up * 0.6f).normalized;
+                // ensure some forward component so we don't point straight down/up awkwardly
+                if (Vector3.Dot(escapeDirection, transform.forward) < 0.05f)
+                    escapeDirection = (transform.forward + Vector3.up * 0.5f).normalized;
             }
         }
+
 
         // ---------- If escaping: ignore other AI and fly toward escapeDirection ----------
         if (isEscaping)
@@ -139,7 +139,16 @@ public class EnemySantaMove : MonoBehaviour
                 isEscaping = false;
             }
 
-            Debug.DrawLine(transform.position, transform.position + escapeDirection * 200f, Color.red);
+            // Make sure we won't disengage out of arena after escape
+            if (state != AIState.Chase)
+            {
+                SetState(AIState.Chase);
+                lastDisengageTime = Time.time;
+                // pick a new target now that we're re-engaging
+                GetTarget();
+            }
+
+            Debug.DrawLine(transform.position, transform.position + escapeDirection * 200f, Color.white);
         }
         else
         {
@@ -272,7 +281,7 @@ public class EnemySantaMove : MonoBehaviour
         float randomYaw = Random.Range(-40f, 40f);
         Quaternion yaw = Quaternion.AngleAxis(randomYaw, Vector3.up);
         disengageDirection = (yaw * dirAway).normalized;
-        
+
         SetState(AIState.Disengage);
         disengageTimer = disengageDuration;
     }
