@@ -110,6 +110,8 @@ public class EnemySantaUtils : MonoBehaviour
         hitPoints -= damage;
         OnHit?.Invoke(hitPoints);
 
+        ScoreDisplay.AddScore(Mathf.Max(hitPoints - damage, 0));
+
         if (move.state != EnemySantaMove.AIState.Disengage && move.target != null)
         {
             var distanceToDestination = Vector3.Distance(transform.position, move.target.position);

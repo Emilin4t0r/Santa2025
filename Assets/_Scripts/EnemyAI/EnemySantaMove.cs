@@ -101,13 +101,11 @@ public class EnemySantaMove : MonoBehaviour
 
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hitArena, forwardProbeDistance, arenaMask)) // Avoid Arena walls & ceiling
         {
-            // Start escaping for escapeDuration seconds
+            // Start escaping for escapeDuration seconds times 2 (to get far enough from the edges and not risk spazzing out into the walls)
             isEscaping = true;
-            escapeTimer = escapeDuration;
-            // Escape direction: fly away from the arena hit point and bias backward
-            Vector3 away = (transform.position - hitArena.point).normalized;
-            escapeDirection = (away + -Vector3.forward * 0.6f).normalized;
-            
+            escapeTimer = escapeDuration * 2;
+            // Escape direction: towards center of arena (there's a specific empty object there)
+            escapeDirection = GameObject.Find("ArenaEscapeForEnemies").transform.position - transform.position;            
         }
         else if (Physics.Raycast(probePoint + Vector3.up * 5f, Vector3.down, out RaycastHit hitAhead, 40000f, groundMask)) // Avoid the ground
         {
