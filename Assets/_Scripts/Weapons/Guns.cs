@@ -5,12 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class Guns : MonoBehaviour
 {
+    AircraftUtils au;
     public GameObject bulletPrefab;
     public float shootForce, fireRate, inaccuracy;
     public float gunAnimSpeed;
     float nextTimeToFire;
     public List<Transform> guns;
-    public Vector2 camShakeValues;
+    public Vector3 camShakeValues;
 
     GameObject shootLoopSound;
     public Transform shootSoundParent;
@@ -52,6 +53,7 @@ public class Guns : MonoBehaviour
             hudWeapons = GameObject.Find("HUDWeapons").GetComponent<HUDWeapons>();
             hud = hudWeapons.weapons[hudWeaponIndex].GetComponent<HUDWeapon>();
             hud.SetAmmo(ammoCount);
+            au = AircraftUtils.instance;
         }
     }
 
@@ -71,7 +73,7 @@ public class Guns : MonoBehaviour
 
     void Update()
     {
-        if (!inGameScene) 
+        if (!inGameScene || !au.turnedOn) 
             return;
         if (ammoCount <= 0)
         {
@@ -90,7 +92,7 @@ public class Guns : MonoBehaviour
             {
                 Fire();                
             }
-            EZCameraShake.CameraShaker.Instance.ShakeOnce(camShakeValues.x, camShakeValues.y, 0, 0.75f);
+            EZCameraShake.CameraShaker.Instance.ShakeOnce(camShakeValues.x, camShakeValues.y, 0, camShakeValues.z);
             timeToClearSounds = Time.time + 0.25f;
         } else
         {

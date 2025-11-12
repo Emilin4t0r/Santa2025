@@ -7,6 +7,7 @@ public class ABBullet : Bullet
     float distFromLockedOn;
     GameObject altTarget;
     public float blastRadius;
+    public float burstDamageMod;
 
     private void Start()
     {
@@ -70,7 +71,7 @@ public class ABBullet : Bullet
     void DoDamage(EnemySantaUtils enemy)
     {
         float dist = Vector3.Distance(transform.position, enemy.transform.position);
-        float dmg = Mathf.Max((blastRadius - dist) / 15, 0);
+        float dmg = Mathf.Max((blastRadius - dist) / burstDamageMod, 0);
         enemy.GetHit(dmg);
         print("BURST, DMG: " + dmg + ", DIST: " + dist);
     }

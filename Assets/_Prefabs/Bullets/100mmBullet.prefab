@@ -104,6 +104,7 @@ MonoBehaviour:
   damage: 10
   doRandomRicochets: 0
   blastRadius: 100
+  burstDamageMod: 25
 --- !u!1 &5719891472711463007
 GameObject:
   m_ObjectHideFlags: 0

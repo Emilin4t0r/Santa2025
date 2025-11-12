@@ -42,15 +42,21 @@ public class Radar : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            if (enemies.Contains(other.gameObject))
+            RemoveTracker(other.gameObject);
+        }
+    }
+
+    public void RemoveTracker(GameObject obj)
+    {
+        if (enemies.Contains(obj))
+        {
+            enemies.Remove(obj);
+            if (radarTrackersParentUI.transform.Find("Tracker" + obj.name))
             {
-                enemies.Remove(other.gameObject);
-                if (radarTrackersParentUI.transform.Find("Tracker" + other.gameObject.name)) {
-                    var tracker = radarTrackersParentUI.transform.Find("Tracker" + other.gameObject.name).gameObject;
-                    other.GetComponent<EnemySantaUtils>().OnHit -= tracker.GetComponent<RadarTracker>().ChangeHealth;
-                    Destroy(tracker);
-                    // Play sound for losing track
-                }
+                var tracker = radarTrackersParentUI.transform.Find("Tracker" + obj.name).gameObject;
+                obj.GetComponent<EnemySantaUtils>().OnHit -= tracker.GetComponent<RadarTracker>().ChangeHealth;
+                Destroy(tracker);
+                // Play sound for losing track
             }
         }
     }

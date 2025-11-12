@@ -45,7 +45,12 @@ public class Missile : MonoBehaviour
         {
             finsToHide.SetActive(true);
         }
-        jetSpdOnLaunch = AirplaneController.instance.rb.linearVelocity.magnitude;
+
+        // Give missile jet's velocity on launch
+        var plane = AirplaneController.instance;
+        rb.linearVelocity = plane.rb.linearVelocity;
+        jetSpdOnLaunch = plane.rb.linearVelocity.magnitude;
+        
     }   
 
     void FixedUpdate()
@@ -63,7 +68,7 @@ public class Missile : MonoBehaviour
 
         Vector3 aimPoint = transform.position + transform.forward; // fallback aim
 
-        if (target != null || !armed)
+        if (target != null && armed)
         {
             // get target pos & velocity (best available)
             Vector3 targetPos = target.position;
@@ -100,7 +105,7 @@ public class Missile : MonoBehaviour
         }
         else
         {
-            // no target - keep current forward (aimPoint already set)
+            // no target OR arming - keep current forward (aimPoint already set)
             aimPoint = transform.position + transform.forward;
         }
 
@@ -115,8 +120,18 @@ public class Missile : MonoBehaviour
             }
         }
 
-        // Move forward: set rigidbody linear velocity consistently using missileSpeed
-        rb.linearVelocity = transform.forward * missileSpeed;
+        // Move forward
+        if (armed)
+        {
+            rb.linearVelocity = transform.forward * missileSpeed;
+        } else
+        {
+            float vertical = rb.linearVelocity.y;
+            Vector3 horizontalVel = transform.forward;
+            horizontalVel.y = 0; // ensure horizontal
+            horizontalVel = horizontalVel.normalized * missileSpeed;
+            rb.linearVelocity = new Vector3(horizontalVel.x, vertical, horizontalVel.z);
+        }
 
         // Rotate missile visually
         if (rotator != null)
@@ -174,7 +189,8 @@ public class Missile : MonoBehaviour
     void Explode()
     {
         GameObject expl = Instantiate(explosion, transform.position, Quaternion.identity);
-        expl.transform.localScale *= explosionEffectSize;
+        float randExplScale = Random.Range(0.8f, 1.2f);
+        expl.transform.localScale *= explosionEffectSize * randExplScale;
         SoundSpawner.SpawnSound(transform.position, AirplaneController.instance.transform, SoundLibrary.GetClip("missile_explode"));
         Destroy(expl, 7);
         Destroy(gameObject);

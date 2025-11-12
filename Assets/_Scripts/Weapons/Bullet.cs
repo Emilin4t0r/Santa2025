@@ -76,6 +76,8 @@ public class Bullet : MonoBehaviour
             hit = Instantiate(bulletHit, thrdLastPos, transform.rotation);
         }
         hit.transform.eulerAngles = -transform.forward;
+        float randScale = Random.Range(0.75f, 1.25f);
+        hit.transform.localScale = new Vector3(randScale, randScale, randScale);
         Destroy(hit, 2f);
         Destroy(gameObject);
     }

@@ -70,33 +70,14 @@ public class LeaderBoard : MonoBehaviour
 
     void SortStats()
     {
-        // Start at the end of the list and compare the score to the number above it
-        for (int i = collectedStats.Count - 1; i > 0; i--)
+        collectedStats.Sort((a, b) => b.score.CompareTo(a.score));
+
+        if (collectedStats.Count > maxEntries)
         {
-            // If the current score is smaller than the score above it, swap
-            if (collectedStats[i].score < collectedStats[i - 1].score) // Change to '<' for ascending order
-            {
-                // Temporary variable to hold the larger score
-                PlayerInfo tempInfo = collectedStats[i - 1];
-
-                // Replace larger score with smaller score
-                collectedStats[i - 1] = collectedStats[i];
-
-                // Set larger score closer to the end of the list
-                collectedStats[i] = tempInfo;
-            }
+            collectedStats.RemoveRange(maxEntries, collectedStats.Count - maxEntries); //Starting from index 'maxEntries' remove 'collectedStats.Count - maxEntries' entries onwards. ex: after i 10, remove (25 - 10 = 15) entries
         }
 
-        // Run through the list and remove stats worse than the best maxSize (smaller scores are better now)
-        for (int i = 0; i < collectedStats.Count; ++i)
-        {
-            if (i > maxEntries - 1)
-            {
-                collectedStats.Remove(collectedStats[i]);
-            }
-        }
-
-        // Update PlayerPref that stores leaderboard values
+        // Persist sorted leaderboard
         UpdatePlayerPrefsString();
     }
 
@@ -131,6 +112,7 @@ public class LeaderBoard : MonoBehaviour
             display.text += collectedStats[i].name + " - " + Helpers.FormatWithSpaceThousands(collectedStats[i].score) + "\n";
         }
     }
+
     void CheckScoreValidity(float _score)
     {
         if (collectedStats.Count < maxEntries)
@@ -142,6 +124,7 @@ public class LeaderBoard : MonoBehaviour
             scoreControls.SetActive(false);            
         }
     }
+
     void LoadLeaderBoard()
     {
         //Load The String Of The Leaderboard That Was Saved In The "UpdatePlayerPrefsString" Method

@@ -72,14 +72,16 @@ public class AirplaneController : MonoBehaviour
         {
             thrustPercent += Time.deltaTime;
             if (thrustPercent > 1)
-                thrustPercent = 1;
+                thrustPercent = 1;            
         }
         if (Input.GetKey(KeyCode.LeftControl))
         {
             thrustPercent -= Time.deltaTime;
             if (thrustPercent < 0)
-                thrustPercent = 0;            
+                thrustPercent = 0;
         }
+
+        CameraController.instance.SpeedZoom(rb.linearVelocity.normalized.magnitude - 0.5f);
 
         if (Input.GetKeyDown(KeyCode.F))
         {

@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class AircraftUtils : MonoBehaviour
 {
+    public static AircraftUtils instance;
+
     AirplaneController ac;
     AircraftPhysics ap;
 
     public float terrainWarningDist, terrainWarningDistDown, turnOnDelay;
+    [HideInInspector] public bool turnedOn;
     bool warningAboutTerrain;
     float nextTerrainWarningTime;
 
@@ -15,8 +18,10 @@ public class AircraftUtils : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
         ac = GetComponent<AirplaneController>();
         ap = GetComponent<AircraftPhysics>();
+        turnedOn = false;
     }
 
     private void Start()
@@ -41,6 +46,7 @@ public class AircraftUtils : MonoBehaviour
         ap.enabled = true;
         engineSfxLoop.Play();
         ac.thrustPercent = 1;
+        turnedOn = true;
         StartCoroutine(StartBoost());
     }
 

@@ -6,6 +6,7 @@ using System.Linq;
 
 public class Missiles : MonoBehaviour
 {
+    AircraftUtils au;
     public List<Missile> missiles;
     public float timeToLock;
     [HideInInspector]
@@ -43,6 +44,7 @@ public class Missiles : MonoBehaviour
             hudWeapons = GameObject.Find("HUDWeapons").GetComponent<HUDWeapons>();
             hud = hudWeapons.weapons[hudWeaponIndex].GetComponent<HUDWeapon>();
             hud.SetAmmo(missiles.Count);
+            au = AircraftUtils.instance;
         }
     }
 
@@ -59,9 +61,9 @@ public class Missiles : MonoBehaviour
 
     private void Update()
     {
-        if (missiles.Count <= 0)
+        if (missiles.Count <= 0 || !au.turnedOn)
             return;
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             if (lockedOn)
             {

@@ -21432,12 +21432,12 @@ MonoBehaviour:
   thrust: 150
   acceleration: 25
   maxSpeed: 300
-  turnSpeed: 140
-  lifeTime: 5
+  turnSpeed: 160
+  lifeTime: 6
   visualRotationSpeed: 5000
   deviationMagnitude: 0.125
   deviationFrequency: 0.01
-  damageRange: {x: 10, y: 25}
+  damageRange: {x: 7.5, y: 20}
   damageRadius: 25
   armingDelay: 0.4
   explosion: {fileID: 7070465220517492653, guid: 7c35f2d4e1b64a94497858b5b6f144cb, type: 3}
@@ -21503,7 +21503,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 2
-  m_Color: {r: 1, g: 0.36153623, b: 0, a: 1}
+  m_Color: {r: 0.99215686, g: 0.5882353, b: 0.36078432, a: 1}
   m_Intensity: 10
   m_Range: 10
   m_SpotAngle: 30

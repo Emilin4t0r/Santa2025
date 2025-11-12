@@ -4,20 +4,32 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public static CameraController instance;
+
     Vector3 startRotation;
 
     public static bool freeLooking;
     public float min = -60f; //lower limit value for camera x-axis
     public float max = 60f; //upper limit value for camera x-axis
     public float sensitivity;
+    public float speedZoomPower = 5;
 
     float yRot = 0f;
     float xRot = 0f;
+
+    float fov;
+    bool zooming;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
         startRotation = transform.localEulerAngles;
         Cursor.lockState = CursorLockMode.Confined;
+        fov = Camera.main.fieldOfView;
     }
     void Update()
     {
@@ -51,9 +63,17 @@ public class CameraController : MonoBehaviour
         }
     }
 
+    public void SpeedZoom(float amt)
+    {
+        if (!zooming)
+            Camera.main.fieldOfView = fov + amt * speedZoomPower;
+    }
+
     void ZoomIn(bool state)
     {
-        float fov = state ? 50 : 70;
+        zooming = state;
+
+        fov = zooming ? 50 : 70;
         Camera.main.fieldOfView = fov;
     }
 

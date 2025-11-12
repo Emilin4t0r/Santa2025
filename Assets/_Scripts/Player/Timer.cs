@@ -8,11 +8,24 @@ public class Timer : MonoBehaviour
     public float gameTime = 180f;
     public static float gameTimer;
     public TextMeshProUGUI text;
+
+    AircraftUtils au;
+
     void Start()
     {
         gameTimer = gameTime;
+        au = AircraftUtils.instance;
+        CountTimer(); // Get initial timer reading
     }
     private void FixedUpdate()
+    {
+        if (!au.turnedOn)
+            return;
+
+        CountTimer();
+    }
+
+    void CountTimer()
     {
         gameTimer -= Time.fixedDeltaTime;
         if (gameTimer < 0)

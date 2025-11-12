@@ -151,7 +151,7 @@ MonoBehaviour:
   inaccuracy: 0.05
   gunAnimSpeed: 2.5
   guns: []
-  camShakeValues: {x: 0.2, y: 17}
+  camShakeValues: {x: 0.2, y: 18, z: 0.75}
   shootSoundParent: {fileID: 7334248617765296592}
   origMzfScale: 2
   ammoPerGun: 50
@@ -209,7 +209,7 @@ MonoBehaviour:
   inaccuracy: 0.015
   gunAnimSpeed: 20
   guns: []
-  camShakeValues: {x: 0.15, y: 30}
+  camShakeValues: {x: 0.15, y: 40, z: 0.75}
   shootSoundParent: {fileID: 2059976577889352195}
   origMzfScale: 0.7
   ammoPerGun: 500
@@ -399,7 +399,7 @@ MonoBehaviour:
   inaccuracy: 0.01
   gunAnimSpeed: 2.5
   guns: []
-  camShakeValues: {x: 0.1, y: 20}
+  camShakeValues: {x: 0.12, y: 25, z: 0.75}
   shootSoundParent: {fileID: 8408002607118470331}
   origMzfScale: 1
   ammoPerGun: 150

@@ -1,3 +1,4 @@
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 
 public class SwarmMissile : MonoBehaviour
@@ -47,7 +48,12 @@ public class SwarmMissile : MonoBehaviour
         {
             finsToHide.SetActive(true);
         }
-        jetSpdOnLaunch = AirplaneController.instance.rb.linearVelocity.magnitude;
+
+        // Give missile jet's velocity on launch
+        var plane = AirplaneController.instance;
+        rb.linearVelocity = plane.rb.linearVelocity;
+        jetSpdOnLaunch = plane.rb.linearVelocity.magnitude;
+
         swarmRadar = GetComponent<SwarmMRadar>();
         swarmRadar.enabled = false;
         DeviateCourseRandomly();
@@ -114,8 +120,19 @@ public class SwarmMissile : MonoBehaviour
             );
         }
 
-        // Move forward: set rigidbody linear velocity
-        rb.linearVelocity = transform.forward * (thrust + jetSpdOnLaunch);
+        // Move forward
+        if (swarmRadar.enabled)
+        {
+            rb.linearVelocity = transform.forward * missileSpeed;
+        }
+        else
+        {
+            float vertical = rb.linearVelocity.y;
+            Vector3 horizontalVel = transform.forward;
+            horizontalVel.y = 0; // ensure horizontal
+            horizontalVel = horizontalVel.normalized * missileSpeed;
+            rb.linearVelocity = new Vector3(horizontalVel.x, vertical, horizontalVel.z);
+        }
 
         // Rotate missile visually
         rotator.transform.Rotate(new Vector3(0, 0, -visualRotationSpeed * Time.fixedDeltaTime));

@@ -10,14 +10,10 @@ public class FlightInfo : MonoBehaviour
 
     public TextMeshProUGUI spd, alt, thr, brk, flp, rds, msl;
     public Slider thrSlider;
-    Guns sht;
-    Missiles ms;
 
     private void Start()
     {
         ac = AirplaneController.instance;
-        //sht = Guns.instance;
-        //ms = Missiles.instance;
     }
 
     private void FixedUpdate()
@@ -28,8 +24,6 @@ public class FlightInfo : MonoBehaviour
         thr.text = "THR: " + (int)(ac.thrustPercent * 100) + "%";
         brk.text = ac.brakesTorque > 0 ? "BRAKES: ON" : "BRAKES: OFF";
         flp.text = ac.flap > 0 ? " FLAPS: ON" : " FLAPS: OFF";
-        //rds.text = sht.ammoCount.ToString("D3");
-        //msl.text = ms.missiles.Count.ToString("D1");
         thrSlider.value = ac.thrustPercent;
     }
 }

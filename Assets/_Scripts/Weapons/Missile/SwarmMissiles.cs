@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class SwarmMissiles : MonoBehaviour
 {
+    AircraftUtils au;
     public List<SwarmMissile> missiles;
     public int hudWeaponIndex;
     HUDWeapons hudWeapons;
@@ -33,6 +34,7 @@ public class SwarmMissiles : MonoBehaviour
             hudWeapons = GameObject.Find("HUDWeapons").GetComponent<HUDWeapons>();
             hud = hudWeapons.weapons[hudWeaponIndex].GetComponent<HUDWeapon>();
             hud.SetAmmo(missiles.Count);
+            au = AircraftUtils.instance;
         }
     }
 
@@ -49,9 +51,9 @@ public class SwarmMissiles : MonoBehaviour
 
     private void Update()
     {
-        if (missiles.Count <= 0)
+        if (missiles.Count <= 0 || !au.turnedOn)
             return;
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Mouse0))
         {
             if (Time.time > nextTimeToFire)
             {

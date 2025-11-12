@@ -500,7 +500,7 @@ MonoBehaviour:
   trackCollider: {fileID: 937771734242039004}
   aircraftVisual: {fileID: 9086790706170804789}
   visualRollAmt: 100
-  trail: {fileID: 0}
+  trail: {fileID: 839146255487652759}
 --- !u!114 &2636427578931482135
 MonoBehaviour:
   m_ObjectHideFlags: 0

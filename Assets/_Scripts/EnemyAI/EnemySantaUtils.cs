@@ -106,11 +106,15 @@ public class EnemySantaUtils : MonoBehaviour
     {
         print(gameObject.name + " Getting hit with " + damage + " damage. HP before: " + hitPoints);
         if (hitPoints <= 0)
-            return;
+            return;        
+
+        if (hitPoints - damage > 0)
+            ScoreDisplay.AddScore(damage);
+        else
+            ScoreDisplay.AddScore(hitPoints);
+
         hitPoints -= damage;
         OnHit?.Invoke(hitPoints);
-
-        ScoreDisplay.AddScore(Mathf.Max(hitPoints - damage, 0));
 
         if (move.state != EnemySantaMove.AIState.Disengage && move.target != null)
         {
@@ -136,17 +140,17 @@ public class EnemySantaUtils : MonoBehaviour
     public void Die()
     {
         SoundSpawner.SpawnSound(transform.position, transform.parent, SoundLibrary.GetClip("enemy_explode"), 0, 0.1f, 0.9f);
-        var partc = Instantiate(deathParticle, transform.position, transform.rotation);
-        EnemiesController.enemiesAttacking.Remove(gameObject);
-        Radar.instance.enemies.Remove(gameObject);
+        var partc = Instantiate(deathParticle, transform.position, transform.rotation);     
         if (trackCollider.readyToFire)
             TargetInfo.instance.ChangeEnemiesInGunrange(transform, true);
         Destroy(partc, 10);
-        TurnTrailOffFor(0.2f);
+        StartCoroutine(TurnTrailOffFor(0.2f));
         move.target = null;
         transform.position = spawnPoint;
         transform.eulerAngles = spawnRot;
         move.currentMoveSpeed = 0;
-        hitPoints = 100;        
+        hitPoints = 100;
+        EnemiesController.enemiesAttacking.Remove(gameObject);
+        Radar.instance.RemoveTracker(gameObject);
     }
 }
