@@ -592,7 +592,7 @@ MonoBehaviour:
     - m_Text: LANDSKNECHT
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
-    - m_Text: "HURAC\xC1N POD"
+    - m_Text: "HURAC\xC1N-L"
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
     - m_Text: ARQUEBUS
@@ -2986,7 +2986,7 @@ MonoBehaviour:
     - m_Text: LANDSKNECHT
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
-    - m_Text: "HURAC\xC1N POD"
+    - m_Text: "HURAC\xC1N-L"
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
     - m_Text: ARQUEBUS
@@ -6186,7 +6186,7 @@ MonoBehaviour:
     - m_Text: PIKE X2
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
-    - m_Text: "HURAC\xC1N"
+    - m_Text: "HURAC\xC1N-S"
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_OnValueChanged:
@@ -7443,7 +7443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1e79dc8a0989cf4ab7c3fc4852513d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skipIntro: 0
+  skipIntro: 1
   insertCoinText: {fileID: 323337765}
   mc: {fileID: 1930846891}
   music: {fileID: 1930846892}
@@ -8714,7 +8714,7 @@ MonoBehaviour:
     - m_Text: LANDSKNECHT
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
-    - m_Text: "HURAC\xC1N POD"
+    - m_Text: "HURAC\xC1N-L"
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
     - m_Text: ARQUEBUS
@@ -9276,7 +9276,7 @@ MonoBehaviour:
     - m_Text: PIKE X2
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
-    - m_Text: "HURAC\xC1N"
+    - m_Text: "HURAC\xC1N-S"
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_OnValueChanged:
@@ -14169,7 +14169,7 @@ MonoBehaviour:
     - m_Text: PIKE X2
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
-    - m_Text: "HURAC\xC1N"
+    - m_Text: "HURAC\xC1N-S"
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_OnValueChanged:
@@ -17744,7 +17744,7 @@ MonoBehaviour:
     - m_Text: LANDSKNECHT
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
-    - m_Text: "HURAC\xC1N POD"
+    - m_Text: "HURAC\xC1N-L"
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
     - m_Text: ARQUEBUS
@@ -20271,7 +20271,7 @@ MonoBehaviour:
     - m_Text: PIKE X2
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
-    - m_Text: "HURAC\xC1N"
+    - m_Text: "HURAC\xC1N-S"
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_OnValueChanged:

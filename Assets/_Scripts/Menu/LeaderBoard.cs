@@ -37,7 +37,7 @@ public class LeaderBoard : MonoBehaviour
         LoadLeaderBoard();
         if (ScoreCounter.GetScore() > 0)
         {
-            score.text = Helpers.FormatWithSpaceThousands(ScoreCounter.GetScore());
+            score.text = Helpers.FormatSpaceIntoThousands(ScoreCounter.GetScore());
             CheckScoreValidity(ScoreCounter.GetScore());
         } else
         {
@@ -109,7 +109,7 @@ public class LeaderBoard : MonoBehaviour
         //Loop Through The List And Add The Names And Scores To The Display Text
         for (int i = 0; i <= collectedStats.Count - 1; i++)
         {
-            display.text += collectedStats[i].name + " - " + Helpers.FormatWithSpaceThousands(collectedStats[i].score) + "\n";
+            display.text += collectedStats[i].name + " - " + Helpers.FormatSpaceIntoThousands(collectedStats[i].score) + "\n";
         }
     }
 

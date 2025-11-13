@@ -79,6 +79,8 @@ public class TargetDirectionIndicator : MonoBehaviour
     void ToggleThreatText(bool state)
     {
         threatText.SetActive(state);
+        if (state)
+            SoundSpawner.SpawnSound(transform.position, transform.parent, SoundLibrary.GetClip("rwr_target"), 0, 0f, 0.7f);
     }
 
     void DisableAllArrows()

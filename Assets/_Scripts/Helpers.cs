@@ -7,7 +7,7 @@ public static class Helpers
     /// Adds spaces to float values of thousands for neat display.
     /// Example: 10000f -> "10 000"
     /// </summary>
-    public static string FormatWithSpaceThousands(float value)
+    public static string FormatSpaceIntoThousands(float value)
     {
         int rounded = Mathf.RoundToInt(value);
         return rounded.ToString("#,0", System.Globalization.CultureInfo.InvariantCulture).Replace(",", " ");

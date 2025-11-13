@@ -23,7 +23,7 @@ public class RadarTracker : MonoBehaviour
         bc = BracketController.instance;
         health = GetComponentInChildren<TrackerHealth>();
         SetHealth(target.GetComponent<EnemySantaUtils>().hitPoints);
-        SoundSpawner.SpawnSound(ac.transform.position, ac.transform, SoundLibrary.GetClip("rwr_target"), 0, 0);        
+        SoundSpawner.SpawnSound(ac.transform.position, ac.transform, SoundLibrary.GetClip("threat_flash"), 0, 0, 0.5f);        
     }
 
     private void FixedUpdate()

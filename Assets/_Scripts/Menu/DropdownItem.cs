@@ -32,7 +32,7 @@ public class DropdownItem : MonoBehaviour
             case "PIKE":
                 hardpoint.SpawnWeapon(WeaponType.Pike_Single);
                 break;
-            case "HURACÁN S":
+            case "HURACÁN-S":
                 hardpoint.SpawnWeapon(WeaponType.Huracán_Small);
                 break;
             case "LANDSKNECHT":
@@ -41,7 +41,7 @@ public class DropdownItem : MonoBehaviour
             case "PIKE X2":
                 hardpoint.SpawnWeapon(WeaponType.Pike_Double);
                 break;
-            case "HURACÁN L":
+            case "HURACÁN-L":
                 hardpoint.SpawnWeapon(WeaponType.Huracán_Pod);
                 break;
             case "ARQUEBUS":

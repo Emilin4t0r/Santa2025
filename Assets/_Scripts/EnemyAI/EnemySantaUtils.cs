@@ -103,10 +103,11 @@ public class EnemySantaUtils : MonoBehaviour
     }
 
     public void GetHit(float damage)
-    {
+    {        
+        if (hitPoints <= 0 || damage == 0)
+            return;
+
         print(gameObject.name + " Getting hit with " + damage + " damage. HP before: " + hitPoints);
-        if (hitPoints <= 0)
-            return;        
 
         if (hitPoints - damage > 0)
             ScoreDisplay.AddScore(damage);
@@ -132,9 +133,9 @@ public class EnemySantaUtils : MonoBehaviour
 
     IEnumerator TurnTrailOffFor(float seconds)
     {
-        trail.enabled = false;
+        trail.emitting = false;
         yield return new WaitForSeconds(seconds);
-        trail.enabled = true;
+        trail.emitting = true;
     }
 
     public void Die()
@@ -144,7 +145,7 @@ public class EnemySantaUtils : MonoBehaviour
         if (trackCollider.readyToFire)
             TargetInfo.instance.ChangeEnemiesInGunrange(transform, true);
         Destroy(partc, 10);
-        StartCoroutine(TurnTrailOffFor(0.2f));
+        StartCoroutine(TurnTrailOffFor(1f));
         move.target = null;
         transform.position = spawnPoint;
         transform.eulerAngles = spawnRot;
