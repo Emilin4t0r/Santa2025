@@ -24370,7 +24370,6 @@ GameObject:
   - component: {fileID: 7954413863682180223}
   - component: {fileID: 2389695263616235085}
   - component: {fileID: 3269276325537394519}
-  - component: {fileID: 5061674235113328242}
   m_Layer: 0
   m_Name: Tip
   m_TagString: Untagged
@@ -24446,27 +24445,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &5061674235113328242
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8251385032253149121}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8769342537281772547
 GameObject:
   m_ObjectHideFlags: 0

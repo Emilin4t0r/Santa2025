@@ -24,6 +24,9 @@ public class TargetInfo : MonoBehaviour
     float timeToUpdateTargetInfo;
 
     List<Transform> enemiesWithinGunsrange;
+    bool enemyLockFlasherRunning = false;
+    Coroutine enemyLockCoroutine = null;
+
     private void Awake()
     {
         instance = this;
@@ -133,11 +136,22 @@ public class TargetInfo : MonoBehaviour
 
         if (enemiesWithinGunsrange.Count > 0)
         {
-            FlashEnemyLock();
+            if (!enemyLockFlasherRunning)
+            {
+                enemyLockCoroutine = StartCoroutine(EnemyLockFlashLoop());
+                enemyLockFlasherRunning = true;
+            }
             enemyLockWarningActive = true;
         }
         else
         {
+            if (enemyLockFlasherRunning && enemyLockCoroutine != null)
+            {
+                StopCoroutine(enemyLockCoroutine);
+                enemyLockCoroutine = null;
+                enemyLockFlasherRunning = false;
+            }
+
             if (enemyLock.gameObject.activeSelf)
                 enemyLock.gameObject.SetActive(false);
             enemyLockWarningActive = false;
@@ -193,7 +207,7 @@ public class TargetInfo : MonoBehaviour
 
         if (enemiesWithinGunsrange.Count == 1 && rwr_lockSound == null)
         {
-            rwr_lockSound = SoundSpawner.SpawnSoundLoop(ac.transform.position, ac.transform, SoundLibrary.GetClip("rwr_lock"), 0, false, 0.7f);
+            rwr_lockSound = SoundSpawner.SpawnSoundLoop(ac.transform.position, ac.transform, SoundLibrary.GetClip("rwr_lock"), 0, false, 0.5f);
         }
         else if (enemiesWithinGunsrange.Count == 0)
         {
@@ -207,14 +221,26 @@ public class TargetInfo : MonoBehaviour
     }
 
     bool enemyLockWarningActive;
-    void FlashEnemyLock()
+    IEnumerator EnemyLockFlashLoop()
     {
-        t_eLock += Time.fixedDeltaTime;
-        if (t_eLock > f_eLock)
+        // Ensure text is initially visible
+        enemyLock.gameObject.SetActive(true);
+
+        while (enemiesWithinGunsrange != null && enemiesWithinGunsrange.Count > 0)
         {
-            enemyLock.gameObject.SetActive(!enemyLock.gameObject.activeSelf);
-            t_eLock = 0;
+            // On for f_eLock seconds
+            enemyLock.gameObject.SetActive(true);
+            yield return new WaitForSeconds(f_eLock);
+
+            // Off for f_eLock seconds
+            enemyLock.gameObject.SetActive(false);
+            yield return new WaitForSeconds(f_eLock);
         }
+
+        // Ensure off when we exit
+        enemyLock.gameObject.SetActive(false);
+        enemyLockFlasherRunning = false;
+        enemyLockCoroutine = null;
     }
 
     void FlashEnemyFire()

@@ -131,10 +131,10 @@ public class EnemySantaUtils : MonoBehaviour
         }
     }
 
-    IEnumerator TurnTrailOffFor(float seconds)
-    {
-        trail.emitting = false;
+    IEnumerator TurnTrailOnAfter(float seconds)
+    {        
         yield return new WaitForSeconds(seconds);
+        trail.enabled = true;
         trail.emitting = true;
     }
 
@@ -145,7 +145,12 @@ public class EnemySantaUtils : MonoBehaviour
         if (trackCollider.readyToFire)
             TargetInfo.instance.ChangeEnemiesInGunrange(transform, true);
         Destroy(partc, 10);
-        StartCoroutine(TurnTrailOffFor(1f));
+
+        // Trail turn off
+        trail.enabled = false;
+        trail.emitting = false;
+        StartCoroutine(TurnTrailOnAfter(1.25f));
+
         move.target = null;
         transform.position = spawnPoint;
         transform.eulerAngles = spawnRot;

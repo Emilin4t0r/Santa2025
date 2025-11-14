@@ -14,7 +14,7 @@ public class BracketController : MonoBehaviour
     public float lockTime;
     Targeter targeter;
     AirplaneController ac;
-    Transform closestTemp;
+    Transform closestBlip;
 
     bool acquiringLock;
     BracketHealth health;
@@ -111,21 +111,8 @@ public class BracketController : MonoBehaviour
             acquiringLock = false;
             lockedOn = null;
             return;
-        }
-        // Find radar tracker closest to center of canvas
-        closestTemp = radarTrackerParent.GetChild(0);
-        float bestDist = Vector3.Distance(transform.position, closestTemp.transform.position);
-        foreach (Transform child in radarTrackerParent)
-        {
-            if (child == radarTrackerParent)
-                continue;
-            float dist = Vector3.Distance(targeter.transform.position, child.position);
-            if (dist < bestDist)
-            {
-                bestDist = dist;
-                closestTemp = child;
-            }
-        }
+        }        
+
         targeter.StartFlash(lockTime, 0.1f);
         StartCoroutine(LockAcquireWaiter(lockTime));
     }
@@ -137,10 +124,15 @@ public class BracketController : MonoBehaviour
         try
         {
             acquiringLock = false;
-            lockedOn = closestTemp.GetComponent<RadarTracker>().target;
-            bracketTarget = closestTemp;
+
+            // Get radar blip closest to canvas center
+            RectTransform origin = targeter.GetComponent<RectTransform>();
+            closestBlip = Helpers.GetClosestRadarBlip(origin, radarTrackerParent);
+
+            lockedOn = closestBlip.GetComponent<RadarTracker>().target;
+            bracketTarget = closestBlip;
             targeter.EnableImg(true);
-            var enemyScript = closestTemp.GetComponent<RadarTracker>().target.GetComponent<EnemySantaUtils>();
+            var enemyScript = closestBlip.GetComponent<RadarTracker>().target.GetComponent<EnemySantaUtils>();
             health.gameObject.SetActive(true);
             health.SetHealth(enemyScript.hitPoints);
             enemyScript.OnHit += health.ChangeHealth;

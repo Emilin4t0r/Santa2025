@@ -10,8 +10,19 @@ public class TargetDirectionIndicator : MonoBehaviour
     [Range(0f, 1f)]
     public float threshold = 0.5f; // Minimum component ratio to activate an arrow
 
+    AircraftUtils au;
+
+    private void Start()
+    {
+        au = AircraftUtils.instance;
+        DisableAllArrows();
+        ToggleThreatText(false);
+    }
+
     private void Update()
     {
+        if (!au.turnedOn) return;
+
         if (EnemiesController.enemiesAttacking.Count > 0)
         {
             currentThreat = EnemiesController.enemiesAttacking[0].transform;

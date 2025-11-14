@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Linq;
+using static UnityEngine.GraphicsBuffer;
 
 public class Missiles : MonoBehaviour
 {
@@ -20,6 +21,10 @@ public class Missiles : MonoBehaviour
     HUDWeapons hudWeapons;
     HUDWeapon hud;
     public bool requireRadarLock = true;
+
+    // References for seeking
+    Targeter targeter;
+    Transform radarTrackerParent;
 
     private void Awake()
     {
@@ -45,6 +50,8 @@ public class Missiles : MonoBehaviour
             hud = hudWeapons.weapons[hudWeaponIndex].GetComponent<HUDWeapon>();
             hud.SetAmmo(missiles.Count);
             au = AircraftUtils.instance;
+            radarTrackerParent = GameObject.Find("RadarTrackers").transform;
+            targeter = Targeter.instance;
         }
     }
 
@@ -123,9 +130,15 @@ public class Missiles : MonoBehaviour
                         if (Radar.instance.enemies.Count > 0)
                         {
                             if (bc.lockedOn)
+                            {
                                 lockedOn = bc.lockedOn;
+                            }
                             else
-                                lockedOn = Radar.instance.enemies.FirstOrDefault();
+                            {
+                                // Get radar blip closest to canvas center
+                                RectTransform origin = targeter.GetComponent<RectTransform>();
+                                lockedOn = Helpers.GetClosestRadarBlip(origin, radarTrackerParent).GetComponent<RadarTracker>().target;
+                            }
                             print("Locking finished, locked on: " + lockedOn?.name);
                             seeking = false;
                         }

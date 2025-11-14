@@ -24,7 +24,7 @@ public class EnemyGunsRange : MonoBehaviour
     bool targetWasInRange = false;
     float nextCheckTime = 0f;
 
-    void Update()
+    void FixedUpdate()
     {
         // run every frame if detectionInterval <= 0, otherwise at intervals
         if (detectionInterval > 0f)
@@ -75,7 +75,7 @@ public class EnemyGunsRange : MonoBehaviour
                 // Found an enemy...
             } else
             {
-                return;
+                continue;
             }
 
             // Check if this target matches our assigned target

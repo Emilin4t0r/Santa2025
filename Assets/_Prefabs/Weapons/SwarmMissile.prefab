@@ -21431,12 +21431,12 @@ MonoBehaviour:
   jetSpdOnLaunch: 0
   thrust: 150
   acceleration: 25
-  maxSpeed: 400
+  maxSpeed: 450
   turnSpeed: 160
   lifeTime: 6
-  visualRotationSpeed: 5000
+  visualRotationSpeed: 3000
   deviationMagnitude: 0.125
-  deviationFrequency: 0.01
+  deviationFrequency: 0.0065
   damageRange: {x: 7.5, y: 20}
   damageRadius: 25
   armingDelay: 0.4

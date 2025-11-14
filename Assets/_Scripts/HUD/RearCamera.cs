@@ -7,13 +7,14 @@ public class RearCamera : MonoBehaviour
     public static RearCamera instance;
 
     Camera cam;
-	public bool flipHorizontal;
-	
+	public bool flipHorizontal;	
 
 	Transform trackTarget;
 	Quaternion origRot;
 
-	void Awake()
+    AircraftUtils au;
+
+    void Awake()
 	{
 		cam = GetComponent<Camera>();
 		instance = this;
@@ -21,6 +22,7 @@ public class RearCamera : MonoBehaviour
 
     private void Start()
     {
+        au = AircraftUtils.instance;
         origRot = transform.localRotation;
     }
 
@@ -44,7 +46,9 @@ public class RearCamera : MonoBehaviour
 
     private void Update()
     {
-		if (trackTarget)
+        if (!au.turnedOn) return;
+
+        if (trackTarget)
 		{
 			transform.LookAt(trackTarget);
 			cam.fieldOfView = Vector3.Distance(transform.position, trackTarget.position) / 120;

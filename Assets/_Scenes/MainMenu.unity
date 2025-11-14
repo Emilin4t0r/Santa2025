@@ -10881,11 +10881,11 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 61a015d0da503f243a0ecff83f462ecd, type: 3}
     description: 'Type:\t\t\tLight Air-to-Air Missile\nRange:\t\tMedium\nManeuverability:
       \tGood\nSeeker:\t\tIR\nAmount:\t\t2 Missiles'
-  - name: "HURAC\xC1N S"
+  - name: "HURAC\xC1N-S"
     sprite: {fileID: 21300000, guid: a0cd9213f052ceb4aa70d3f3d678bee8, type: 3}
     description: 'Type:\t\t\tSwarm missiles\nRange:\t\tShort\nManeuverability: \tExcellent\nSeeker:\t\tIndependent\nAmount:\t\t7
       Missiles'
-  - name: "HURAC\xC1N L"
+  - name: "HURAC\xC1N-L"
     sprite: {fileID: 21300000, guid: 01a2bd632e9c3f64fa28d28124f85094, type: 3}
     description: 'Type:\t\t\tSwarm missiles\nRange:\t\tShort\nManeuverability: \tExcellent\nSeeker:\t\tIndependent\nAmount:\t\t19
       Missiles'
