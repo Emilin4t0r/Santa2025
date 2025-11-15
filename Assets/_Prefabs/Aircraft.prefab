@@ -1606,7 +1606,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1044
+  m_VersionIndex: 2712
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2619,8 +2619,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4283914222
-  m_fontColor: {r: 0.9339623, g: 0.34296262, b: 0.33922213, a: 1}
+    rgba: 4281216951
+  m_fontColor: {r: 0.7169812, g: 0.18303217, b: 0.1792453, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4667,7 +4667,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   barColor: {r: 0, g: 0.9960785, b: 0.78823537, a: 1}
-  damageColor: {r: 1, g: 1, b: 1, a: 1}
+  damageColor: {r: 1, g: 0.60784316, b: 0.011764707, a: 1}
   damageText: {fileID: 1618689262015230724}
 --- !u!1 &1430411475762047371
 GameObject:
@@ -13949,6 +13949,7 @@ GameObject:
   - component: {fileID: 2180878593821254453}
   - component: {fileID: 8290679592805362151}
   - component: {fileID: 1850424123110682880}
+  - component: {fileID: 4788533985575894881}
   m_Layer: 3
   m_Name: Aircraft
   m_TagString: Player
@@ -13983,7 +13984,6 @@ Transform:
   - {fileID: 1628311518164561701}
   - {fileID: 7205278281500469200}
   - {fileID: 7517693495708088913}
-  - {fileID: 7906898903484752908}
   - {fileID: 4454550432942184308}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -14099,7 +14099,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   terrainWarningDist: 1000
   terrainWarningDistDown: 50
-  turnOnDelay: 4
+  turnOnDelay: 9.5
+  turnedOn: 0
 --- !u!82 &1850424123110682880
 AudioSource:
   m_ObjectHideFlags: 0
@@ -14197,6 +14198,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &4788533985575894881
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3448633395269985640}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3454854277276701484
 GameObject:
   m_ObjectHideFlags: 0
@@ -15664,7 +15686,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1044
+  m_VersionIndex: 2712
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -15963,6 +15985,7 @@ MonoBehaviour:
   min: -175
   max: 175
   sensitivity: 10
+  speedZoomPower: 5
 --- !u!1 &3800558868961132825
 GameObject:
   m_ObjectHideFlags: 0
@@ -17462,7 +17485,6 @@ GameObject:
   - component: {fileID: 3498233941105729966}
   - component: {fileID: 7750517574720237218}
   - component: {fileID: 4831131037212829386}
-  - component: {fileID: 7567179228903754966}
   m_Layer: 3
   m_Name: Cylinder (1)
   m_TagString: Untagged
@@ -17538,29 +17560,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &7567179228903754966
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4395509094057702636}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &4398761337070247887
 GameObject:
   m_ObjectHideFlags: 0
@@ -19126,59 +19125,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &5065641136419963814
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7906898903484752908}
-  - component: {fileID: 2405189499219948194}
-  m_Layer: 10
-  m_Name: AircraftTrigger
-  m_TagString: AircraftTrigger
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7906898903484752908
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5065641136419963814}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7533986947536084115}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &2405189499219948194
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5065641136419963814}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 5, y: 5, z: 5}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5113902661966180957
 GameObject:
   m_ObjectHideFlags: 0
@@ -20938,7 +20884,7 @@ Camera:
   m_GameObject: {fileID: 5958594988894108345}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -20992,7 +20938,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RenderShadows: 1
+  m_RenderShadows: 0
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
@@ -21145,7 +21091,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0001, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3544965855532782535
@@ -21176,7 +21122,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 12505
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f483a85e8990b884eb4ebdc828f26f49, type: 2}
   m_sharedMaterial: {fileID: 3426312859756597918, guid: f483a85e8990b884eb4ebdc828f26f49, type: 2}
@@ -22550,7 +22496,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1044
+  m_VersionIndex: 2712
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -24144,7 +24090,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1044
+  m_VersionIndex: 2712
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -24464,7 +24410,7 @@ MonoBehaviour:
   arrowR: {fileID: 6476259371290826459}
   currentThreat: {fileID: 0}
   threatText: {fileID: 387718001163750319}
-  threatFlashFrequency: 0
+  threatFlashFrequency: 0.5
   threshold: 0.5
 --- !u!1 &6610115567690282544
 GameObject:

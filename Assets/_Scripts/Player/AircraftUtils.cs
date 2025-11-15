@@ -16,6 +16,8 @@ public class AircraftUtils : MonoBehaviour
 
     AudioSource engineSfxLoop;
 
+    float health;
+
     private void Awake()
     {
         instance = this;
@@ -94,5 +96,19 @@ public class AircraftUtils : MonoBehaviour
             Debug.DrawLine(transform.position, transform.position + dir * terrainWarningDist, Color.green);
             Debug.DrawLine(transform.position, transform.position + Vector3.down * terrainWarningDistDown, Color.red);
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        print("PLAYER IS HIT -" + damage + "HP! Health now: " + health);
+        if (health < 0)
+        {
+            Die();
+        }
+    }
+    void Die()
+    {
+        return;
     }
 }

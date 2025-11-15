@@ -41,6 +41,12 @@ public class Bullet : MonoBehaviour
                         KillBullet(true);
                         return;
                     }
+                    if (tag == "Player")
+                    {
+                        collision.gameObject.GetComponent<AircraftUtils>().TakeDamage(damage);
+                        KillBullet(true);
+                        return;
+                    }
                     // if tag == player -> do damage to player
                 }
             }
