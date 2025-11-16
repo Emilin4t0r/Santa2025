@@ -20,6 +20,7 @@ public class Guns : MonoBehaviour
 
     public int ammoPerGun;
     [HideInInspector] public int ammoCount;
+    int fullAmmo;
     bool inGameScene;
     public int hudWeaponIndex;
     HUDWeapons hudWeapons;
@@ -68,6 +69,7 @@ public class Guns : MonoBehaviour
                 guns.Add(tr);
                 ammoCount += ammoPerGun;
             }
+            fullAmmo = ammoCount;
         }
     }
 
@@ -81,8 +83,7 @@ public class Guns : MonoBehaviour
             {
                 StopBurst();
                 ClearShootSounds();
-                ammoCount = 0;
-                hud.SetAmmo(ammoCount);
+                AddAmmo(-ammoCount); // Set ammo to 0
             }
             return;
         }
@@ -112,6 +113,11 @@ public class Guns : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
             StopBurst();
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            ReloadGuns();
         }
     }
 
@@ -156,8 +162,7 @@ public class Guns : MonoBehaviour
                 float flashTime = 0.01f;
                 StartCoroutine(FlashMuzzleLight(mfLight, flashTime));
             }
-            ammoCount--;
-            hud.SetAmmo(ammoCount);
+            AddAmmo(-1);
         }
 
         nextTimeToFire = Time.time + fireRate;
@@ -201,5 +206,16 @@ public class Guns : MonoBehaviour
             SoundSpawner.EndLoop(shootLoopSound);
             SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip(caliberForAudio + "_tail"), 0, 0);
         }
+    }
+
+    void AddAmmo(int ammoToAdd)
+    {
+        ammoCount = Mathf.Max(ammoCount + ammoToAdd, fullAmmo);
+        hud.SetAmmo(ammoCount);
+    }
+
+    public void ReloadGuns()
+    {
+        AddAmmo(fullAmmo);
     }
 }

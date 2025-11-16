@@ -43,7 +43,8 @@ public class Bullet : MonoBehaviour
                     }
                     if (tag == "Player")
                     {
-                        collision.gameObject.GetComponent<AircraftUtils>().TakeDamage(damage);
+                        float randDamage = damage + Random.Range(-damage / 2, damage / 2);
+                        collision.gameObject.GetComponent<AircraftUtils>().TakeDamage(randDamage);
                         KillBullet(true);
                         return;
                     }

@@ -489,8 +489,8 @@ MonoBehaviour:
   - {fileID: 3670047663290536064}
   - {fileID: 6976284243374152283}
   shootForce: 950
-  inaccuracy: 0.015
-  shootFrequency: {x: 0.2, y: 8}
+  inaccuracy: 0.007
+  shootFrequency: {x: 0.2, y: 5}
   shotsPerBurst: {x: 1, y: 15}
   nextShootTime: 0
   bulletPrefab: {fileID: 3130551460163936705, guid: 6eab430744c3bfd4899b66397ecc5d7f, type: 3}
@@ -717,6 +717,9 @@ MonoBehaviour:
   pitchLimit: 5
   yawLimit: 5
   rollLimit: 5
+  projectileSpeed: 950
+  useRigidbodyIfAvailable: 1
+  shooterRigidbody: {fileID: 0}
 --- !u!1 &2827334082776060979
 GameObject:
   m_ObjectHideFlags: 0

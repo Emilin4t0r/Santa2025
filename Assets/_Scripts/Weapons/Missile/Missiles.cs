@@ -26,6 +26,8 @@ public class Missiles : MonoBehaviour
     Targeter targeter;
     Transform radarTrackerParent;
 
+    public GameObject missilePrefab;
+
     private void Awake()
     {
         missiles = new List<Missile>();
@@ -43,31 +45,41 @@ public class Missiles : MonoBehaviour
     {
         if (now.name == "Gameplay")
         {
-            seeking = false;
-            bc = BracketController.instance;
-            GetMissilesFromChildren();
-            hudWeapons = GameObject.Find("HUDWeapons").GetComponent<HUDWeapons>();
-            hud = hudWeapons.weapons[hudWeaponIndex].GetComponent<HUDWeapon>();
-            hud.SetAmmo(missiles.Count);
-            au = AircraftUtils.instance;
-            radarTrackerParent = GameObject.Find("RadarTrackers").transform;
-            targeter = Targeter.instance;
+            InitializeWeapon();
         }
+    }
+
+    public void InitializeWeapon()
+    {
+        seeking = false;
+        bc = BracketController.instance;
+        hudWeapons = GameObject.Find("HUDWeapons").GetComponent<HUDWeapons>();
+        hud = hudWeapons.weapons[hudWeaponIndex].GetComponent<HUDWeapon>();
+        GetMissilesFromChildren();
+        au = AircraftUtils.instance;
+        radarTrackerParent = GameObject.Find("RadarTrackers").transform;
+        targeter = Targeter.instance;
     }
 
     void GetMissilesFromChildren()
     {
         missiles = new List<Missile>();
-        Missile[] _missiles = GetComponentsInChildren<Missile>();
+        Missile[] _missilesInChildren = GetComponentsInChildren<Missile>(true);
 
-        foreach (Missile msl in _missiles)
+        foreach (Missile msl in _missilesInChildren)
         {
             missiles.Add(msl);
         }
+        
+        hud.SetAmmo(missiles.Count);
     }
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            InitializeWeapon();
+        }
         if (missiles.Count <= 0 || !au.turnedOn)
             return;
         if (Input.GetKeyDown(KeyCode.Mouse0))

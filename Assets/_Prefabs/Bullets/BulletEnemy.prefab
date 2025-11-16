@@ -80,7 +80,7 @@ MonoBehaviour:
   - Enemy
   bulletHit: {fileID: 7070465220517492653, guid: 7e00a1561d1f84b4fbd07b48d2874e7c, type: 3}
   altBulletHit: {fileID: 0}
-  damage: 5
+  damage: 4
   doRandomRicochets: 0
 --- !u!136 &5616326674708750372
 CapsuleCollider:

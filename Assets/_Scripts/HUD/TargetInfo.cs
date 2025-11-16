@@ -27,6 +27,8 @@ public class TargetInfo : MonoBehaviour
     bool enemyLockFlasherRunning = false;
     Coroutine enemyLockCoroutine = null;
 
+    AircraftUtils au;
+
     private void Awake()
     {
         instance = this;
@@ -37,15 +39,27 @@ public class TargetInfo : MonoBehaviour
         bc = BracketController.instance;
         ac = AirplaneController.instance;
         enemiesWithinGunsrange = new List<Transform>();
-        irMissiles = GameObject.Find("IRMissiles").GetComponent<Missiles>();
-        radarMissiles = GameObject.Find("RadarMissiles").GetComponent<Missiles>();
+        irMissiles = GameObject.Find("WeaponsDupe").transform.Find("IRMissiles").GetComponent<Missiles>();
+        radarMissiles = GameObject.Find("WeaponsDupe").transform.Find("RadarMissiles").GetComponent<Missiles>();
         SetActiveMissilesToIR(true);
         enemyLock.gameObject.SetActive(false);
         enemyLaunch.gameObject.SetActive(false);
         mslLock.text = "ACQUIRING";
         mslLock.gameObject.SetActive(false);
         mslLockCircle = mslLock.transform.GetChild(0);
+        au = AircraftUtils.instance;
         ResetMslLockCircle();
+    }
+
+    public void GetNewIRMsl()
+    {
+        irMissiles =  GameObject.Find("WeaponsDupe").transform.Find("IRMissiles(Clone)").GetComponent<Missiles>();
+        SetActiveMissilesToIR(true);
+    }
+    public void GetNewRadarMsl()
+    {
+        radarMissiles = GameObject.Find("WeaponsDupe").transform.Find("RadarMissiles(Clone)").GetComponent<Missiles>();
+        SetActiveMissilesToIR(false);
     }
 
     public void LoadHUDAfterBootup()
@@ -83,15 +97,20 @@ public class TargetInfo : MonoBehaviour
         targetingComputerState.text = "TARGETING MODE:\n";
         targetingComputerState.text = HUD.instance.hudMode == HUD.HUDMode.AirToAir ? "AIR COMBAT" : "GROUND STRIKE";
 
-        if (EnemiesController.enemiesAttacking.Count > 0)
+        if (au.turnedOn)
         {
-            RearCamera.instance.TrackTarget(EnemiesController.enemiesAttacking[0].transform);
-        }
-        else
-        {
-            if (enemyLock.gameObject.activeSelf)
-                enemyLock.gameObject.SetActive(false);
-            RearCamera.instance.FreeCamera();
+            if (EnemiesController.enemiesAttacking.Count > 0)
+            {
+                if (RearCamera.instance.trackTarget == null)
+                    RearCamera.instance.StartTrack(EnemiesController.enemiesAttacking[0].transform);
+            }
+            else
+            {
+                if (enemyLock.gameObject.activeSelf)
+                    enemyLock.gameObject.SetActive(false);
+                if (RearCamera.instance.trackTarget != null)
+                    RearCamera.instance.FreeCamera();
+            }
         }
 
         if (activeMissiles.seeking)
@@ -141,7 +160,6 @@ public class TargetInfo : MonoBehaviour
                 enemyLockCoroutine = StartCoroutine(EnemyLockFlashLoop());
                 enemyLockFlasherRunning = true;
             }
-            enemyLockWarningActive = true;
         }
         else
         {
@@ -153,8 +171,9 @@ public class TargetInfo : MonoBehaviour
             }
 
             if (enemyLock.gameObject.activeSelf)
-                enemyLock.gameObject.SetActive(false);
-            enemyLockWarningActive = false;
+            {
+                enemyLock.gameObject.SetActive(false); 
+            }
         }
     }
 
@@ -209,22 +228,20 @@ public class TargetInfo : MonoBehaviour
         {
             rwr_lockSound = SoundSpawner.SpawnSoundLoop(ac.transform.position, ac.transform, SoundLibrary.GetClip("rwr_lock"), 0, false, 0.5f);
         }
-        else if (enemiesWithinGunsrange.Count == 0)
+        if (enemiesWithinGunsrange.Count == 0)
         {
             SoundSpawner.EndLoop(rwr_lockSound);
             rwr_lockSound = null;
         }
     }
-    public bool IsInGunrangeEnemies(Transform enemy)
-    {
-        return enemiesWithinGunsrange.Contains(enemy); ;
-    }
 
-    bool enemyLockWarningActive;
     IEnumerator EnemyLockFlashLoop()
     {
         // Ensure text is initially visible
         enemyLock.gameObject.SetActive(true);
+
+        // Small wait so we don't constantly turn it on and off for like 1 frame
+        yield return new WaitForSeconds(0.25f);
 
         while (enemiesWithinGunsrange != null && enemiesWithinGunsrange.Count > 0)
         {
@@ -232,11 +249,11 @@ public class TargetInfo : MonoBehaviour
             enemyLock.gameObject.SetActive(true);
             yield return new WaitForSeconds(f_eLock);
 
+
             // Off for f_eLock seconds
             enemyLock.gameObject.SetActive(false);
             yield return new WaitForSeconds(f_eLock);
         }
-
         // Ensure off when we exit
         enemyLock.gameObject.SetActive(false);
         enemyLockFlasherRunning = false;
@@ -256,7 +273,7 @@ public class TargetInfo : MonoBehaviour
     bool enemyFireWarningActive;
     public void TriggerEnemyFireWarning()
     {
-        if (!enemyFireWarningActive && enemyLockWarningActive)
+        if (!enemyFireWarningActive && enemyLockFlasherRunning)
             StartCoroutine(EnemyFireWarning(Time.time + 1));
     }
     IEnumerator EnemyFireWarning(float t_stopFlash)

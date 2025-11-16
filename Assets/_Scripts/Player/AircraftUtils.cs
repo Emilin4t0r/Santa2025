@@ -16,7 +16,7 @@ public class AircraftUtils : MonoBehaviour
 
     AudioSource engineSfxLoop;
 
-    float health;
+    public float health = 100;
 
     private void Awake()
     {

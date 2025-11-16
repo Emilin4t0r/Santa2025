@@ -33,19 +33,39 @@ public static class Helpers
             RectTransform child = radarParent.GetChild(i) as RectTransform;
             float dist = Vector2.Distance(origin.anchoredPosition, child.anchoredPosition);
 
-            Debug.Log("Distance to " + child.name + ": " + dist);
 
             if (dist < bestDist)
             {
-                Debug.Log("found better distance: " + dist + " " + child.name + ".\n choosing " + child.name);
                 bestDist = dist;
                 closest = child;
                 
             }
         }
 
-        Debug.Log("Closest was " + closest.name);
-
         return closest;
+    }
+
+    /// <summary>
+    /// Finds first child transform where parameter partialName is part of the child's name
+    /// </summary>
+    public static Transform FindChildByPartialName(Transform parent, string partialName, bool includeInactive = false)
+    {
+        foreach (Transform child in parent)
+        {
+            // Skip inactive children unless allowed
+            if (!includeInactive && !child.gameObject.activeSelf)
+                continue;
+
+            // Case-insensitive partial match
+            if (child.name.IndexOf(partialName, System.StringComparison.OrdinalIgnoreCase) >= 0)
+                return child;
+
+            // Recursive search
+            Transform found = FindChildByPartialName(child, partialName, includeInactive);
+            if (found != null)
+                return found;
+        }
+
+        return null;
     }
 }

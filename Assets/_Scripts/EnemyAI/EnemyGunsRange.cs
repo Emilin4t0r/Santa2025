@@ -70,10 +70,12 @@ public class EnemyGunsRange : MonoBehaviour
             if (t.gameObject.CompareTag("Player"))
             {
                 foundPlayerThisFrame = true;
-            } else if (t.gameObject.CompareTag("Enemy"))
+            }
+            else if (t.gameObject.CompareTag("Enemy"))
             {
                 // Found an enemy...
-            } else
+            }
+            else
             {
                 continue;
             }
@@ -99,6 +101,7 @@ public class EnemyGunsRange : MonoBehaviour
             if (TargetInfo.instance != null && moveScript != null)
                 TargetInfo.instance.ChangeEnemiesInGunrange(moveScript.transform, true);
         }
+
         playerWasInRange = foundPlayerThisFrame;
 
         // Firing target enter/exit

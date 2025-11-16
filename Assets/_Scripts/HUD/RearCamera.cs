@@ -9,10 +9,11 @@ public class RearCamera : MonoBehaviour
     Camera cam;
 	public bool flipHorizontal;	
 
-	Transform trackTarget;
+	public Transform trackTarget;
 	Quaternion origRot;
 
     AircraftUtils au;
+	public TVStatic tvStatic;
 
     void Awake()
 	{
@@ -55,14 +56,23 @@ public class RearCamera : MonoBehaviour
 		}
     }
 
-    public void TrackTarget(Transform target)
-	{		
+    public void StartTrack(Transform target)
+	{				
 		trackTarget = target;
+        StartCoroutine(TVStatic(0.4f));
     }
 	public void FreeCamera()
 	{
-		transform.localRotation = origRot;
+        transform.localRotation = origRot;
 		trackTarget = null;
 		cam.fieldOfView = 20;
+		StartCoroutine(TVStatic(0.4f));
+    }
+
+	IEnumerator TVStatic(float length)
+	{
+		tvStatic.ToggleStatic(true);
+        yield return new WaitForSeconds(length);
+        tvStatic.ToggleStatic(false);
     }
 }

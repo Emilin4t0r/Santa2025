@@ -7,13 +7,15 @@ using UnityEngine.UI;
 public class FlightInfo : MonoBehaviour
 {
     AirplaneController ac;
+    AircraftUtils au;
 
-    public TextMeshProUGUI spd, alt, thr, brk, flp, rds, msl;
-    public Slider thrSlider;
+    public TextMeshProUGUI spd, alt, thr, hp, flp;
+    public Slider thrSlider, hpSlider;
 
     private void Start()
     {
         ac = AirplaneController.instance;
+        au = AircraftUtils.instance;
     }
 
     private void FixedUpdate()
@@ -22,8 +24,10 @@ public class FlightInfo : MonoBehaviour
         spd.text = "SPD: " + ((int)speed).ToString("D4") + " km/h";
         alt.text = "ALT: " + ((int)ac.transform.position.y).ToString("D4") + " m";
         thr.text = "THR: " + (int)(ac.thrustPercent * 100) + "%";
-        brk.text = ac.brakesTorque > 0 ? "BRAKES: ON" : "BRAKES: OFF";
+        hp.text = "HP: " + (int)au.health + "%";
         flp.text = ac.flap > 0 ? " FLAPS: ON" : " FLAPS: OFF";
+
         thrSlider.value = ac.thrustPercent;
+        hpSlider.value = au.health;
     }
 }

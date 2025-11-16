@@ -50,6 +50,7 @@ MonoBehaviour:
   seeking: 0
   hudWeaponIndex: 3
   requireRadarLock: 0
+  missilePrefab: {fileID: 0}
 --- !u!1 &867290615430195760
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,6 +101,7 @@ MonoBehaviour:
   seeking: 0
   hudWeaponIndex: 4
   requireRadarLock: 1
+  missilePrefab: {fileID: 0}
 --- !u!1 &1946948106245632827
 GameObject:
   m_ObjectHideFlags: 0

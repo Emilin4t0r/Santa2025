@@ -3,7 +3,7 @@ using UnityEngine;
 public class TargetDirectionIndicator : MonoBehaviour
 {
     public Transform arrowU, arrowD, arrowL, arrowR;
-    public Transform currentThreat;
+    public static Transform currentThreat;
     public GameObject threatText;
     public float threatFlashFrequency;
 
