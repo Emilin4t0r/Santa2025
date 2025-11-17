@@ -77,6 +77,12 @@ public class Guns : MonoBehaviour
     {
         if (!inGameScene || !au.turnedOn) 
             return;
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            ReloadGuns();
+        }
+
         if (ammoCount <= 0)
         {
             if (shootSoundParent.childCount > 0)
@@ -113,12 +119,7 @@ public class Guns : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
             StopBurst();
-        }
-
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            ReloadGuns();
-        }
+        }        
     }
 
     void ClearShootSounds()
@@ -210,12 +211,13 @@ public class Guns : MonoBehaviour
 
     void AddAmmo(int ammoToAdd)
     {
-        ammoCount = Mathf.Max(ammoCount + ammoToAdd, fullAmmo);
+        ammoCount = Mathf.Max(ammoCount + ammoToAdd, 0);
         hud.SetAmmo(ammoCount);
     }
 
     public void ReloadGuns()
     {
-        AddAmmo(fullAmmo);
+        ammoCount = fullAmmo;
+        hud.SetAmmo(ammoCount);
     }
 }

@@ -17720,6 +17720,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5201758163806636581}
+  - {fileID: 1484277210075194404}
   m_Father: {fileID: 975222105054517219}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
 --- !u!1 &3847761042793156235
@@ -21363,7 +21364,6 @@ Transform:
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.25}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1484277210075194404}
   - {fileID: 9196742785589484453}
   - {fileID: 1119351484061089641}
   m_Father: {fileID: 0}
@@ -21442,6 +21442,7 @@ MonoBehaviour:
   armingDelay: 0.4
   explosion: {fileID: 7070465220517492653, guid: 7c35f2d4e1b64a94497858b5b6f144cb, type: 3}
   target: {fileID: 0}
+  pointLight: {fileID: 7033049844628030185}
   finsToHide: {fileID: 3847761042793156235}
   explosionEffectSize: 5
   targetSet: 0
@@ -21485,13 +21486,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7033049844628030185}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.509}
+  m_LocalRotation: {x: -0, y: -0, z: -0.38268343, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: 0, z: -0.14169997}
   m_LocalScale: {x: 0.19999999, y: 0.19999999, z: 0.23999996}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1507626868865343300}
-  m_Father: {fileID: 975222105054517219}
+  m_Father: {fileID: 1119351484061089641}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &7756406594167466862
 Light:
@@ -21504,8 +21505,8 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 0.99215686, g: 0.5882353, b: 0.36078432, a: 1}
-  m_Intensity: 10
-  m_Range: 10
+  m_Intensity: 1
+  m_Range: 1
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10

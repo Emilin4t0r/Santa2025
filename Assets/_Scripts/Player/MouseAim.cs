@@ -27,5 +27,18 @@ public class MouseAim : MonoBehaviour
         blockY = Screen.height / 100f;
         mouseY = Input.mousePosition.y - center[1];
         Ycoord = (mouseY / blockY) * mouseSensitivity;
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            ResetMousePos();
+        }
+    }
+
+    void ResetMousePos()
+    {
+        mouseX = 0;
+        mouseY = 0;
+        Xcoord = 0;
+        Ycoord = 0;        
     }
 }

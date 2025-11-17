@@ -24,12 +24,14 @@ public class Missile : MonoBehaviour
     public float explosionEffectSize = 0.5f;
 
     public GameObject finsToHide;
+    public float visualSizeOnLaunch = 1;
 
     float blowUpTimer;
 
     [Header("Proportional Navigation")]
     [Tooltip("Navigation constant (N). Typical 2-5. Higher = more aggressive lead.")]
     public float navigationConstant = 3f;
+    
 
     private void Start()
     {
@@ -46,11 +48,12 @@ public class Missile : MonoBehaviour
             finsToHide.SetActive(true);
         }
 
+        rotator.transform.localScale = new Vector3(visualSizeOnLaunch, visualSizeOnLaunch, visualSizeOnLaunch);
+
         // Give missile jet's velocity on launch
         var plane = AirplaneController.instance;
         rb.linearVelocity = plane.rb.linearVelocity;
-        jetSpdOnLaunch = plane.rb.linearVelocity.magnitude;
-        
+        jetSpdOnLaunch = plane.rb.linearVelocity.magnitude;        
     }   
 
     void FixedUpdate()

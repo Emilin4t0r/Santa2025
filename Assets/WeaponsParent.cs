@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class WeaponsParent : MonoBehaviour
@@ -29,15 +30,15 @@ public class WeaponsParent : MonoBehaviour
                 weaponsObject.GetComponent<WeaponsSelector>().irMissiles = newWpn.GetComponent<Missiles>();
                 Destroy(weaponToReplace.gameObject);
                 newWpn.GetComponent<Missiles>().InitializeWeapon();
-                TargetInfo.instance.GetNewIRMsl();
+                StartCoroutine(MissileCircleReset(isIR: true));
                 break;
             case Hardpoint.WeaponType.Longbow:
                 weaponToReplace = Helpers.FindChildByPartialName(weaponsObject, "RadarMissiles");
                 newWpn = Instantiate(WeaponsBackup.instance.GetSingleWeapon(wpnType), weaponToReplace.position, weaponToReplace.rotation, weaponToReplace.parent);
                 weaponsObject.GetComponent<WeaponsSelector>().radarMissiles = newWpn.GetComponent<Missiles>();
                 Destroy(weaponToReplace.gameObject);
-                newWpn.GetComponent<Missiles>().InitializeWeapon();
-                TargetInfo.instance.GetNewRadarMsl();
+                newWpn.GetComponent<Missiles>().InitializeWeapon();                
+                StartCoroutine(MissileCircleReset(isIR: false));
                 break;
             case Hardpoint.WeaponType.Huracán_Pod:
                 weaponToReplace = Helpers.FindChildByPartialName(weaponsObject, "SwarmMissiles");
@@ -64,5 +65,14 @@ public class WeaponsParent : MonoBehaviour
                 Destroy(weaponToReplace.gameObject);
                 break;
         }                
+    }
+
+    IEnumerator MissileCircleReset(bool isIR)
+    {
+        yield return new WaitForEndOfFrame();
+        if (isIR)
+            TargetInfo.instance.GetNewIRMsl();
+        else
+            TargetInfo.instance.GetNewRadarMsl();
     }
 }

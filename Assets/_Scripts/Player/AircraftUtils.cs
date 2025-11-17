@@ -102,6 +102,7 @@ public class AircraftUtils : MonoBehaviour
     {
         health -= damage;
         print("PLAYER IS HIT -" + damage + "HP! Health now: " + health);
+        EZCameraShake.CameraShaker.Instance.ShakeOnce(2.5f, 10, 0, 0.3f);
         if (health < 0)
         {
             Die();

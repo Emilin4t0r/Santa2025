@@ -489,7 +489,7 @@ MonoBehaviour:
   - {fileID: 3670047663290536064}
   - {fileID: 6976284243374152283}
   shootForce: 950
-  inaccuracy: 0.007
+  inaccuracy: 0.02
   shootFrequency: {x: 0.2, y: 5}
   shotsPerBurst: {x: 1, y: 15}
   nextShootTime: 0
@@ -516,7 +516,7 @@ MonoBehaviour:
   player: {fileID: 0}
   flybySpeedThreshold: 150
   soundTriggeringOffset: 1
-  flybyTriggerDistance: 50
+  flybyTriggerDistance: 100
 --- !u!1 &1252505942216007471
 GameObject:
   m_ObjectHideFlags: 0
@@ -1365,7 +1365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 1250
-  coneAngle: 60
+  coneAngle: 54
   detectionInterval: 0.1
   layerMask:
     serializedVersion: 2

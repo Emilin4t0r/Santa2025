@@ -1,5 +1,6 @@
 using Unity.Burst.Intrinsics;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class SwarmMissile : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class SwarmMissile : MonoBehaviour
     TrailRenderer trail;
     SphereCollider sc;
     Rigidbody rb;
-    GameObject pointLight;
+    public GameObject pointLight;
 
     public GameObject finsToHide;
     public float explosionEffectSize = 0.5f;
@@ -34,12 +35,11 @@ public class SwarmMissile : MonoBehaviour
 
     private void Start()
     {
-        SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("missile_launch"));
+        SoundPool.Instance.PlayOneShot(SoundLibrary.GetClip("missile_launch"), transform.position);
         rotator = transform.Find("MissileRotator").gameObject;
         trail = transform.GetComponentInChildren<TrailRenderer>();
         sc = GetComponent<SphereCollider>();
         rb = GetComponent<Rigidbody>();
-        pointLight = transform.Find("Point Light").gameObject;
         trail.enabled = true;
         sc.enabled = true;
         rb.isKinematic = false;
@@ -48,6 +48,8 @@ public class SwarmMissile : MonoBehaviour
         {
             finsToHide.SetActive(true);
         }
+
+        rotator.transform.localScale = new Vector3(3, 3, 3);
 
         // Give missile jet's velocity on launch
         var plane = AirplaneController.instance;
@@ -257,7 +259,7 @@ public class SwarmMissile : MonoBehaviour
     {
         GameObject expl = Instantiate(explosion, transform.position, Quaternion.identity);
         expl.transform.localScale *= explosionEffectSize;
-        SoundSpawner.SpawnSound(transform.position, AirplaneController.instance.transform, SoundLibrary.GetClip("missile_explode"));
+        SoundPool.Instance.PlayOneShot(SoundLibrary.GetClip("missile_explode"), transform.position);
         Destroy(expl, 7);
         Destroy(gameObject);
     }

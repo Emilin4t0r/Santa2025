@@ -226,7 +226,7 @@ public class TargetInfo : MonoBehaviour
 
         if (enemiesWithinGunsrange.Count == 1 && rwr_lockSound == null)
         {
-            rwr_lockSound = SoundSpawner.SpawnSoundLoop(ac.transform.position, ac.transform, SoundLibrary.GetClip("rwr_lock"), 0, false, 0.5f);
+            rwr_lockSound = SoundSpawner.SpawnSoundLoop(ac.transform.position, ac.transform, SoundLibrary.GetClip("rwr_lock"), 0, false, 0.4f);
         }
         if (enemiesWithinGunsrange.Count == 0)
         {

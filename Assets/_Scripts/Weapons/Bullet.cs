@@ -38,17 +38,16 @@ public class Bullet : MonoBehaviour
                     if (tag == "Enemy")
                     {
                         collision.gameObject.GetComponent<EnemySantaUtils>().GetHit(damage);
-                        KillBullet(true);
+                        KillBullet(useAltHit: true);
                         return;
                     }
                     if (tag == "Player")
                     {
                         float randDamage = damage + Random.Range(-damage / 2, damage / 2);
                         collision.gameObject.GetComponent<AircraftUtils>().TakeDamage(randDamage);
-                        KillBullet(true);
+                        KillBullet(useAltHit: true);
                         return;
                     }
-                    // if tag == player -> do damage to player
                 }
             }
 

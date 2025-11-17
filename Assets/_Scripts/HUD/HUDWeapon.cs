@@ -47,10 +47,17 @@ public class HUDWeapon : MonoBehaviour
     public void SetAmmo(int ammo)
     {
         ammoText.text = ammo.ToString();
-        if (ammo == 0)
+        if (ammo <= 0)
         {
             DimColors(true);
             outOfAmmo = true;
+        } else
+        {
+            if (outOfAmmo)
+            {
+                outOfAmmo = false;
+                DimColors(false);
+            }
         }
     }
     public void SetHotkey(int hotkey)
