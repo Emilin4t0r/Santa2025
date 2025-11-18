@@ -9,7 +9,8 @@ public class WeaponsSelector : MonoBehaviour
     public Missiles irMissiles, radarMissiles;
     public SwarmMissiles swarmMissiles;
 
-    int currentWeaponIndex;    
+    int currentWeaponIndex;
+    [HideInInspector] public string currentWeaponName;
     HUDWeapons hudWeapons;
     bool inGameScene;
 
@@ -115,28 +116,35 @@ public class WeaponsSelector : MonoBehaviour
         {
             case "CNN 30MM":
                 singleGuns.enabled = true;
+                currentWeaponName = "30MM";
                 LeadReticle.instance.SetActiveGuns(singleGuns);
                 break;
             case "CNN 20MM":
                 chainGuns.enabled = true;
+                currentWeaponName = "20MM";
                 LeadReticle.instance.SetActiveGuns(chainGuns);
                 break;
             case "CNN 100MM":
                 airBurst.enabled = true;
+                currentWeaponName = "100MM";
                 LeadReticle.instance.SetActiveGuns(airBurst);
                 break;
             case "MSL IR":
                 irMissiles.enabled = true;
+                currentWeaponName = "IR";
                 TargetInfo.instance.SetActiveMissilesToIR(true);
                 break;
             case "MSL RDR":
                 radarMissiles.enabled = true;
+                currentWeaponName = "RADAR";
                 TargetInfo.instance.SetActiveMissilesToIR(false);
                 break;
             case "MSL SWRM":
+                currentWeaponName = "SWARM";
                 swarmMissiles.enabled = true;
                 break;
         }
+        print("Switched weapon to " + currentWeaponName);
     }
 
     void ExcludeEmptyWeapons()

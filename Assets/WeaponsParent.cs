@@ -46,24 +46,6 @@ public class WeaponsParent : MonoBehaviour
                 weaponsObject.GetComponent<WeaponsSelector>().swarmMissiles = newWpn.GetComponent<SwarmMissiles>();
                 Destroy(weaponToReplace.gameObject);
                 break;
-            case Hardpoint.WeaponType.Hackapel:
-                weaponToReplace = Helpers.FindChildByPartialName(weaponsObject, "SingleGuns");
-                newWpn = Instantiate(WeaponsBackup.instance.GetSingleWeapon(wpnType), weaponToReplace.position, weaponToReplace.rotation, weaponToReplace.parent);
-                weaponsObject.GetComponent<WeaponsSelector>().singleGuns = newWpn.GetComponent<Guns>();
-                Destroy(weaponToReplace.gameObject);
-                break;
-            case Hardpoint.WeaponType.Landsknecht:
-                weaponToReplace = Helpers.FindChildByPartialName(weaponsObject, "ChainGuns");
-                newWpn = Instantiate(WeaponsBackup.instance.GetSingleWeapon(wpnType), weaponToReplace.position, weaponToReplace.rotation, weaponToReplace.parent);
-                weaponsObject.GetComponent<WeaponsSelector>().chainGuns = newWpn.GetComponent<Guns>();
-                Destroy(weaponToReplace.gameObject);
-                break;
-            case Hardpoint.WeaponType.Arquebus:
-                weaponToReplace = Helpers.FindChildByPartialName(weaponsObject, "AirBurst");
-                newWpn = Instantiate(WeaponsBackup.instance.GetSingleWeapon(wpnType), weaponToReplace.position, weaponToReplace.rotation, weaponToReplace.parent);
-                weaponsObject.GetComponent<WeaponsSelector>().airBurst = newWpn.GetComponent<Guns>();
-                Destroy(weaponToReplace.gameObject);
-                break;
         }                
     }
 

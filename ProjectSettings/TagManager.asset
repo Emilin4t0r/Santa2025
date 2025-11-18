@@ -10,6 +10,7 @@ TagManager:
   - AircraftTrigger
   - Gun
   - FxTemporaire
+  - AmmoGiftSpawner
   layers:
   - Default
   - TransparentFX

@@ -23,15 +23,6 @@ public class WeaponsBackup : MonoBehaviour
             case Hardpoint.WeaponType.Huracán_Pod:
                 weapon = transform.GetChild(0).transform.Find("SwarmMissiles").gameObject;
                 break;
-            case Hardpoint.WeaponType.Hackapel:
-                weapon = transform.GetChild(0).transform.Find("SingleGuns").gameObject;
-                break;
-            case Hardpoint.WeaponType.Landsknecht:
-                weapon = transform.GetChild(0).transform.Find("ChainGuns").gameObject;
-                break;
-            case Hardpoint.WeaponType.Arquebus:
-                weapon = transform.GetChild(0).transform.Find("AirBurst").gameObject;
-                break;
         }
 
         return weapon;
