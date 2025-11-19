@@ -7,6 +7,11 @@ public class AmmoCartSpawner : MonoBehaviour
     public float spawnInterval;
     float timeToSpawnNextCart;
 
+    private void Start()
+    {
+        timeToSpawnNextCart = Time.time + spawnInterval;
+    }
+
     private void Update()
     {
         if (Time.time > timeToSpawnNextCart)

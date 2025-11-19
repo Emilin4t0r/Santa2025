@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEngine.GraphicsBuffer;
 
 public class SwarmMissiles : MonoBehaviour
 {
@@ -36,6 +37,15 @@ public class SwarmMissiles : MonoBehaviour
             hud.SetAmmo(missiles.Count);
             au = AircraftUtils.instance;
         }
+    }
+
+    public void InitializeWeapon()
+    {
+        GetMissilesFromChildren();
+        hudWeapons = GameObject.Find("HUDWeapons").GetComponent<HUDWeapons>();
+        hud = hudWeapons.weapons[hudWeaponIndex].GetComponent<HUDWeapon>();
+        hud.SetAmmo(missiles.Count);
+        au = AircraftUtils.instance;
     }
 
     void GetMissilesFromChildren()

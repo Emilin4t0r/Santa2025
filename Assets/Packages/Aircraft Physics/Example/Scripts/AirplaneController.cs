@@ -85,7 +85,7 @@ public class AirplaneController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            flap = flap > 0 ? 0 : 0.3f;
+            flap = flap > 0 ? 0 : 0.15f;
         }
 
         if (Input.GetKeyDown(KeyCode.B))

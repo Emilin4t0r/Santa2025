@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class TargetDirectionIndicator : MonoBehaviour
 {
+    public static TargetDirectionIndicator instance;
+
     public Transform arrowU, arrowD, arrowL, arrowR;
     public static Transform currentThreat;
     public GameObject threatText;
@@ -11,6 +13,11 @@ public class TargetDirectionIndicator : MonoBehaviour
     public float threshold = 0.5f; // Minimum component ratio to activate an arrow
 
     AircraftUtils au;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
@@ -23,13 +30,7 @@ public class TargetDirectionIndicator : MonoBehaviour
     {
         if (!au.turnedOn) return;
 
-        if (EnemiesController.enemiesAttacking.Count > 0)
-        {
-            currentThreat = EnemiesController.enemiesAttacking[0].transform;
-        } else
-        {
-            currentThreat = null;
-        }
+        // !Threats are checked in TargetInfo.cs row 146!
 
         if (currentThreat != null)
         {
@@ -39,6 +40,18 @@ public class TargetDirectionIndicator : MonoBehaviour
         {
             DisableAllArrows();
             ToggleThreatText(false);
+        }
+    }
+
+    public void CheckForThreats()
+    {
+        if (EnemiesController.enemiesAttacking.Count > 0)
+        {
+            currentThreat = EnemiesController.enemiesAttacking[0].transform;
+        }
+        else
+        {
+            currentThreat = null;
         }
     }
 

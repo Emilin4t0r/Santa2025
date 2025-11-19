@@ -144,7 +144,6 @@ public class WeaponsSelector : MonoBehaviour
                 swarmMissiles.enabled = true;
                 break;
         }
-        print("Switched weapon to " + currentWeaponName);
     }
 
     void ExcludeEmptyWeapons()

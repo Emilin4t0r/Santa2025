@@ -124,7 +124,7 @@ public class EnemyAI : MonoBehaviour
                             if (r == 0)
                             {                                
                                 // Fire missile                                
-                                TargetInfo.instance.TriggerEnemyFireWarning();
+                                //TargetInfo.instance.TriggerEnemyFireWarning();
                                 missilesFired++;
                             }
                             timeToFireMissile = Time.time + 0.5f;

@@ -9,14 +9,6 @@ public class WeaponsParent : MonoBehaviour
         instance = this;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            ReplaceWeaponGameobject(Hardpoint.WeaponType.Pike_Double);
-        }
-    }
-
     public void ReplaceWeaponGameobject(Hardpoint.WeaponType wpnType)
     {
         Transform weaponToReplace = null;
@@ -45,6 +37,7 @@ public class WeaponsParent : MonoBehaviour
                 newWpn = Instantiate(WeaponsBackup.instance.GetSingleWeapon(wpnType), weaponToReplace.position, weaponToReplace.rotation, weaponToReplace.parent);
                 weaponsObject.GetComponent<WeaponsSelector>().swarmMissiles = newWpn.GetComponent<SwarmMissiles>();
                 Destroy(weaponToReplace.gameObject);
+                newWpn.GetComponent<SwarmMissiles>().InitializeWeapon();
                 break;
         }                
     }

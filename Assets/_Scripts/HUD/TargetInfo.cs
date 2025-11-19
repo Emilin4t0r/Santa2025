@@ -99,18 +99,7 @@ public class TargetInfo : MonoBehaviour
 
         if (au.turnedOn)
         {
-            if (EnemiesController.enemiesAttacking.Count > 0)
-            {
-                if (RearCamera.instance.trackTarget == null)
-                    RearCamera.instance.StartTrack(EnemiesController.enemiesAttacking[0].transform);
-            }
-            else
-            {
-                if (enemyLock.gameObject.activeSelf)
-                    enemyLock.gameObject.SetActive(false);
-                if (RearCamera.instance.trackTarget != null)
-                    RearCamera.instance.FreeCamera();
-            }
+            CheckForEnemyForRearCam();
         }
 
         if (activeMissiles.seeking)
@@ -152,29 +141,21 @@ public class TargetInfo : MonoBehaviour
                 ResetMslLockCircle();
             }
         }
+    }
 
-        if (enemiesWithinGunsrange.Count > 0)
+    void CheckForEnemyForRearCam()
+    {
+        if (EnemiesController.enemiesAttacking.Count > 0)
         {
-            if (!enemyLockFlasherRunning)
-            {
-                enemyLockCoroutine = StartCoroutine(EnemyLockFlashLoop());
-                enemyLockFlasherRunning = true;
-            }
+            if (RearCamera.instance.trackTarget == null)
+                RearCamera.instance.StartTrack(EnemiesController.enemiesAttacking[0].transform);
         }
         else
         {
-            if (enemyLockFlasherRunning && enemyLockCoroutine != null)
-            {
-                StopCoroutine(enemyLockCoroutine);
-                enemyLockCoroutine = null;
-                enemyLockFlasherRunning = false;
-            }
-
-            if (enemyLock.gameObject.activeSelf)
-            {
-                enemyLock.gameObject.SetActive(false); 
-            }
+            if (RearCamera.instance.trackTarget != null)
+                RearCamera.instance.FreeCamera();
         }
+        TargetDirectionIndicator.instance.CheckForThreats();
     }
 
     void ResetMslLockCircle()
@@ -224,14 +205,38 @@ public class TargetInfo : MonoBehaviour
                 enemiesWithinGunsrange.Remove(enemy);
         }
 
-        if (enemiesWithinGunsrange.Count == 1 && rwr_lockSound == null)
+        if (enemiesWithinGunsrange.Count == 1)
         {
-            rwr_lockSound = SoundSpawner.SpawnSoundLoop(ac.transform.position, ac.transform, SoundLibrary.GetClip("rwr_lock"), 0, false, 0.4f);
+            // Spawn sound
+            if (rwr_lockSound == null)
+                rwr_lockSound = SoundSpawner.SpawnSoundLoop(ac.transform.position, ac.transform, SoundLibrary.GetClip("rwr_lock"), 0, false, 0.4f);
+
+            // Start lock flash
+            if (!enemyLockFlasherRunning)
+            {
+                enemyLockCoroutine = StartCoroutine(EnemyLockFlashLoop());
+                enemyLockFlasherRunning = true;
+            }
         }
         if (enemiesWithinGunsrange.Count == 0)
         {
+            // End sound
             SoundSpawner.EndLoop(rwr_lockSound);
             rwr_lockSound = null;
+
+            // Stop lock flash
+            if (enemyLockFlasherRunning && enemyLockCoroutine != null)
+            {
+                StopCoroutine(enemyLockCoroutine);
+                enemyLockCoroutine = null;
+                enemyLockFlasherRunning = false;
+            }
+
+            // Make sure lock warning text is off
+            if (enemyLock.gameObject.activeSelf)
+            {
+                enemyLock.gameObject.SetActive(false);
+            }
         }
     }
 
@@ -243,7 +248,7 @@ public class TargetInfo : MonoBehaviour
         // Small wait so we don't constantly turn it on and off for like 1 frame
         yield return new WaitForSeconds(0.25f);
 
-        while (enemiesWithinGunsrange != null && enemiesWithinGunsrange.Count > 0)
+        while (enemiesWithinGunsrange.Count > 0)
         {
             // On for f_eLock seconds
             enemyLock.gameObject.SetActive(true);
@@ -271,10 +276,14 @@ public class TargetInfo : MonoBehaviour
     }
 
     bool enemyFireWarningActive;
-    public void TriggerEnemyFireWarning()
+    public void TriggerEnemyFireWarning(Transform enemy)
     {
         if (!enemyFireWarningActive && enemyLockFlasherRunning)
+        {
             StartCoroutine(EnemyFireWarning(Time.time + 1));
+            if (enemy != EnemiesController.enemiesAttacking[0].transform) // If enemy isn't the one already being tracked:
+                RearCamera.instance.StartTrack(enemy);
+        }
     }
     IEnumerator EnemyFireWarning(float t_stopFlash)
     {
@@ -287,5 +296,6 @@ public class TargetInfo : MonoBehaviour
         }
         enemyLaunch.gameObject.SetActive(false);
         enemyFireWarningActive = false;
+        CheckForEnemyForRearCam();
     }
 }
