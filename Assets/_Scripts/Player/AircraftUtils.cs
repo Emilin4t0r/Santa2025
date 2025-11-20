@@ -1,6 +1,7 @@
 using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AircraftUtils : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class AircraftUtils : MonoBehaviour
     AudioSource engineSfxLoop;
 
     public float health = 100;
+    public GameObject plrDeathPrefab;
 
     private void Awake()
     {
@@ -39,6 +41,14 @@ public class AircraftUtils : MonoBehaviour
     private void FixedUpdate()
     {
         TerrainWarning();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Delete))
+        {
+            Die();
+        }
     }
 
     IEnumerator TurnOnAfter(float delay)
@@ -110,6 +120,17 @@ public class AircraftUtils : MonoBehaviour
     }
     void Die()
     {
-        return;
+        StartCoroutine(DeathEvents());
+    }
+
+    IEnumerator DeathEvents() //MOVE THIS LOGIC TO THE DEATH PREFAB
+    {
+        Destroy(gameObject);
+        Instantiate(plrDeathPrefab, transform.position, transform.rotation, null);
+        SoundSpawner.SpawnSound(transform.position, transform.parent, SoundLibrary.GetClip("enemy_explode"), 0, 0.1f, 1f);
+        Helpers.ExplosionSound(transform.position);
+        yield return new WaitForSeconds(2);
+        Cursor.lockState = CursorLockMode.None;
+        SceneManager.LoadScene("Replay");
     }
 }

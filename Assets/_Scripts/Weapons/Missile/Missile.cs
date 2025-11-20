@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Missile : MonoBehaviour
 {
@@ -25,6 +26,9 @@ public class Missile : MonoBehaviour
 
     public GameObject finsToHide;
     public float visualSizeOnLaunch = 1;
+    public float activateThrustersDelay = 0.2f;
+    public string launchSound;
+    public float launchSoundVolume;
 
     float blowUpTimer;
 
@@ -35,14 +39,14 @@ public class Missile : MonoBehaviour
 
     private void Start()
     {
-        SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("missile_launch"));
+        SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip(launchSound), 0, 0.1f, launchSoundVolume);
         trail = transform.GetComponentInChildren<TrailRenderer>();
         sc = GetComponent<CapsuleCollider>();
         rb = GetComponent<Rigidbody>();
         trail.enabled = true;
         sc.enabled = true;
         rb.isKinematic = false;
-        pointLight.SetActive(true);
+        StartCoroutine(ThrusterActivate());
         if (finsToHide != null)
         {
             finsToHide.SetActive(true);
@@ -55,6 +59,12 @@ public class Missile : MonoBehaviour
         rb.linearVelocity = plane.rb.linearVelocity;
         jetSpdOnLaunch = plane.rb.linearVelocity.magnitude;        
     }   
+
+    IEnumerator ThrusterActivate()
+    {
+        yield return new WaitForSeconds(activateThrustersDelay);
+        pointLight.SetActive(true);
+    }
 
     void FixedUpdate()
     {
@@ -194,7 +204,7 @@ public class Missile : MonoBehaviour
         GameObject expl = Instantiate(explosion, transform.position, Quaternion.identity);
         float randExplScale = Random.Range(0.8f, 1.2f);
         expl.transform.localScale *= explosionEffectSize * randExplScale;
-        SoundSpawner.SpawnSound(transform.position, AirplaneController.instance.transform, SoundLibrary.GetClip("missile_explode"));
+        Helpers.ExplosionSound(transform.position);
         Destroy(expl, 7);
         Destroy(gameObject);
     }    

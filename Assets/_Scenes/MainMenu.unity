@@ -10883,7 +10883,7 @@ MonoBehaviour:
       \tGood\nSeeker:\t\tIR\nAmount:\t\t2 Missiles'
   - name: "HURAC\xC1N-S"
     sprite: {fileID: 21300000, guid: a0cd9213f052ceb4aa70d3f3d678bee8, type: 3}
-    description: 'Type:\t\t\tSwarm missiles\nRange:\t\tShort\nManeuverability: \tExcellent\nSeeker:\t\tIndependent\nAmount:\t\t7
+    description: 'Type:\t\t\tSwarm missiles\nRange:\t\tShort\nManeuverability: \tExcellent\nSeeker:\t\tIndependent\nAmount:\t\t9
       Missiles'
   - name: "HURAC\xC1N-L"
     sprite: {fileID: 21300000, guid: 01a2bd632e9c3f64fa28d28124f85094, type: 3}

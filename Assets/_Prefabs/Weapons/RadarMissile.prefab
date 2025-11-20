@@ -8068,6 +8068,9 @@ MonoBehaviour:
   explosionEffectSize: 20
   finsToHide: {fileID: 9178081238182885936}
   visualSizeOnLaunch: 1
+  activateThrustersDelay: 0.4
+  launchSound: radar_launch
+  launchSoundVolume: 0.8
   navigationConstant: 3
 --- !u!136 &1288903366516928059
 CapsuleCollider:

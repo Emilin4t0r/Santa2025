@@ -57,6 +57,8 @@ public class EnemySantaUtils : MonoBehaviour
 
     IEnumerator FireBurst(int shots)
     {
+        if (ac.transform == null)
+            yield return null;
         if (move.target == ac.transform)
             TargetInfo.instance.TriggerEnemyFireWarning(transform);
         shootLoopSound = SoundSpawner.SpawnSoundLoop(transform.position, transform, SoundLibrary.GetClip("shoot_loop2"), 1, false);

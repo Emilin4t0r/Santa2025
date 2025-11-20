@@ -27,6 +27,8 @@ public class FlybyDetector : MonoBehaviour
 
     void Update()
     {
+        if (!player)
+            return;
         if (Vector3.Distance(transform.position, player.position) > flybyTriggerDistance)
             return;
         Vector3 relativePos = transform.position - player.position;

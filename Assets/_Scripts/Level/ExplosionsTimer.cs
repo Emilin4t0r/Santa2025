@@ -19,7 +19,7 @@ public class ExplosionsTimer : MonoBehaviour
         if (Time.time > nextExplosionTime)
         {
             explosions[iNextExplosion].SetActive(true);
-            SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("missile_explode"), 0, 0.15f, 1);
+            Helpers.ExplosionSound(transform.position);
             nextExplosionTime = Time.time + timeBetweenExplosions;
             ++iNextExplosion;
 

@@ -15834,7 +15834,10 @@ MonoBehaviour:
   explosionEffectSize: 10
   finsToHide: {fileID: 4420868212217423339}
   visualSizeOnLaunch: 2
-  navigationConstant: 3
+  activateThrustersDelay: 0.2
+  launchSound: ir_launch
+  launchSoundVolume: 1
+  navigationConstant: 3.5
 --- !u!136 &8794163020312119886
 CapsuleCollider:
   m_ObjectHideFlags: 0

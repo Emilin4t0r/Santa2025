@@ -23,11 +23,11 @@ public class Countdown : MonoBehaviour
         yield return new WaitForSeconds(0.25f); // give time for soundclip's "Three"
         DisplayNumber(numbers[2]);
         explosions[0].SetActive(true);
-        SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("missile_explode"), 0, 0.15f, 1);
+        Helpers.ExplosionSound(transform.position);
         yield return new WaitForSeconds(timeBetweenNumbers);
         DisplayNumber(numbers[1]);
         explosions[1].SetActive(true);
-        SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("missile_explode"), 0, 0.15f, 1);
+        Helpers.ExplosionSound(transform.position);
         yield return new WaitForSeconds(timeBetweenNumbers);
         DisplayNumber(numbers[0]);
         explosions[2].SetActive(true);

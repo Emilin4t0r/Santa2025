@@ -68,4 +68,17 @@ public static class Helpers
 
         return null;
     }
+
+    /// <summary>
+    /// Plays one of two explosion sounds based on distance to player
+    /// </summary>
+    public static void ExplosionSound(Vector3 pos)
+    {
+        var plrPos = AirplaneController.instance.transform.position;
+        var dist = Vector3.Distance(plrPos, pos);
+        if (dist < 500)
+            SoundPool.Instance.PlayOneShot(SoundLibrary.GetClip("missile_explode_close"), pos);
+        else
+            SoundPool.Instance.PlayOneShot(SoundLibrary.GetClip("missile_explode_far"), pos);
+    }
 }

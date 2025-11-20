@@ -35,7 +35,7 @@ public class SwarmMissile : MonoBehaviour
 
     private void Start()
     {
-        SoundPool.Instance.PlayOneShot(SoundLibrary.GetClip("missile_launch"), transform.position);
+        SoundPool.Instance.PlayOneShot(SoundLibrary.GetClip("swarm_launch"), transform.position);
         rotator = transform.Find("MissileRotator").gameObject;
         trail = transform.GetComponentInChildren<TrailRenderer>();
         sc = GetComponent<SphereCollider>();
@@ -253,13 +253,13 @@ public class SwarmMissile : MonoBehaviour
         float dmg = Random.Range(damageRange.x, damageRange.y);
         enemy.GetHit(dmg);
         print("SWRM DAMAGED: " + enemy.name + " DMG: " + dmg + " DIST: " + dist);
-    }
+    }   
 
     void Explode()
     {
         GameObject expl = Instantiate(explosion, transform.position, Quaternion.identity);
         expl.transform.localScale *= explosionEffectSize;
-        SoundPool.Instance.PlayOneShot(SoundLibrary.GetClip("missile_explode"), transform.position);
+        Helpers.ExplosionSound(transform.position);
         Destroy(expl, 7);
         Destroy(gameObject);
     }
