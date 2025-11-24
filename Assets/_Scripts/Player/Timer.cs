@@ -31,7 +31,7 @@ public class Timer : MonoBehaviour
         if (gameTimer < 0)
         {
             Cursor.lockState = CursorLockMode.None;
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Replay");
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Scoreboard");
         }
         int minutes = (int)gameTimer / 60;
         int seconds = (int)(gameTimer - (minutes * 60));

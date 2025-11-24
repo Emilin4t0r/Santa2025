@@ -120,17 +120,7 @@ public class AircraftUtils : MonoBehaviour
     }
     void Die()
     {
-        StartCoroutine(DeathEvents());
-    }
-
-    IEnumerator DeathEvents() //MOVE THIS LOGIC TO THE DEATH PREFAB
-    {
         Destroy(gameObject);
-        Instantiate(plrDeathPrefab, transform.position, transform.rotation, null);
-        SoundSpawner.SpawnSound(transform.position, transform.parent, SoundLibrary.GetClip("enemy_explode"), 0, 0.1f, 1f);
-        Helpers.ExplosionSound(transform.position);
-        yield return new WaitForSeconds(2);
-        Cursor.lockState = CursorLockMode.None;
-        SceneManager.LoadScene("Replay");
+        var death = Instantiate(plrDeathPrefab, transform.position, transform.rotation, null);
     }
 }

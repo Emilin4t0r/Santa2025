@@ -14,8 +14,11 @@ public class Bullet : MonoBehaviour
     private void Awake()
     {
         trail = transform.Find("Trail").gameObject;
-        trail.SetActive(false);
-        Invoke("ActivateVisuals", 0.02f);
+        if (trail.activeSelf)
+        {
+            trail.SetActive(false);
+            Invoke("ActivateVisuals", 0.02f);
+        }
     }
 
     private void Update()

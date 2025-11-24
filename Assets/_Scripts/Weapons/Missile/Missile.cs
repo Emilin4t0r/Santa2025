@@ -46,7 +46,8 @@ public class Missile : MonoBehaviour
         trail.enabled = true;
         sc.enabled = true;
         rb.isKinematic = false;
-        StartCoroutine(ThrusterActivate());
+        if (activateThrustersDelay > 0)
+            StartCoroutine(ThrusterActivate());
         if (finsToHide != null)
         {
             finsToHide.SetActive(true);
@@ -63,6 +64,7 @@ public class Missile : MonoBehaviour
     IEnumerator ThrusterActivate()
     {
         yield return new WaitForSeconds(activateThrustersDelay);
+        EZCameraShake.CameraShaker.Instance.ShakeOnce(4, 8, 0, 0.5f);
         pointLight.SetActive(true);
     }
 
