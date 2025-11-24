@@ -14205,6 +14205,7 @@ MonoBehaviour:
   turnOnDelay: 9.5
   turnedOn: 0
   health: 100
+  plrDeathPrefab: {fileID: 0}
 --- !u!82 &1850424123110682880
 AudioSource:
   m_ObjectHideFlags: 0
@@ -29165,7 +29166,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4962592314532129793}
-  - component: {fileID: 5775792064704262037}
+  - component: {fileID: 9160306183153223086}
   m_Layer: 3
   m_Name: WeaponsParent
   m_TagString: Untagged
@@ -29188,7 +29189,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7533986947536084115}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5775792064704262037
+--- !u!114 &9160306183153223086
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -29197,7 +29198,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8617130573388589209}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2fc7a479c5a48c4ba363626c9d7eb42, type: 3}
+  m_Script: {fileID: 11500000, guid: 675e8397381f37348808ee5053347f34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8638941104032043816

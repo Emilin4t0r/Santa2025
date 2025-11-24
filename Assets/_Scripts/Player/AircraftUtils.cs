@@ -121,6 +121,6 @@ public class AircraftUtils : MonoBehaviour
     void Die()
     {
         Destroy(gameObject);
-        var death = Instantiate(plrDeathPrefab, transform.position, transform.rotation, null);
+        var death = Instantiate(plrDeathPrefab, transform.position, Quaternion.identity, null);
     }
 }

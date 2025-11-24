@@ -76,10 +76,6 @@ public class Missiles : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            InitializeWeapon();
-        }
         if (missiles.Count <= 0 || !au.turnedOn)
             return;
         if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -152,6 +148,10 @@ public class Missiles : MonoBehaviour
                                 lockedOn = Helpers.GetClosestRadarBlip(origin, radarTrackerParent).GetComponent<RadarTracker>().target;
                             }
                             print("Locking finished, locked on: " + lockedOn?.name);
+
+                            var tts = TooltipSpawner.instance;
+                            tts.ShowTooltip(tts.tt_firemsl);
+
                             seeking = false;
                         }
                         else

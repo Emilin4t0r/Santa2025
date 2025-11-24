@@ -10,6 +10,7 @@ public class Timer : MonoBehaviour
     public TextMeshProUGUI text;
 
     AircraftUtils au;
+    bool fadeStarted;
 
     void Start()
     {
@@ -22,12 +23,22 @@ public class Timer : MonoBehaviour
         if (!au.turnedOn)
             return;
 
-        CountTimer();
+        CountTimer();        
+    }
+
+    void StartEndFade()
+    {
+        GameObject.Find("ToBlack").GetComponent<FadeBlack>().DoFade();
     }
 
     void CountTimer()
     {
         gameTimer -= Time.fixedDeltaTime;
+        if (gameTimer < 3 && !fadeStarted)
+        {
+            StartEndFade();
+            fadeStarted = true;
+        }
         if (gameTimer < 0)
         {
             Cursor.lockState = CursorLockMode.None;

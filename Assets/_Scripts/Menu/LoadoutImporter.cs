@@ -50,6 +50,6 @@ public class LoadoutImporter : MonoBehaviour
     public void StartGame()
     {
         SaveWeaponsToDDOL();
-        SceneManager.LoadScene("Gameplay");
+        SceneManager.LoadScene("LoadingScreen");
     }
 }
