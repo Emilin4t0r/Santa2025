@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
+using static UnityEditor.PlayerSettings;
 
 public class Bullet : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class Bullet : MonoBehaviour
     public GameObject bulletHit, altBulletHit;
     public float damage = 1;
     public bool doRandomRicochets;
+    public string hitSoundName;
     private void Awake()
     {
         trail = transform.Find("Trail").gameObject;
@@ -79,14 +81,18 @@ public class Bullet : MonoBehaviour
         if (useAltHit && altBulletHit != null)
         {
             hit = Instantiate(altBulletHit, thrdLastPos, transform.rotation);
+            if (hitSoundName == "20mm_hit")
+                SoundPool.Instance.PlayOneShot(SoundLibrary.GetClip(hitSoundName), hit.transform.position, 0.75f, 1, 0.5f, spatial: true);
         }
         else
         {
             hit = Instantiate(bulletHit, thrdLastPos, transform.rotation);
+            if (hitSoundName != "20mm_hit")
+                SoundPool.Instance.PlayOneShot(SoundLibrary.GetClip(hitSoundName), hit.transform.position, 0.75f, 1, 0.5f, spatial: true);
         }
         hit.transform.eulerAngles = -transform.forward;
         float randScale = Random.Range(0.75f, 1.25f);
-        hit.transform.localScale = new Vector3(randScale, randScale, randScale);
+        hit.transform.localScale = new Vector3(randScale, randScale, randScale);        
         Destroy(hit, 2f);
         Destroy(gameObject);
     }

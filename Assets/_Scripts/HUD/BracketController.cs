@@ -128,6 +128,11 @@ public class BracketController : MonoBehaviour
             health.SetHealth(enemyScript.hitPoints);
             enemyScript.OnHit += health.ChangeHealth;
             SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("radar_lock"), 0, 0);
+
+            // Spawn tooltip
+            Transform wpnsDupe = GameObject.Find("WeaponsDupe").transform;
+            if(wpnsDupe.GetComponent<WeaponsSelector>().IsCurrentWeaponGun())
+                TooltipSpawner.instance.ShowTooltip(TooltipSpawner.instance.tt_lead);
         }
         catch
         {

@@ -2292,7 +2292,7 @@ MonoBehaviour:
   - {fileID: 3670047663290536064}
   - {fileID: 6976284243374152283}
   shootForce: 950
-  inaccuracy: 0.03
+  inaccuracy: 0.015
   shootFrequency: {x: 0.5, y: 5}
   shotsPerBurst: {x: 1, y: 14}
   nextShootTime: 0

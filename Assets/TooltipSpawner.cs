@@ -1,11 +1,15 @@
+using DG.Tweening;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TooltipSpawner : MonoBehaviour
 {
     public static TooltipSpawner instance;
+    public float lifetime = 3f;
 
-    public GameObject tt_firemsl, tt_flaps, tt_gift, tt_radarmsl;
-    bool firemslShowed, flapsShowed, giftShowed, radarmslShowed;
+    public GameObject tt_firemsl, tt_flaps, tt_gift, tt_radarmsl, tt_lead;
+    bool firemslShowed, flapsShowed, giftShowed, radarmslShowed, leadShowed;
 
     private void Awake()
     {
@@ -47,10 +51,28 @@ public class TooltipSpawner : MonoBehaviour
             else
                 radarmslShowed = true;
         }
+        if (tooltipPrefab == tt_lead)
+        {
+            if (leadShowed)
+                return;
+            else
+                leadShowed = true;
+        }
 
         var tt = Instantiate(tooltipPrefab, transform);
-        tt.GetComponent<RectTransform>().localPosition = Vector3.zero;
+        var content = tt.GetComponentInChildren<Mask>().transform.GetChild(0); // "Content" -object
+        StartCoroutine(AnimateTooltip(content));
         //Do animations
-        Destroy(tt, 5);
+        Destroy(tt, lifetime + 1); // +1 second to allow tweens to die out
+    }
+
+    IEnumerator AnimateTooltip(Transform tooltip)
+    {
+        Vector3 l = tooltip.transform.localPosition;
+        tooltip.transform.localPosition = new Vector3(-350, l.y, l.z);
+        float moveTime = 0.5f;
+        tooltip.transform.DOLocalMoveX(0, moveTime);
+        yield return new WaitForSeconds(lifetime - moveTime);
+        tooltip.transform.DOLocalMoveX(-350, moveTime);
     }
 }

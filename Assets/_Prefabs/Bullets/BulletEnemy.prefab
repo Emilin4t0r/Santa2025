@@ -32,7 +32,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6759819027281651520}
   - {fileID: 7754397399925955573}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -80,8 +79,9 @@ MonoBehaviour:
   - Enemy
   bulletHit: {fileID: 7070465220517492653, guid: 7e00a1561d1f84b4fbd07b48d2874e7c, type: 3}
   altBulletHit: {fileID: 3020074479479517078, guid: e805d967a77817d468643925f2e4e815, type: 3}
-  damage: 4
+  damage: 6
   doRandomRicochets: 0
+  hitSoundName: 20mm_hit
 --- !u!136 &5616326674708750372
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -134,7 +134,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 1.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6759819027281651520}
   m_Father: {fileID: 6999119519953337076}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!96 &251145477779830019
@@ -279,12 +280,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8293525645480250089}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1.09}
   m_LocalScale: {x: 0.5, y: 0.5, z: 2.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6999119519953337076}
+  m_Father: {fileID: 7754397399925955573}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3210508077234140524
 MeshFilter:

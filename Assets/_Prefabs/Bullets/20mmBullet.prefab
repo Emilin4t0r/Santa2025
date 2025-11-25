@@ -26,10 +26,11 @@ Transform:
   m_GameObject: {fileID: 392506475237436804}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.13}
+  m_LocalPosition: {x: 0, y: 0, z: 5.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6957263644552680521}
   m_Father: {fileID: 6999119519953337076}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!96 &331229178364588916
@@ -81,27 +82,54 @@ TrailRenderer:
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.25
+    widthMultiplier: 0.3
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
+        value: 0.6689224
+        inSlope: 2.6629226
+        outSlope: 2.6629226
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.33333334
+        outWeight: 0.9279045
       - serializedVersion: 3
-        time: 0.9999999
-        value: 0
-        inSlope: 0
-        outSlope: 0
+        time: 0.10042131
+        value: 0.87861836
+        inSlope: 1.1220949
+        outSlope: 1.1220949
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0
+        inWeight: 0.9719597
+        outWeight: 0.3750833
+      - serializedVersion: 3
+        time: 0.5011989
+        value: 1
+        inSlope: 0.03383359
+        outSlope: 0.03383359
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.40084612
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.8985806
+        value: 0.8970723
+        inSlope: -0.92221534
+        outSlope: -0.92221534
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.42835993
+        outWeight: 1
+      - serializedVersion: 3
+        time: 1
+        value: 0.64865875
+        inSlope: -4.3300505
+        outSlope: -4.3300505
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.67695874
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -180,7 +208,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6957263644552680521}
   - {fileID: 3591425209108269542}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -229,6 +256,7 @@ MonoBehaviour:
   altBulletHit: {fileID: 3020074479479517078, guid: e805d967a77817d468643925f2e4e815, type: 3}
   damage: 3.2
   doRandomRicochets: 1
+  hitSoundName: 20mm_hit
 --- !u!136 &5616326674708750372
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -269,7 +297,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6957263644552680521
 Transform:
   m_ObjectHideFlags: 0
@@ -279,11 +307,11 @@ Transform:
   m_GameObject: {fileID: 7643346422602092596}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1.13}
   m_LocalScale: {x: 0.25, y: 0.25, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6999119519953337076}
+  m_Father: {fileID: 3591425209108269542}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1214200125330535499
 MeshFilter:

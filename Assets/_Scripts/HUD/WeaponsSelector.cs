@@ -22,7 +22,7 @@ public class WeaponsSelector : MonoBehaviour
     public event Action OnWeaponChanged;
 
     private void OnEnable()
-    {        
+    {
         SceneManager.activeSceneChanged += OnSceneChanged;
     }
     private void OnDisable()
@@ -58,7 +58,7 @@ public class WeaponsSelector : MonoBehaviour
             return;
 
         float scroll = Input.GetAxis("Mouse ScrollWheel");
-       
+
         if (scroll > 0) // Scroll up
         {
             if (currentWeaponIndex < amountOfWeapons - 1)
@@ -67,7 +67,8 @@ public class WeaponsSelector : MonoBehaviour
                 currentWeaponIndex = 0;
             SetActiveWeapon(currentWeaponIndex);
         }
-        else if (scroll < 0) { // Scroll down
+        else if (scroll < 0)
+        { // Scroll down
             if (currentWeaponIndex > 0)
                 currentWeaponIndex--;
             else
@@ -78,7 +79,7 @@ public class WeaponsSelector : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             if (hudWeapons.availableWeapons.Count > 0)
-                SetActiveWeapon(0);                    
+                SetActiveWeapon(0);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
@@ -110,7 +111,7 @@ public class WeaponsSelector : MonoBehaviour
 
     public void SetActiveWeapon(int weaponIndex)
     {
-        SetAllWeaponsInactive(); 
+        SetAllWeaponsInactive();
         var hudWpn = hudWeapons.SetSelectedHUDWeapon(weaponIndex);
         switch (hudWpn.id)
         {
@@ -206,5 +207,13 @@ public class WeaponsSelector : MonoBehaviour
         irMissiles.DeactivateWeapon();
         radarMissiles.DeactivateWeapon();
         swarmMissiles.enabled = false;
+    }
+
+    public bool IsCurrentWeaponGun()
+    {
+        if (currentWeaponName == "20MM" || currentWeaponName == "30MM" || currentWeaponName == "100MM")
+            return true;
+        else
+            return false;
     }
 }

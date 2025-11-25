@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class LoadingScreen : MonoBehaviour
 {
     public Image fillImg;
+    public float fillSpeed = 3f;
+    float currentFill = 0f;
 
     private void Start()
     {
@@ -14,32 +16,34 @@ public class LoadingScreen : MonoBehaviour
 
     IEnumerator LoadSceneAsync()
     {
-        int buildIndex = SceneUtility.GetBuildIndexByScenePath("Gameplay"); //this returns -1 if scene doesn't exist
+        int buildIndex = SceneUtility.GetBuildIndexByScenePath("Gameplay");
 
         if (buildIndex >= 0)
         {
-            //The operation that will control the Async loading using the global LoadingData script
             AsyncOperation operation = SceneManager.LoadSceneAsync("Gameplay");
-            //Stop next scene from loading
             operation.allowSceneActivation = false;
 
             while (!operation.isDone)
             {
-                //display loading bar, tips, etc. here
-                //->
-                fillImg.fillAmount = operation.progress;
+                float targetProgress = Mathf.Clamp01(operation.progress / 0.9f);
+                // ^ Normalizes the 0–0.9 Unity progress into 0–1
 
-                if (operation.progress >= 0.8f)
+                // Smoothly move toward target progress
+                currentFill = Mathf.Lerp(currentFill, targetProgress, Time.deltaTime * fillSpeed);
+                fillImg.fillAmount = currentFill;
+
+                // Allow activation when Unity hits 0.9 (meaning loaded)
+                if (operation.progress >= 0.9f && currentFill >= 0.995f)
                 {
-                    //allow next scene to load
                     operation.allowSceneActivation = true;
                 }
+
                 yield return null;
             }
         }
         else
         {
-            print("Scene is invalid!");
+            Debug.LogError("Scene is invalid!");
         }
     }
 }

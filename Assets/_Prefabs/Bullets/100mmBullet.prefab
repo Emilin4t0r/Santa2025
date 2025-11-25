@@ -103,6 +103,7 @@ MonoBehaviour:
   altBulletHit: {fileID: 0}
   damage: 10
   doRandomRicochets: 0
+  hitSoundName: 100mm_hit
   blastRadius: 100
   burstDamageMod: 25
 --- !u!1 &5719891472711463007
