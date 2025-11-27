@@ -27,6 +27,7 @@ public class Missiles : MonoBehaviour
     Transform radarTrackerParent;
 
     public GameObject missilePrefab;
+    bool inGameScene;
 
     private void Awake()
     {
@@ -45,7 +46,11 @@ public class Missiles : MonoBehaviour
     {
         if (now.name == "Gameplay")
         {
-            InitializeWeapon();
+            InitializeWeapon();            
+        }
+        else
+        {
+            inGameScene = false;
         }
     }
 
@@ -59,6 +64,7 @@ public class Missiles : MonoBehaviour
         au = AircraftUtils.instance;
         radarTrackerParent = GameObject.Find("RadarTrackers").transform;
         targeter = Targeter.instance;
+        inGameScene = true;
     }
 
     void GetMissilesFromChildren()
@@ -76,10 +82,20 @@ public class Missiles : MonoBehaviour
 
     private void Update()
     {
-        if (missiles.Count <= 0 || !au.turnedOn)
+        if (!inGameScene)
             return;
+
+        if (!au.turnedOn)
+            return;
+
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
+            if (missiles.Count <= 0)
+            {
+                SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("empty_weapon"), 0, 0);
+                return;
+            }
+
             if (lockedOn)
             {
                 FireMissile();
@@ -113,6 +129,9 @@ public class Missiles : MonoBehaviour
                     {
                         lockedOn = bc.lockedOn;
                         seeking = false;
+
+                        var tts = TooltipSpawner.instance;
+                        tts.ShowTooltip(tts.tt_firemsl);
                     }
                 }
                 if (!bc.lockedOn && seeking)
@@ -196,7 +215,11 @@ public class Missiles : MonoBehaviour
     void SeekRadarLock()
     {
         if (!bc.lockedOn)
+        {
+            var tts = TooltipSpawner.instance;
+            tts.ShowTooltip(tts.tt_radarmsl);
             return;
+        }
         StartSeek();
     }
     void SeekIRLock()

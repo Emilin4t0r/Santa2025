@@ -88,7 +88,12 @@ public class Bullet : MonoBehaviour
         {
             hit = Instantiate(bulletHit, thrdLastPos, transform.rotation);
             if (hitSoundName != "20mm_hit")
-                SoundPool.Instance.PlayOneShot(SoundLibrary.GetClip(hitSoundName), hit.transform.position, 0.75f, 1, 0.5f, spatial: true);
+            {
+                if (hitSoundName == "100mm_hit")
+                    SoundPool.Instance.PlayOneShot(SoundLibrary.GetClip(hitSoundName), hit.transform.position, 0.75f, 1, 0.25f, spatial: true);
+                else
+                    SoundPool.Instance.PlayOneShot(SoundLibrary.GetClip(hitSoundName), hit.transform.position, 0.75f, 1, 0.5f, spatial: true);
+            }
         }
         hit.transform.eulerAngles = -transform.forward;
         float randScale = Random.Range(0.75f, 1.25f);

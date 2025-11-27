@@ -14,6 +14,8 @@ public class SwarmMissiles : MonoBehaviour
     public float fireRate;
     float nextTimeToFire;
 
+    bool inGameScene;
+
     private void Awake()
     {
         missiles = new List<SwarmMissile>();
@@ -31,11 +33,10 @@ public class SwarmMissiles : MonoBehaviour
     {
         if (now.name == "Gameplay")
         {
-            GetMissilesFromChildren();
-            hudWeapons = GameObject.Find("HUDWeapons").GetComponent<HUDWeapons>();
-            hud = hudWeapons.weapons[hudWeaponIndex].GetComponent<HUDWeapon>();
-            hud.SetAmmo(missiles.Count);
-            au = AircraftUtils.instance;
+            InitializeWeapon();
+        } else
+        {
+            inGameScene = false;
         }
     }
 
@@ -46,6 +47,7 @@ public class SwarmMissiles : MonoBehaviour
         hud = hudWeapons.weapons[hudWeaponIndex].GetComponent<HUDWeapon>();
         hud.SetAmmo(missiles.Count);
         au = AircraftUtils.instance;
+        inGameScene = true;
     }
 
     void GetMissilesFromChildren()
@@ -61,10 +63,21 @@ public class SwarmMissiles : MonoBehaviour
 
     private void Update()
     {
-        if (missiles.Count <= 0 || !au.turnedOn)
+        if (!inGameScene)
             return;
-        if (Input.GetKey(KeyCode.Mouse0))
+
+        if (!au.turnedOn)
+            return;
+
+        if (missiles.Count <= 0)
         {
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+                SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("empty_weapon"), 0, 0);
+            return;
+        }
+
+        if (Input.GetKey(KeyCode.Mouse0))
+        {            
             if (Time.time > nextTimeToFire)
             {
                 FireMissile();

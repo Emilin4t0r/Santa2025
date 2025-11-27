@@ -102,11 +102,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5414696691367139128, guid: 7ee428a6fe1f3a844aae826b7124edc7, type: 3}
       propertyPath: m_text
-      value: Radar missiles require radar lock before they can seek
+      value: Lock target for Radar missiles
       objectReference: {fileID: 0}
     - target: {fileID: 5414696691367139128, guid: 7ee428a6fe1f3a844aae826b7124edc7, type: 3}
       propertyPath: m_fontSize
-      value: 66.05
+      value: 85
+      objectReference: {fileID: 0}
+    - target: {fileID: 5414696691367139128, guid: 7ee428a6fe1f3a844aae826b7124edc7, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 85
+      objectReference: {fileID: 0}
+    - target: {fileID: 5414696691367139128, guid: 7ee428a6fe1f3a844aae826b7124edc7, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6554341149805597367, guid: 7ee428a6fe1f3a844aae826b7124edc7, type: 3}
       propertyPath: m_Name
@@ -114,7 +122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7834784013052364381, guid: 7ee428a6fe1f3a844aae826b7124edc7, type: 3}
       propertyPath: m_text
-      value: Radar Missiles
+      value: Lock Target
       objectReference: {fileID: 0}
     - target: {fileID: 7834784013052364381, guid: 7ee428a6fe1f3a844aae826b7124edc7, type: 3}
       propertyPath: m_fontSize

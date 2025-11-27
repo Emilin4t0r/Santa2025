@@ -145,6 +145,7 @@ public class WeaponsSelector : MonoBehaviour
                 swarmMissiles.enabled = true;
                 break;
         }
+        SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("switch_weapon"), 0, 0.025f);
     }
 
     void ExcludeEmptyWeapons()

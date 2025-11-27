@@ -91,6 +91,7 @@ public class Gift : MonoBehaviour
                 wpn = Hardpoint.WeaponType.Huracán_Pod;
                 WeaponsParent.instance.ReplaceWeaponGameobject(wpn);
                 break;
-        }        
+        }
+        SoundSpawner.SpawnSound(transform.position, null, SoundLibrary.GetClip("pickup_gift"), 0, 0);
     }
 }

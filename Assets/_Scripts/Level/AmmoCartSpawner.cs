@@ -22,11 +22,15 @@ public class AmmoCartSpawner : MonoBehaviour
     }
 
     void SpawnCart()
-    {
+    {        
         Quaternion q = transform.rotation;
         Quaternion r = Random.rotation;
         Quaternion randomYRot = new Quaternion(q.x, r.y, q.z, q.w);
         var cart = Instantiate(ammoCartPrefab, transform.position, randomYRot, transform);
+        SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("gift_announce"));
         Destroy(cart.gameObject, 30);
+
+        var tts = TooltipSpawner.instance;
+        tts.ShowTooltip(tts.tt_gift);
     }
 }

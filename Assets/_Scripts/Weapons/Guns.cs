@@ -78,13 +78,12 @@ public class Guns : MonoBehaviour
         if (!inGameScene || !au.turnedOn) 
             return;
 
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            ReloadGuns();
-        }
-
         if (ammoCount <= 0)
         {
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("empty_weapon"), 0, 0);
+            }
             if (shootSoundParent.childCount > 0)
             {
                 StopBurst();

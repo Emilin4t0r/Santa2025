@@ -17,12 +17,7 @@ public class TooltipSpawner : MonoBehaviour
     }
 
     public void ShowTooltip(GameObject tooltipPrefab)
-    {
-        foreach (Transform child in transform)
-        {
-            Destroy(child);
-        }
-
+    {        
         if (tooltipPrefab == tt_firemsl)
         {
             if (firemslShowed)
@@ -30,7 +25,7 @@ public class TooltipSpawner : MonoBehaviour
             else
                 firemslShowed = true;
         }
-        if (tooltipPrefab == tt_flaps)
+        if (tooltipPrefab == tt_flaps) // Todo, activation - activate after first 20 seconds?
         {
             if (flapsShowed)
                 return;
@@ -59,6 +54,11 @@ public class TooltipSpawner : MonoBehaviour
                 leadShowed = true;
         }
 
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+
         var tt = Instantiate(tooltipPrefab, transform);
         var content = tt.GetComponentInChildren<Mask>().transform.GetChild(0); // "Content" -object
         StartCoroutine(AnimateTooltip(content));
@@ -73,6 +73,7 @@ public class TooltipSpawner : MonoBehaviour
         float moveTime = 0.5f;
         tooltip.transform.DOLocalMoveX(0, moveTime);
         yield return new WaitForSeconds(lifetime - moveTime);
-        tooltip.transform.DOLocalMoveX(-350, moveTime);
+        if (tooltip)
+            tooltip.transform.DOLocalMoveX(-350, moveTime);
     }
 }

@@ -35,6 +35,8 @@ public class AirplaneController : MonoBehaviour
     AircraftPhysics aircraftPhysics;
     public Rigidbody rb;
 
+    float flapsTooltipTimer;
+
     private void Awake()
     {
         instance = this;
@@ -100,7 +102,22 @@ public class AirplaneController : MonoBehaviour
             if (spd > 100 && Mathf.Abs(Pitch) > 0.75f)
             {
                 EZCameraShake.CameraShaker.Instance.ShakeOnce(Pitch / 15 * (spd / 100), Pitch * 15 * (spd / 100), 0, 1f);
-            }
+
+                // Add timer for flaps tooltip
+                if (Mathf.Abs(Pitch) > 0.95f)
+                {
+                    flapsTooltipTimer += Time.deltaTime;
+                    if (flapsTooltipTimer > 2)
+                    {
+                        var tts = TooltipSpawner.instance;
+                        tts.ShowTooltip(tts.tt_flaps);
+                    }
+                }
+                else
+                {
+                    flapsTooltipTimer = 0;
+                }
+            } 
         }
     }
 
