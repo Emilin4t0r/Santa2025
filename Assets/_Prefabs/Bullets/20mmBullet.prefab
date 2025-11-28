@@ -188,6 +188,7 @@ GameObject:
   - component: {fileID: 1545909903130519858}
   - component: {fileID: 4719824497343063565}
   - component: {fileID: 5616326674708750372}
+  - component: {fileID: 6760776380343024206}
   m_Layer: 6
   m_Name: 20mmBullet
   m_TagString: Bullet
@@ -280,6 +281,21 @@ CapsuleCollider:
   m_Height: 2.58
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6760776380343024206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3130551460163936705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5dcd77cbeb16004b9fb7fa4932266cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet3d: {fileID: 3591425209108269542}
+  magnitude: 0.1
+  frequency: 0.001
 --- !u!1 &7643346422602092596
 GameObject:
   m_ObjectHideFlags: 0

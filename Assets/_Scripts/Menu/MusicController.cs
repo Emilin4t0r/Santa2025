@@ -56,6 +56,11 @@ public class MusicController : MonoBehaviour
         mmc.ShowTitle(skipAnimations);
     }
 
+    public void FadeMainLoop()
+    {
+        FadeMusicOut(musicLoop, 1);
+    }
+
     public void FadeMusicOut(AudioSource source, float fadeOutTime)
     {
         StartCoroutine(FadeOutCoroutine(source, fadeOutTime));
