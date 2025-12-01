@@ -14058,7 +14058,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7533986947536084115}
   - component: {fileID: 670174315604405529}
-  - component: {fileID: 6588497839101735386}
   - component: {fileID: 8776204792773420487}
   - component: {fileID: 2180878593821254453}
   - component: {fileID: 8290679592805362151}
@@ -14128,19 +14127,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &6588497839101735386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3448633395269985640}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f4daa5cd96695345bb78780a4de5ba0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mouseSensitivity: 2
 --- !u!114 &8776204792773420487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14176,7 +14162,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b2e651fb6e03814ca392bbc92616e00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseHorizontalAsRoll: 0
   controlSurfaces:
   - {fileID: 6827446687973874947}
   - {fileID: 8238483065100956817}

@@ -10,6 +10,8 @@ public class MainMenuController : MonoBehaviour
     
     public Image title, introBlackScreen;
 
+    public GameObject settingsMenu;
+
     private void Start()
     {
         baseMenu = GameObject.Find("Menu");
@@ -53,6 +55,11 @@ public class MainMenuController : MonoBehaviour
             baseMenu.SetActive(true);
             weaponSelect.SetActive(false);
         }
+    }
+
+    public void ToggleSettingsMenu()
+    {
+        settingsMenu.SetActive(!settingsMenu.activeSelf);
     }
 
     public void StartGame()

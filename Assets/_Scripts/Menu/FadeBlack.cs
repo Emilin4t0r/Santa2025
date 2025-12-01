@@ -11,6 +11,7 @@ public class FadeBlack : MonoBehaviour
     {
         if (endValue == 0)
         {
+            GetComponent<Image>().color = new Color(0, 0, 0, 1);
             DoFade();
         }
     }

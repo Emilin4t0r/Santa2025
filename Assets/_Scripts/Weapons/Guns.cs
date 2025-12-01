@@ -78,6 +78,8 @@ public class Guns : MonoBehaviour
         if (!inGameScene || !au.turnedOn) 
             return;
 
+        if (SettingsToggler.gamePaused) return;
+
         if (ammoCount <= 0)
         {
             if (Input.GetKeyDown(KeyCode.Mouse0))

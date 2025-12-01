@@ -37,6 +37,8 @@ public class EnemySantaUtils : MonoBehaviour
 
     private void Update()
     {
+        if (ac == null) return;
+
         //Shoot
         if (Time.time > nextShootTime && trackCollider.readyToFire && !firing)
         {

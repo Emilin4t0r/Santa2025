@@ -17,7 +17,9 @@ public class TooltipSpawner : MonoBehaviour
     }
 
     public void ShowTooltip(GameObject tooltipPrefab)
-    {        
+    {
+        if (Settings.showTooltips == false) return;
+
         if (tooltipPrefab == tt_firemsl)
         {
             if (firemslShowed)

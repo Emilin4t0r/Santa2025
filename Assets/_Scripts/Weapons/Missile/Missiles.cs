@@ -88,6 +88,8 @@ public class Missiles : MonoBehaviour
         if (!au.turnedOn)
             return;
 
+        if (SettingsToggler.gamePaused) return;
+
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             if (missiles.Count <= 0)

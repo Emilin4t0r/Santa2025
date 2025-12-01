@@ -4,41 +4,47 @@ using UnityEngine;
 
 public class MouseAim : MonoBehaviour
 {
-    private int[] center = new int[2];
-    private float blockX;
-    private float mouseX;
-    private float blockY;
-    private float mouseY;
+    public RectTransform fakeCursor;
+    public float baseSensitivity;
     public static float Xcoord;
     public static float Ycoord;
 
-    public float mouseSensitivity;
+    private Vector2 fakePos;
+    public RectTransform canvasRect;
+
+    public float steerForce = 2f;
+
     void Start()
     {
-        center[0] = Screen.width / 2;
-        center[1] = Screen.height / 2;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
+        fakePos = Vector2.zero;
     }
 
     void Update()
     {
-        blockX = Screen.width / 100f;
-        mouseX = Input.mousePosition.x - center[0];
-        Xcoord = (mouseX / blockX) * mouseSensitivity;
-        blockY = Screen.height / 100f;
-        mouseY = Input.mousePosition.y - center[1];
-        Ycoord = (mouseY / blockY) * mouseSensitivity;
+        if (SettingsToggler.gamePaused) return;
 
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            ResetMousePos();
-        }
-    }
+        // Get mouse movement (not position)
+        float dx = Input.GetAxisRaw("Mouse X");
+        float dy = Input.GetAxisRaw("Mouse Y");
 
-    void ResetMousePos()
-    {
-        mouseX = 0;
-        mouseY = 0;
-        Xcoord = 0;
-        Ycoord = 0;        
+        // Apply your own sensitivity
+        fakePos += new Vector2(dx, dy) * baseSensitivity * Settings.mouseSensitivity;
+
+        // Clamp to screen/canvas edges
+        float halfW = canvasRect.sizeDelta.x * 0.5f;
+        float halfH = canvasRect.sizeDelta.y * 0.5f;
+
+        fakePos.x = Mathf.Clamp(fakePos.x, -halfW, halfW);
+        fakePos.y = Mathf.Clamp(fakePos.y, -halfH, halfH);
+
+        // Move fake cursor
+        fakeCursor.anchoredPosition = fakePos;
+
+        // Convert to steering (-1 to 1)
+        Xcoord = (fakePos.x / halfW) * steerForce;
+        Ycoord = (fakePos.y / halfH) * steerForce;
     }
 }

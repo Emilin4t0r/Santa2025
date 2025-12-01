@@ -6,8 +6,6 @@ public class AirplaneController : MonoBehaviour
 {
     public static AirplaneController instance;
 
-    public bool mouseHorizontalAsRoll;
-
     [SerializeField]
     List<AeroSurface> controlSurfaces = null;
     [SerializeField]
@@ -46,28 +44,32 @@ public class AirplaneController : MonoBehaviour
 
     private void Update()
     {
-        if (mouseHorizontalAsRoll)
-        {
-            if (!CameraController.freeLooking)
-            {
-                Pitch = Mathf.Clamp(-MouseAim.Ycoord / 75 + Input.GetAxis("Vertical"), -1, 1);
-                Roll = Mathf.Clamp(MouseAim.Xcoord / 75, -1, 1);
-            } else
-            {
-                Pitch = Mathf.Clamp(Input.GetAxis("Vertical"), -1, 1);
-            }
-            Yaw = -Input.GetAxis("Horizontal");
-        } else
+        if (SettingsToggler.gamePaused) return;
+
+        if (Settings.useADForRoll)
         {
             if (!CameraController.freeLooking)
             {
                 Pitch = Mathf.Clamp(-MouseAim.Ycoord / 75 + Input.GetAxis("Vertical"), -1, 1);
                 Yaw = Mathf.Clamp(-MouseAim.Xcoord / 75, -1, 1);
-            } else
+            }
+            else
             {
                 Pitch = Mathf.Clamp(Input.GetAxis("Vertical"), -1, 1);
             }
-            Roll = Input.GetAxis("Horizontal");
+            Roll = Input.GetAxis("Horizontal");            
+        } else
+        {
+            if (!CameraController.freeLooking)
+            {
+                Pitch = Mathf.Clamp(-MouseAim.Ycoord / 75 + Input.GetAxis("Vertical"), -1, 1);
+                Roll = Mathf.Clamp(MouseAim.Xcoord / 75, -1, 1);
+            }
+            else
+            {
+                Pitch = Mathf.Clamp(Input.GetAxis("Vertical"), -1, 1);
+            }
+            Yaw = -Input.GetAxis("Horizontal");
         }
 
         if (Input.GetKey(KeyCode.LeftShift))

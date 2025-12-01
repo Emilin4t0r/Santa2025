@@ -15,6 +15,13 @@ public class LoadMainMenuFromReplay : MonoBehaviour
         instance = this;
     }
 
+    private void Start()
+    {
+        // Unlock cursor
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
     public void LoadMainMenu()
     {        
         StartCoroutine(MenuLoader());

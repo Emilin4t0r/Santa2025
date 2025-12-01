@@ -69,6 +69,8 @@ public class SwarmMissiles : MonoBehaviour
         if (!au.turnedOn)
             return;
 
+        if (SettingsToggler.gamePaused) return;
+
         if (missiles.Count <= 0)
         {
             if (Input.GetKeyDown(KeyCode.Mouse0))

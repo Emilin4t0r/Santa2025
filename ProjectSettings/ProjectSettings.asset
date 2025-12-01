@@ -14,7 +14,7 @@ PlayerSettings:
   accelerometerFrequency: 60
   companyName: Santa Games Corporation
   productName: Santa Sled Games 2025
-  defaultCursor: {fileID: 2800000, guid: 62e0542836559714ea96d75f906e29ea, type: 3}
+  defaultCursor: {fileID: 2800000, guid: 3060c9452aea05443849702890e4194d, type: 3}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_ShowUnitySplashScreen: 1
