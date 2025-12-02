@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class Gift : MonoBehaviour
@@ -9,6 +10,8 @@ public class Gift : MonoBehaviour
     GameObject parachute;
 
     bool touchedGround;
+
+    public GameObject collectParticle;
 
     void Awake()
     {
@@ -55,7 +58,9 @@ public class Gift : MonoBehaviour
     {
         if (other.CompareTag("Player") || other.CompareTag("Bullet"))
         {
-            GrantRearm();
+            GrantRearm();            
+            GameObject collect = Instantiate(collectParticle, transform.position, transform.rotation, null);
+            Destroy(collect, 3f);
             Destroy(gameObject);
         }
     }

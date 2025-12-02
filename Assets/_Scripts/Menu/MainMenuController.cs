@@ -10,7 +10,7 @@ public class MainMenuController : MonoBehaviour
     
     public Image title, introBlackScreen;
 
-    public GameObject settingsMenu;
+    public GameObject settingsMenu, tutorial;
 
     private void Start()
     {
@@ -60,6 +60,16 @@ public class MainMenuController : MonoBehaviour
     public void ToggleSettingsMenu()
     {
         settingsMenu.SetActive(!settingsMenu.activeSelf);
+    }
+
+    public void OpenTutorial()
+    {
+        StartCoroutine(TutorialOpener());
+    }
+    IEnumerator TutorialOpener()
+    {
+        yield return new WaitForSeconds(1);
+        tutorial.SetActive(true);
     }
 
     public void StartGame()

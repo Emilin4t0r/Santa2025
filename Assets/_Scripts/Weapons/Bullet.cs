@@ -80,13 +80,13 @@ public class Bullet : MonoBehaviour
         GameObject hit = null;
         if (useAltHit && altBulletHit != null)
         {
-            hit = Instantiate(altBulletHit, thrdLastPos, transform.rotation);
+            hit = Instantiate(altBulletHit, thrdLastPos, transform.rotation, null);
             if (hitSoundName == "20mm_hit")
                 SoundPool.Instance.PlayOneShot(SoundLibrary.GetClip(hitSoundName), hit.transform.position, 0.75f, 1, 0.5f, spatial: true);
         }
         else
         {
-            hit = Instantiate(bulletHit, thrdLastPos, transform.rotation);
+            hit = Instantiate(bulletHit, thrdLastPos, transform.rotation, null);
             if (hitSoundName != "20mm_hit")
             {
                 if (hitSoundName == "100mm_hit")

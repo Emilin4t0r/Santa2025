@@ -39,8 +39,8 @@ public class SettingsToggler : MonoBehaviour
     {
         Time.timeScale = 1;
         AudioListener.pause = false;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         gamePaused = false;
 
         SceneManager.LoadScene("MainMenu");

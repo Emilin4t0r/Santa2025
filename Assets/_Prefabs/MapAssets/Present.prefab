@@ -5073,6 +5073,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   horizontalDamp: 0.9999
+  collectParticle: {fileID: 7329915477071112631, guid: 5723818923fee2d41b8eda6d6e63c207, type: 3}
 --- !u!1 &8817884425086871106
 GameObject:
   m_ObjectHideFlags: 0
