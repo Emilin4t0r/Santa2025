@@ -21435,7 +21435,7 @@ MonoBehaviour:
   turnSpeed: 160
   lifeTime: 6
   visualRotationSpeed: 3000
-  deviationMagnitude: 0.125
+  deviationMagnitude: 0.075
   deviationFrequency: 0.0065
   damageRange: {x: 7.5, y: 20}
   damageRadius: 25

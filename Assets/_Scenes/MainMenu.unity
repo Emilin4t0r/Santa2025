@@ -6612,6 +6612,9 @@ MonoBehaviour:
     - m_Text: "HURAC\xC1N-S"
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
+    - m_Text: FLARES
+      m_Image: {fileID: 0}
+      m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -10606,6 +10609,9 @@ MonoBehaviour:
     - m_Text: "HURAC\xC1N-S"
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
+    - m_Text: FLARES
+      m_Image: {fileID: 0}
+      m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -12510,6 +12516,10 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 030c29b61bab70d47adcb431eaebe0db, type: 3}
     description: 'Type:\t\t\tHeavy Air-to-Air Missile\nRange:\t\tVery Long\nManeuverability:
       \tSlow\nSeeker:\t\tRadar\nAmount:\t\t1 Missile'
+  - name: FLARES
+    sprite: {fileID: 21300000, guid: a0cd9213f052ceb4aa70d3f3d678bee8, type: 3}
+    description: Type:\t\t\tCountermeasures\nAmount:\t\t6 countermeasures\n\nPrevents
+      enemy IR and\nradar locks when deployed
   titleText: {fileID: 1230472242}
   infoText: {fileID: 286137226}
   infoImage: {fileID: 874454654}
@@ -16206,6 +16216,9 @@ MonoBehaviour:
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
     - m_Text: "HURAC\xC1N-S"
+      m_Image: {fileID: 0}
+      m_Color: {r: 1, g: 1, b: 1, a: 1}
+    - m_Text: FLARES
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_OnValueChanged:
@@ -23094,6 +23107,9 @@ MonoBehaviour:
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
     - m_Text: "HURAC\xC1N-S"
+      m_Image: {fileID: 0}
+      m_Color: {r: 1, g: 1, b: 1, a: 1}
+    - m_Text: FLARES
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_OnValueChanged:

@@ -20,6 +20,8 @@ public class CameraController : MonoBehaviour
     float fov;
     bool zooming;
 
+    public MouseAim mouseAim;
+
     private void Awake()
     {
         instance = this;
@@ -82,14 +84,13 @@ public class CameraController : MonoBehaviour
         if (state)
         {
             freeLooking = true;
-            Cursor.lockState = CursorLockMode.Locked;
+            mouseAim.fakeCursor.gameObject.SetActive(false);
             xRot += 5;
         }
         else
         {
             freeLooking = false;
-            Cursor.lockState = CursorLockMode.Confined;
-            
+            mouseAim.fakeCursor.gameObject.SetActive(true);
             yRot = 0;
             xRot = 0;
         }

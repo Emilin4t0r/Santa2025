@@ -9,10 +9,11 @@ public class Hardpoint : MonoBehaviour
     public Missiles radarMissiles;
     public SwarmMissiles swarmMissiles;
     public Guns singleGuns, chainGuns, abGuns;
-    public GameObject Hackapel, Landsknecht, Pike_Single, Pike_Double, Huracán_Small, Huracán_Pod, Arquebus, Longbow;
+    public GameObject countermeasuresParent;
+    public GameObject Hackapel, Landsknecht, Pike_Single, Pike_Double, Huracán_Small, Huracán_Pod, Arquebus, Longbow, Countermeasures;
     public enum HardpointType { Small, Large }
     public HardpointType type;
-    public enum WeaponType { Empty, Hackapel, Landsknecht, Pike_Single, Pike_Double, Huracán_Small, Huracán_Pod, Arquebus, Longbow }
+    public enum WeaponType { Empty, Hackapel, Landsknecht, Pike_Single, Pike_Double, Huracán_Small, Huracán_Pod, Arquebus, Longbow, Countermeasures}
     public GameObject selectedWeapon;
     public bool hideMissileFins = false;
 
@@ -91,6 +92,9 @@ public class Hardpoint : MonoBehaviour
                 {
                     wpn.GetComponent<Missile>().finsToHide.SetActive(false);
                 }
+                break;
+            case WeaponType.Countermeasures:
+                wpn = Instantiate(Countermeasures, transform.position, transform.rotation, countermeasuresParent.transform);
                 break;
             default:
                 break;

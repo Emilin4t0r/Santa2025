@@ -50,6 +50,9 @@ public class DropdownItem : MonoBehaviour
             case "LONGBOW":
                 hardpoint.SpawnWeapon(WeaponType.Longbow);
                 break;
+            case "FLARES":
+                hardpoint.SpawnWeapon(WeaponType.Countermeasures);
+                break;
             default:
                 hardpoint.SpawnWeapon(WeaponType.Empty);
                 break;

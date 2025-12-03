@@ -16165,6 +16165,7 @@ MonoBehaviour:
   max: 175
   sensitivity: 10
   speedZoomPower: 5
+  mouseAim: {fileID: 0}
 --- !u!1 &3800558868961132825
 GameObject:
   m_ObjectHideFlags: 0
@@ -21043,6 +21044,7 @@ MonoBehaviour:
   thr: {fileID: 9001465915844586345}
   hp: {fileID: 0}
   flp: {fileID: 1579284905649147773}
+  hpImg: {fileID: 1034940777332540605}
   thrSlider: {fileID: 3240623389196273254}
   hpSlider: {fileID: 7628290986247736782}
 --- !u!1 &5931340280151783177

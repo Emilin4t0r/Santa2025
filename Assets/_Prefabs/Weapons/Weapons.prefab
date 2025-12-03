@@ -51,6 +51,54 @@ MonoBehaviour:
   hudWeaponIndex: 3
   requireRadarLock: 0
   missilePrefab: {fileID: 0}
+--- !u!1 &793439546510613958
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1681301423958785665}
+  - component: {fileID: 2491600915810801882}
+  m_Layer: 3
+  m_Name: CountermeasuresParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1681301423958785665
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793439546510613958}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8618231586629206050}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2491600915810801882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793439546510613958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36e8ef25f9cf93642af604069959043e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boxes: []
+  fireRate: 1
+  ammoPerBox: 6
+  ammoCount: 0
 --- !u!1 &867290615430195760
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,6 +539,7 @@ Transform:
   - {fileID: 3833595216202413283}
   - {fileID: 1257288990233319658}
   - {fileID: 507398167777629505}
+  - {fileID: 1681301423958785665}
   - {fileID: 6076871021540861347}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -558,9 +607,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6869727013119862407}
     - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: Countermeasures
+      value: 
+      objectReference: {fileID: 8613243901289944165, guid: 04b3df6dabbb5bb4ca29aa3190e4f946, type: 3}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: hideMissileFins
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: countermeasuresParent
+      value: 
+      objectReference: {fileID: 793439546510613958}
     - target: {fileID: 3428042097910243616, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.661
@@ -659,6 +716,14 @@ PrefabInstance:
       propertyPath: swarmMissiles
       value: 
       objectReference: {fileID: 6869727013119862407}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: Countermeasures
+      value: 
+      objectReference: {fileID: 8613243901289944165, guid: 04b3df6dabbb5bb4ca29aa3190e4f946, type: 3}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: countermeasuresParent
+      value: 
+      objectReference: {fileID: 793439546510613958}
     - target: {fileID: 3428042097910243616, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: m_LocalScale.x
       value: -1
@@ -762,9 +827,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6869727013119862407}
     - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: Countermeasures
+      value: 
+      objectReference: {fileID: 8613243901289944165, guid: 04b3df6dabbb5bb4ca29aa3190e4f946, type: 3}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: hideMissileFins
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: countermeasuresParent
+      value: 
+      objectReference: {fileID: 793439546510613958}
     - target: {fileID: 3428042097910243616, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.029
@@ -863,6 +936,14 @@ PrefabInstance:
       propertyPath: swarmMissiles
       value: 
       objectReference: {fileID: 6869727013119862407}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: Countermeasures
+      value: 
+      objectReference: {fileID: 8613243901289944165, guid: 04b3df6dabbb5bb4ca29aa3190e4f946, type: 3}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: countermeasuresParent
+      value: 
+      objectReference: {fileID: 793439546510613958}
     - target: {fileID: 3428042097910243616, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.3390007
@@ -962,9 +1043,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6869727013119862407}
     - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: Countermeasures
+      value: 
+      objectReference: {fileID: 8613243901289944165, guid: 04b3df6dabbb5bb4ca29aa3190e4f946, type: 3}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: hideMissileFins
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: countermeasuresParent
+      value: 
+      objectReference: {fileID: 793439546510613958}
     - target: {fileID: 3428042097910243616, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: m_LocalScale.x
       value: -1
@@ -1067,6 +1156,14 @@ PrefabInstance:
       propertyPath: swarmMissiles
       value: 
       objectReference: {fileID: 6869727013119862407}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: Countermeasures
+      value: 
+      objectReference: {fileID: 8613243901289944165, guid: 04b3df6dabbb5bb4ca29aa3190e4f946, type: 3}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: countermeasuresParent
+      value: 
+      objectReference: {fileID: 793439546510613958}
     - target: {fileID: 3428042097910243616, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.3390007
@@ -1166,9 +1263,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6869727013119862407}
     - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: Countermeasures
+      value: 
+      objectReference: {fileID: 8613243901289944165, guid: 04b3df6dabbb5bb4ca29aa3190e4f946, type: 3}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: hideMissileFins
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: countermeasuresParent
+      value: 
+      objectReference: {fileID: 793439546510613958}
     - target: {fileID: 3428042097910243616, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.661
@@ -1267,6 +1372,14 @@ PrefabInstance:
       propertyPath: swarmMissiles
       value: 
       objectReference: {fileID: 6869727013119862407}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: Countermeasures
+      value: 
+      objectReference: {fileID: 8613243901289944165, guid: 04b3df6dabbb5bb4ca29aa3190e4f946, type: 3}
+    - target: {fileID: 1519737546418283634, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
+      propertyPath: countermeasuresParent
+      value: 
+      objectReference: {fileID: 793439546510613958}
     - target: {fileID: 3428042097910243616, guid: e8957f770c38f564ca9976c422b9bd51, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.7
