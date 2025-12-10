@@ -64,6 +64,8 @@ public class MainMenuController : MonoBehaviour
 
     public void OpenTutorial()
     {
+        // If no offensive weapons selected -> return;
+        // Check weapons parent -> get all weapon parents, check for children (don't include sound parent)
         StartCoroutine(TutorialOpener());
     }
     IEnumerator TutorialOpener()

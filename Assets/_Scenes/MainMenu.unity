@@ -12518,8 +12518,8 @@ MonoBehaviour:
       \tSlow\nSeeker:\t\tRadar\nAmount:\t\t1 Missile'
   - name: FLARES
     sprite: {fileID: 21300000, guid: a0cd9213f052ceb4aa70d3f3d678bee8, type: 3}
-    description: Type:\t\t\tCountermeasures\nAmount:\t\t6 countermeasures\n\nPrevents
-      enemy IR and\nradar locks when deployed
+    description: Type:\t\t\tCountermeasures\nAmount:\t\t6 Flares\n\nFires off 2 flares
+      at a time. Prevents enemy IR- and radar lock when deployed
   titleText: {fileID: 1230472242}
   infoText: {fileID: 286137226}
   infoImage: {fileID: 874454654}

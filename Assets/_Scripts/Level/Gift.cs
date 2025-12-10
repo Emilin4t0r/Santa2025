@@ -41,7 +41,7 @@ public class Gift : MonoBehaviour
 
     public void Launch()
     {
-        DOTween.To(() => horizontalDamp, x => horizontalDamp = x, 0.99f, 10f).SetEase(Ease.InExpo);
+        DOTween.To(() => horizontalDamp, x => horizontalDamp = x, 0.999f, 10f).SetEase(Ease.InExpo);
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -95,10 +95,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36e8ef25f9cf93642af604069959043e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boxes: []
+  flares: []
   fireRate: 1
-  ammoPerBox: 6
-  ammoCount: 0
+  launchForce: 10
+  launchParticle: {fileID: 3020074479479517078, guid: e805d967a77817d468643925f2e4e815, type: 3}
 --- !u!1 &867290615430195760
 GameObject:
   m_ObjectHideFlags: 0

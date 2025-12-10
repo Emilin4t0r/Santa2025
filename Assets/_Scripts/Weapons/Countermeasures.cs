@@ -5,12 +5,10 @@ using UnityEngine.SceneManagement;
 public class Countermeasures : MonoBehaviour
 {
     AircraftUtils au;
-    public List<Transform> boxes;
+    public List<Flare> flares;
     float nextTimeToFire;
-    public float fireRate;
-    public int ammoPerBox;
-    [HideInInspector] public int ammoCount;
-    int fullAmmo;
+    public float fireRate, launchForce = 10;
+    public GameObject launchParticle;
     bool inGameScene;
 
     private void OnEnable()
@@ -36,23 +34,18 @@ public class Countermeasures : MonoBehaviour
 
     public void InitializeWeapon()
     {
-        GetBoxesFromChildren();        
+        GetBoxesFromChildren();
         au = AircraftUtils.instance;
         inGameScene = true;
     }
 
     void GetBoxesFromChildren()
     {
-        boxes = new List<Transform>();
-        Transform[] transforms = GetComponentsInChildren<Transform>();
-        foreach (Transform tr in transforms)
+        flares = new List<Flare>();
+        Flare[] _flares = GetComponentsInChildren<Flare>();
+        foreach (Flare f in _flares)
         {
-            if (tr.CompareTag("Countermeasure"))
-            {
-                boxes.Add(tr);
-                ammoCount += ammoPerBox;
-            }
-            fullAmmo = ammoCount;
+            flares.Add(f);
         }
     }
 
@@ -68,7 +61,7 @@ public class Countermeasures : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (ammoCount <= 0)
+            if (flares.Count <= 0)
             {
                 SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("empty_weapon"), 0, 0);
                 return;
@@ -76,25 +69,24 @@ public class Countermeasures : MonoBehaviour
 
             if (Time.time > nextTimeToFire)
             {
+                var p = Instantiate(launchParticle, flares[0].transform.position, Quaternion.identity, null);
+                p.transform.eulerAngles = new Vector3(0, 0, 0);
                 FireFlare();
-            }            
+                FireFlare();
+            }
         }
     }
 
     void FireFlare()
     {
         nextTimeToFire = Time.time + fireRate;
-        AddAmmo(-1);
+
+        Flare fl = flares[0];
+        fl.TurnOn(launchForce);
+        fl.transform.parent = null;
+        flares.Remove(fl);
+        Destroy(fl.gameObject, 10);
+
         EZCameraShake.CameraShaker.Instance.ShakeOnce(0.4f, 15, 0, 0.5f);
-    }
-
-    void AddAmmo(int ammoToAdd)
-    {
-        ammoCount = Mathf.Max(ammoCount + ammoToAdd, 0);
-    }
-
-    public void ReloadGuns()
-    {
-        ammoCount = fullAmmo;
     }
 }
