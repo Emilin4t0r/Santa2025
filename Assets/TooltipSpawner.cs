@@ -8,8 +8,8 @@ public class TooltipSpawner : MonoBehaviour
     public static TooltipSpawner instance;
     public float lifetime = 3f;
 
-    public GameObject tt_firemsl, tt_flaps, tt_gift, tt_radarmsl, tt_lead;
-    bool firemslShowed, flapsShowed, giftShowed, radarmslShowed, leadShowed;
+    public GameObject tt_firemsl, tt_flaps, tt_gift, tt_radarmsl, tt_lead, tt_flare, tt_throttle;
+    bool firemslShowed, flapsShowed, giftShowed, radarmslShowed, leadShowed, flareShowed, throttleShowed;
 
     private void Awake()
     {
@@ -54,6 +54,20 @@ public class TooltipSpawner : MonoBehaviour
                 return;
             else
                 leadShowed = true;
+        }
+        if (tooltipPrefab == tt_flare)
+        {
+            if (flareShowed)
+                return;
+            else
+                flareShowed = true;
+        }
+        if (tooltipPrefab == tt_throttle)
+        {
+            if (throttleShowed)
+                return;
+            else
+                throttleShowed = true;
         }
 
         foreach (Transform child in transform)

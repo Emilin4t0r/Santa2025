@@ -254,6 +254,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b699ead8f8a19b14e8ad4e25e94607cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &377809845
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 377809846}
+  - component: {fileID: 377809847}
+  m_Layer: 0
+  m_Name: IntroSkipper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &377809846
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377809845}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1515880442}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &377809847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377809845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e8d395a30bff3a419f3fbd0578810db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &434236525
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,6 +308,7 @@ GameObject:
   m_Component:
   - component: {fileID: 434236526}
   - component: {fileID: 434236527}
+  - component: {fileID: 434236528}
   m_Layer: 0
   m_Name: Settings
   m_TagString: Untagged
@@ -298,6 +343,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30def1f7b5c701f4aac7bf5599bf6383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &434236528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434236525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94f6cf2bda046b34e8745a38a88d9464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  urpAsset: {fileID: 11400000, guid: 51fd66e78c4642c4f9905df4c4fb6785, type: 2}
+  presets:
+  - {fileID: 11400000, guid: e3a57d11382c0bf47b005e236f77da32, type: 2}
+  - {fileID: 11400000, guid: c4644611a87c79d4b8b9cc653b99be98, type: 2}
+  - {fileID: 11400000, guid: 31e91791c5f084d498be6ab688764f02, type: 2}
+  - {fileID: 11400000, guid: 2a03c8dc0a8004143abade84144235b4, type: 2}
 --- !u!1 &502045764
 GameObject:
   m_ObjectHideFlags: 0
@@ -681,6 +744,7 @@ Transform:
   - {fileID: 859843236}
   - {fileID: 1684422893}
   - {fileID: 434236526}
+  - {fileID: 377809846}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1684422892

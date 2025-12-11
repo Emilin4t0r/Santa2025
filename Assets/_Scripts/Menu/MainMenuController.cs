@@ -10,7 +10,8 @@ public class MainMenuController : MonoBehaviour
     
     public Image title, introBlackScreen;
 
-    public GameObject settingsMenu, tutorial;
+    public GameObject settingsMenu, tutorial, noWeaponsWarning;
+    public FadeBlack tutorialBlack;
 
     private void Start()
     {
@@ -62,14 +63,46 @@ public class MainMenuController : MonoBehaviour
         settingsMenu.SetActive(!settingsMenu.activeSelf);
     }
 
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
     public void OpenTutorial()
     {
-        // If no offensive weapons selected -> return;
+        // Check if has at least one offensive weapon:
         // Check weapons parent -> get all weapon parents, check for children (don't include sound parent)
-        StartCoroutine(TutorialOpener());
+        var wpnParent = GameObject.Find("Weapons");
+        int offensiveWeapons = 0;
+        foreach(Transform wpn in wpnParent.transform)
+        {
+            if (wpn.transform.name == "CountermeasuresParent" || wpn.transform.name == "Hardpoints")
+                continue;
+
+            foreach(Transform child in wpn.transform)
+            {
+                if (child.name != "ShootSoundParent")
+                {
+                    offensiveWeapons++;
+                    print("found offensive weapon " + child.name);
+                }
+            }
+        }
+
+        if (offensiveWeapons > 0)
+            StartCoroutine(TutorialOpener());
+        else
+            StartCoroutine(ShowNoWeaponsWarning());
+    }
+    IEnumerator ShowNoWeaponsWarning()
+    {
+        noWeaponsWarning.SetActive(true);
+        yield return new WaitForSeconds(3);
+        noWeaponsWarning.SetActive(false);
     }
     IEnumerator TutorialOpener()
     {
+        tutorialBlack.DoFade();
         yield return new WaitForSeconds(1);
         tutorial.SetActive(true);
     }

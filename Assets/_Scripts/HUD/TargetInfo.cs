@@ -13,6 +13,7 @@ public class TargetInfo : MonoBehaviour
     AirplaneController ac;
     Missiles irMissiles, radarMissiles;
     Missiles activeMissiles;
+    Countermeasures countermeasures;
 
     public TextMeshProUGUI target, targetingComputerState, enemyLock, enemyLaunch, mslLock;
     float t_eLock, t_mLock, t_eLaunch;
@@ -41,6 +42,7 @@ public class TargetInfo : MonoBehaviour
         enemiesWithinGunsrange = new List<Transform>();
         irMissiles = GameObject.Find("WeaponsDupe").transform.Find("IRMissiles").GetComponent<Missiles>();
         radarMissiles = GameObject.Find("WeaponsDupe").transform.Find("RadarMissiles").GetComponent<Missiles>();
+        countermeasures = GameObject.Find("WeaponsDupe").transform.Find("CountermeasuresParent").GetComponent<Countermeasures>();
         SetActiveMissilesToIR(true);
         enemyLock.gameObject.SetActive(false);
         enemyLaunch.gameObject.SetActive(false);
@@ -280,6 +282,12 @@ public class TargetInfo : MonoBehaviour
     {
         if (!enemyFireWarningActive && enemyLockFlasherRunning)
         {
+            if (countermeasures.flares.Count > 0)
+            {
+                var tts = TooltipSpawner.instance;
+                tts.ShowTooltip(tts.tt_flare);
+            }
+
             StartCoroutine(EnemyFireWarning(Time.time + 1));
             if (enemy != EnemiesController.enemiesAttacking[0].transform) // If enemy isn't the one already being tracked:
                 RearCamera.instance.StartTrack(enemy);

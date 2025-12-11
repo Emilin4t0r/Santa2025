@@ -265,7 +265,7 @@ public class EnemySantaMove : MonoBehaviour
                 EnemiesController.enemiesAttacking.Remove(gameObject);
             }
 
-            // forget the target immediately
+            // forget the target
             target = null;
         }
 

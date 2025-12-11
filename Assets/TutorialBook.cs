@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TutorialBook : MonoBehaviour
 {
     public List<GameObject> pages;
     int currentPage;
-    public FadeBlack black;
+    public UnityEvent closeBook;
 
     private void Update()
     {
@@ -19,7 +20,7 @@ public class TutorialBook : MonoBehaviour
             }
             else
             {
-                black.DoFade();
+                closeBook.Invoke();
                 GameObject.Find("MainMenuController").GetComponent<MainMenuController>().StartGame();
             }            
         }
@@ -35,7 +36,8 @@ public class TutorialBook : MonoBehaviour
 
     void ChangePage(int index)
     {
-        foreach(var p in pages)
+        SoundSpawner.SpawnSound(transform.position, null, SoundLibrary.GetClip("menu_button_select"), 0, 0.05f);
+        foreach (var p in pages)
         {
             p.SetActive(false);
         }

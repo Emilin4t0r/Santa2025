@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Gift : MonoBehaviour
 {
-    [SerializeField] float horizontalDamp = 0.95f; // lower = stronger slowdown
+    [SerializeField] float horizontalDamp = 0.9999f; // lower = stronger slowdown
+    [SerializeField] float verticalDamp = 0.99f; // lower = stronger slowdown
 
     Rigidbody rb;
     GameObject parachute;
@@ -32,16 +33,20 @@ public class Gift : MonoBehaviour
         
         Vector3 v = rb.linearVelocity;
 
-        // Zero out vertical part, damp horizontal, then restore Y
-        Vector3 horizontal = new Vector3(v.x, 0f, v.z);
+        // Damp horizontal, 
+        Vector3 horizontal = new Vector3(v.x, v.y, v.z);
         horizontal *= horizontalDamp;
 
-        rb.linearVelocity = new Vector3(horizontal.x, v.y, horizontal.z);
+        // Then damp vertical
+        Vector3 vertical = new Vector3(v.x, v.y, v.z);
+        vertical *= verticalDamp;
+
+        rb.linearVelocity = new Vector3(horizontal.x, horizontal.y, horizontal.z);
     }
 
     public void Launch()
     {
-        DOTween.To(() => horizontalDamp, x => horizontalDamp = x, 0.999f, 10f).SetEase(Ease.InExpo);
+        DOTween.To(() => horizontalDamp, x => horizontalDamp = x, 0.99f, 10f).SetEase(Ease.InExpo);
     }
 
     private void OnCollisionEnter(Collision collision)

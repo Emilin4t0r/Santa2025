@@ -28,7 +28,7 @@ public class InsertCoin : MonoBehaviour
 
     private void Start()
     {
-        if (skipIntro)
+        if (skipIntro || IntroSkipper.skipIntro)
         {
             music.Stop();
             movieImg.enabled = false;
@@ -41,7 +41,7 @@ public class InsertCoin : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Mouse0))
+        if (Input.GetKeyUp(KeyCode.KeypadEnter) || Input.GetKeyUp(KeyCode.Return))
         {
             StartCoroutine(FadeToMainMenu());
         }

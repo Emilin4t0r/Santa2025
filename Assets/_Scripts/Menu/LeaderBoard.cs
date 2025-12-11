@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Linq;
+using UnityEngine.SocialPlatforms.Impl;
 
 //This Class Is Used To Make The Storage And Manipulation Of Two Variables Easier
 public class PlayerInfo
@@ -42,7 +43,8 @@ public class LeaderBoard : MonoBehaviour
         } else
         {
             scoreControls.SetActive(false);
-            score.gameObject.SetActive(false);
+            score.text = "0";
+            LoadMainMenuFromReplay.instance.LoadMainMenu();
         }
     }
 

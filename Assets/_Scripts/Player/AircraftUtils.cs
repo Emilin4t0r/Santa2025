@@ -68,6 +68,9 @@ public class AircraftUtils : MonoBehaviour
         EZCameraShake.CameraShaker.Instance.ShakeOnce(5, 15, 0, 2.5f);
         while (Time.time < t)
         {
+            var tts = TooltipSpawner.instance;
+            tts.ShowTooltip(tts.tt_throttle);
+
             ac.GetComponent<Rigidbody>().AddForce(-Vector3.forward * 50000, ForceMode.Force);
             yield return null;
         }

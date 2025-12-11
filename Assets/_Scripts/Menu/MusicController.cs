@@ -10,7 +10,7 @@ public class MusicController : MonoBehaviour
 
     void Start()
     {
-        if (InsertCoin.Instance.skipIntro)
+        if (InsertCoin.Instance.skipIntro || IntroSkipper.skipIntro)
         {
             InstantStart();
             return;
@@ -22,7 +22,7 @@ public class MusicController : MonoBehaviour
     public void InstantStart()
     {
         musicEntrance.Stop();
-        //musicLoop.Play();
+        musicLoop.Play();
         StartCoroutine(ShowTitleAfterTime(0, true));
     }
 
@@ -48,7 +48,8 @@ public class MusicController : MonoBehaviour
         {
             yield return null;
         }
-        SoundSpawner.SpawnSound(transform.position, null, SoundLibrary.GetClip("santa_intro_announce"), 0, 0);
+        if (!skipAnimations)
+            SoundSpawner.SpawnSound(transform.position, null, SoundLibrary.GetClip("santa_intro_announce"), 0, 0);
         while (AudioSettings.dspTime < time)
         {
             yield return null;
