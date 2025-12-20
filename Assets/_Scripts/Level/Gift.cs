@@ -81,25 +81,31 @@ public class Gift : MonoBehaviour
             // Guns
             case "20MM":
                 wpnsDupe.Find("ChainGuns").GetComponent<Guns>().ReloadGuns();
+                Notifications.instance.ShowNotification("- 20mm guns rearmed! -");
                 break;
             case "30MM":
                 wpnsDupe.Find("SingleGuns").GetComponent<Guns>().ReloadGuns();
+                Notifications.instance.ShowNotification("- 30mm guns rearmed! -");
                 break;
             case "100MM":
                 wpnsDupe.Find("AirBurst").GetComponent<Guns>().ReloadGuns();
+                Notifications.instance.ShowNotification("- 100mm guns rearmed! -");
                 break;
             // Missiles
             case "IR":
                 wpn = Hardpoint.WeaponType.Pike_Double;
                 WeaponsParent.instance.ReplaceWeaponGameobject(wpn);
+                Notifications.instance.ShowNotification("- IR missiles rearmed! -");
                 break;
             case "RADAR":
                 wpn = Hardpoint.WeaponType.Longbow;
                 WeaponsParent.instance.ReplaceWeaponGameobject(wpn);
+                Notifications.instance.ShowNotification("- Radar missiles rearmed! -");
                 break;
             case "SWARM":
                 wpn = Hardpoint.WeaponType.Huracán_Pod;
                 WeaponsParent.instance.ReplaceWeaponGameobject(wpn);
+                Notifications.instance.ShowNotification("- Swarm missiles rearmed! -");
                 break;
         }
         SoundSpawner.SpawnSound(transform.position, null, SoundLibrary.GetClip("pickup_gift"), 0, 0);

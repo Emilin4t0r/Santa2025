@@ -21429,14 +21429,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jetSpdOnLaunch: 0
-  thrust: 150
-  acceleration: 25
-  maxSpeed: 450
+  thrust: 175
+  acceleration: 30
+  maxSpeed: 500
   turnSpeed: 160
-  lifeTime: 6
+  lifeTime: 7
   visualRotationSpeed: 3000
-  deviationMagnitude: 0.075
-  deviationFrequency: 0.0065
+  deviationMagnitude: 0.08
+  deviationFrequency: 0.01
   damageRange: {x: 7.5, y: 20}
   damageRadius: 25
   armingDelay: 0.4
@@ -21444,7 +21444,7 @@ MonoBehaviour:
   target: {fileID: 0}
   pointLight: {fileID: 7033049844628030185}
   finsToHide: {fileID: 3847761042793156235}
-  explosionEffectSize: 5
+  explosionEffectSize: 2.5
   targetSet: 0
 --- !u!114 &3216606383144351468
 MonoBehaviour:

@@ -88,5 +88,7 @@ public class Countermeasures : MonoBehaviour
         Destroy(fl.gameObject, 10);
 
         EZCameraShake.CameraShaker.Instance.ShakeOnce(0.4f, 15, 0, 0.5f);
+
+        SoundSpawner.SpawnSound(transform.position, transform, SoundLibrary.GetClip("flares"), 0.2f, 0.6f);
     }
 }

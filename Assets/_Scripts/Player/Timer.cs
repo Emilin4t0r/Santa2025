@@ -12,6 +12,8 @@ public class Timer : MonoBehaviour
     AircraftUtils au;
     bool fadeStarted;
 
+    bool oneMinuteNotified, twoMinutesNotified;
+
     void Start()
     {
         gameTimer = gameTime;
@@ -59,5 +61,20 @@ public class Timer : MonoBehaviour
         s_min = "0" + minutes.ToString();
 
         text.text = s_min + ":" + s_sec;
+
+        if (!twoMinutesNotified && gameTimer < 120)
+        {
+            Notifications.instance.ShowNotification("- 2 minutes remaining -");
+            SoundSpawner.SpawnSound(transform.position, null, SoundLibrary.GetClip("2min_remaining"), 0, 0);
+            MinsRemainingMap.instance.ShowTwoMins();
+            twoMinutesNotified = true;
+        }
+        if (!oneMinuteNotified && gameTimer < 60)
+        {
+            Notifications.instance.ShowNotification("- 1 minute remaining -");
+            SoundSpawner.SpawnSound(transform.position, null, SoundLibrary.GetClip("1min_remaining"), 0, 0);
+            MinsRemainingMap.instance.ShowOneMin();
+            oneMinuteNotified = true;
+        }
     }
 }
