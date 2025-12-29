@@ -12,5 +12,3 @@ Nice-to-have:
 -extra gun ammo as weapon
 
 --------------------------------------------------------
-Wanna have:
--Balance all audio out

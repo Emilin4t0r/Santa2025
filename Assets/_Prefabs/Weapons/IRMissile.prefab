@@ -15836,7 +15836,7 @@ MonoBehaviour:
   visualSizeOnLaunch: 2
   activateThrustersDelay: 0.2
   launchSound: ir_launch
-  launchSoundVolume: 1
+  launchSoundVolume: 1.1
   navigationConstant: 3.5
 --- !u!136 &8794163020312119886
 CapsuleCollider:

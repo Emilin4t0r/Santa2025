@@ -43,6 +43,7 @@ public class MainMenuController : MonoBehaviour
         MenuTurntable.instance.spin = true;
         yield return new WaitForSeconds(1.05f);        
         introBlackScreen.gameObject.SetActive(false);
+        Cursor.visible = true;
     }
 
     public void SwitchSubMenus()

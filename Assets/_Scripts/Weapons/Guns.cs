@@ -190,9 +190,22 @@ public class Guns : MonoBehaviour
             gAnim.speed = gunAnimSpeed;
             gAnim.SetBool("Fire", true);
         }
+        float shootSndVol = 0.75f;
+        switch (caliberForAudio)
+        {
+            case "20mm":
+                shootSndVol = 0.77f;
+                break;
+            case "30mm":
+                shootSndVol = 0.825f;
+                break;
+            case "100mm":
+                shootSndVol = 0.78f;
+                break;
+        }
         if (SoundLibrary.GetClip(caliberForAudio + "_start") != null)
-            SoundSpawner.SpawnSound(transform.position, shootSoundParent, SoundLibrary.GetClip(caliberForAudio + "_start"));
-        shootLoopSound = SoundSpawner.SpawnSoundLoop(transform.position, shootSoundParent, SoundLibrary.GetClip(caliberForAudio + "_loop"));
+            SoundSpawner.SpawnSound(transform.position, shootSoundParent, SoundLibrary.GetClip(caliberForAudio + "_start"), 0, 0.1f, shootSndVol);
+        shootLoopSound = SoundSpawner.SpawnSoundLoop(transform.position, shootSoundParent, SoundLibrary.GetClip(caliberForAudio + "_loop"), 0, false, shootSndVol);
     }
     void StopBurst()
     {

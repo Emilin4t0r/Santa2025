@@ -7326,7 +7326,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: QUALITY
+  m_text: -SET GRAPHICS-
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d6d6c4615c8791f40bbc7ef7559770b2, type: 2}
   m_sharedMaterial: {fileID: 3184223399011353097, guid: d6d6c4615c8791f40bbc7ef7559770b2, type: 2}
@@ -9049,7 +9049,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1e79dc8a0989cf4ab7c3fc4852513d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skipIntro: 1
+  skipIntro: 0
   insertCoinText: {fileID: 323337765}
   mc: {fileID: 1930846891}
   music: {fileID: 1930846892}
@@ -13956,7 +13956,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: SELECT LOADOUT
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d6d6c4615c8791f40bbc7ef7559770b2, type: 2}
   m_sharedMaterial: {fileID: 3184223399011353097, guid: d6d6c4615c8791f40bbc7ef7559770b2, type: 2}
@@ -13983,7 +13983,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 68.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -17846,10 +17846,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -24444,7 +24444,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: c3131613b6885de41a2c1e583be4a243, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.75
   m_Pitch: 1
   Loop: 1
   Mute: 0

@@ -8070,7 +8070,7 @@ MonoBehaviour:
   visualSizeOnLaunch: 1
   activateThrustersDelay: 0.5
   launchSound: radar_launch
-  launchSoundVolume: 0.8
+  launchSoundVolume: 0.85
   navigationConstant: 3
 --- !u!136 &1288903366516928059
 CapsuleCollider:

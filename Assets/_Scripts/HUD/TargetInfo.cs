@@ -211,7 +211,7 @@ public class TargetInfo : MonoBehaviour
         {
             // Spawn sound
             if (rwr_lockSound == null)
-                rwr_lockSound = SoundSpawner.SpawnSoundLoop(ac.transform.position, ac.transform, SoundLibrary.GetClip("rwr_lock"), 0, false, 0.4f);
+                rwr_lockSound = SoundSpawner.SpawnSoundLoop(ac.transform.position, ac.transform, SoundLibrary.GetClip("rwr_lock"), 0, false, 0.55f);
 
             // Start lock flash
             if (!enemyLockFlasherRunning)
@@ -296,7 +296,7 @@ public class TargetInfo : MonoBehaviour
     IEnumerator EnemyFireWarning(float t_stopFlash)
     {
         enemyFireWarningActive = true;
-        SoundSpawner.SpawnSound(ac.transform.position, ac.transform, SoundLibrary.GetClip("rwr_missile"), 0, 0);
+        SoundSpawner.SpawnSound(ac.transform.position, ac.transform, SoundLibrary.GetClip("rwr_missile"), 0, 0, 0.8f);
         while (Time.time < t_stopFlash)
         {
             FlashEnemyFire();

@@ -42,6 +42,7 @@ public class SettingsToggler : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         gamePaused = false;
+        IntroSkipper.skipIntro = true;
 
         SceneManager.LoadScene("MainMenu");
     }

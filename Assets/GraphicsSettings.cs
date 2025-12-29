@@ -22,7 +22,7 @@ public class GraphicsSettings : MonoBehaviour
             urpAsset.mainLightShadowmapResolution = (int)p.shadowResolution;
 
             // Cascade Count
-            urpAsset.shadowCascadeCount = Mathf.Clamp(p.cascadeCount, 0, 4);
+            urpAsset.shadowCascadeCount = Mathf.Clamp(p.cascadeCount, 1, 4);
         }
         else
         {

@@ -78,8 +78,8 @@ public static class Helpers
         var plrPos = AirplaneController.instance.transform.position;
         var dist = Vector3.Distance(plrPos, pos);
         if (dist < 500)
-            SoundPool.Instance.PlayOneShot(SoundLibrary.GetClip("missile_explode_close"), pos);
+            SoundPool.Instance.PlayOneShot(SoundLibrary.GetClip("missile_explode_close"), pos, 0.65f);
         else
-            SoundPool.Instance.PlayOneShot(SoundLibrary.GetClip("missile_explode_far"), pos);
+            SoundPool.Instance.PlayOneShot(SoundLibrary.GetClip("missile_explode_far"), pos, 0.75f);
     }
 }
