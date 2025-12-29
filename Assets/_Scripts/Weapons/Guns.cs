@@ -194,13 +194,13 @@ public class Guns : MonoBehaviour
         switch (caliberForAudio)
         {
             case "20mm":
-                shootSndVol = 0.77f;
+                shootSndVol = 0.8f;
                 break;
             case "30mm":
-                shootSndVol = 0.825f;
+                shootSndVol = 0.835f;
                 break;
             case "100mm":
-                shootSndVol = 0.78f;
+                shootSndVol = 0.8f;
                 break;
         }
         if (SoundLibrary.GetClip(caliberForAudio + "_start") != null)

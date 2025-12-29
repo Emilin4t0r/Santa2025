@@ -10,6 +10,8 @@ public class MenuTurntable : MonoBehaviour
     public float mouseRotateSpd;
     [HideInInspector] public bool spin;
 
+    bool inLowerPos;
+
     private void Awake()
     {
         instance = this;
@@ -37,16 +39,18 @@ public class MenuTurntable : MonoBehaviour
 
     public void TogglePosition()
     {
-        if (transform.localPosition.y > -4)
+        if (!inLowerPos)
         {
             transform.DOLocalMoveY(-4, 1.5f).SetEase(Ease.InOutSine);
             transform.DORotate(new Vector3(0, 0, 0), 1.5f);
             spin = false;
+            inLowerPos = true;
         }
         else
         {
             transform.DOLocalMoveY(-3, 1).SetEase(Ease.InOutSine);
             spin = true;
+            inLowerPos = false;
         }
     }
 }

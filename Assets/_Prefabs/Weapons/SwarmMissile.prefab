@@ -8042,8 +8042,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0.55}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1507626868865343302}
   - {fileID: 1507626868865343298}
@@ -21429,22 +21429,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jetSpdOnLaunch: 0
-  thrust: 175
-  acceleration: 30
-  maxSpeed: 500
-  turnSpeed: 160
+  thrust: 180
+  acceleration: 45
+  maxSpeed: 650
+  turnSpeed: 150
   lifeTime: 7
   visualRotationSpeed: 3000
-  deviationMagnitude: 0.08
+  deviationMagnitude: 0.1
   deviationFrequency: 0.01
   damageRange: {x: 7.5, y: 20}
   damageRadius: 25
   armingDelay: 0.4
-  explosion: {fileID: 7070465220517492653, guid: 7c35f2d4e1b64a94497858b5b6f144cb, type: 3}
+  explosion: {fileID: 5606332623978223097, guid: 21db634490ee48f4c8f3d832a2e1f6d7, type: 3}
   target: {fileID: 0}
   pointLight: {fileID: 7033049844628030185}
   finsToHide: {fileID: 3847761042793156235}
-  explosionEffectSize: 2.5
+  explosionEffectSize: 4
   targetSet: 0
 --- !u!114 &3216606383144351468
 MonoBehaviour:
@@ -21487,7 +21487,7 @@ Transform:
   m_GameObject: {fileID: 7033049844628030185}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.38268343, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 0, z: -0.222}
+  m_LocalPosition: {x: 0, y: 0, z: -0.375}
   m_LocalScale: {x: 0.19999999, y: 0.19999999, z: 0.23999996}
   m_ConstrainProportionsScale: 0
   m_Children:

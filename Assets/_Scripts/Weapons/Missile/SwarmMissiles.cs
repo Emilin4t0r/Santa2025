@@ -92,7 +92,6 @@ public class SwarmMissiles : MonoBehaviour
     {        
         SwarmMissile msl = missiles[0];        
         msl.enabled = true;
-        msl.GetComponent<SwarmMRadar>().enabled = true;
         msl.transform.parent = null;
         missiles.Remove(msl);
         hud.SetAmmo(missiles.Count);

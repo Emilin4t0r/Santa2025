@@ -40,6 +40,7 @@ public class GyroReticle : MonoBehaviour
         //localPoint = -localPoint;
 
         reticlePosition = Vector2.Lerp(reticlePosition, localPoint, reticleLagSmoothing);
-        transform.localPosition = reticlePosition;
+        Vector2 offset = new Vector2(0, HUD.hudOffset);
+        transform.localPosition = reticlePosition + offset;
     }
 }
